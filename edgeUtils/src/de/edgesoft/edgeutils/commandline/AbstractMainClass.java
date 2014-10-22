@@ -41,13 +41,13 @@ import de.edgesoft.edgeutils.Messages;
 public abstract class AbstractMainClass {
 	
 	/** Storage for options. */
-	private List<CommandOption> lstCommandOptions = null;
+	private static List<CommandOption> lstCommandOptions = null;
 	
 	/** Command line values. */
-	private CommandLine theCommandLine = null;
+	private static CommandLine theCommandLine = null;
 	
 	/** Calling class. */
-	private Class<? extends AbstractMainClass> theCallingClass = null;
+	private static Class<? extends AbstractMainClass> theCallingClass = null;
 
 	/**
 	 * Initialization with and parsing of arguments.
@@ -61,7 +61,7 @@ public abstract class AbstractMainClass {
 	 * @version 0.1
 	 * @since 0.1
 	 */
-	public void init(String[] args, Class<? extends AbstractMainClass> theClass) {
+	public static void init(String[] args, Class<? extends AbstractMainClass> theClass) {
 		try {
 			// store calling class
 			theCallingClass = theClass;
@@ -91,7 +91,7 @@ public abstract class AbstractMainClass {
 	 * @version 0.1
 	 * @since 0.1
 	 */
-	public void addCommandOption(CommandOption theCommandOption) {
+	public static void addCommandOption(CommandOption theCommandOption) {
 		getCommandOptions().add(theCommandOption);
 	}
 	
@@ -103,7 +103,7 @@ public abstract class AbstractMainClass {
 	 * @version 0.1
 	 * @since 0.1
 	 */
-	public List<CommandOption> getCommandOptions() {
+	public static List<CommandOption> getCommandOptions() {
 		if (lstCommandOptions == null) {
 			lstCommandOptions = new ArrayList<>();
 		}
@@ -119,7 +119,7 @@ public abstract class AbstractMainClass {
 	 * @version 0.1
 	 * @since 0.1
 	 */
-	public String getOptionValue(CommandOption theCommandOption) {
+	public static String getOptionValue(CommandOption theCommandOption) {
 		return theCommandLine.getOptionValue(theCommandOption.getOpt());
 	}
 
@@ -132,7 +132,7 @@ public abstract class AbstractMainClass {
 	 * @version 0.1
 	 * @since 0.1
 	 */
-	public boolean hasOption(CommandOption theCommandOption) {
+	public static boolean hasOption(CommandOption theCommandOption) {
 		return theCommandLine.hasOption(theCommandOption.getOpt());
 	}
 
@@ -144,7 +144,7 @@ public abstract class AbstractMainClass {
 	 * @version 0.1
 	 * @since 0.1
 	 */
-	public String getUsage() {
+	public static String getUsage() {
 		StringBuffer sbReturn = new StringBuffer();
 
 		sbReturn.append(MessageFormat.format("Call: java -jar {0}.jar{1}",
