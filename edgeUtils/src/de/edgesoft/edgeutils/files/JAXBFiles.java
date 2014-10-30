@@ -102,7 +102,9 @@ public class JAXBFiles {
 	}
 	
 	/**
-	 * Writes an XML file from the given xml data object to a file. 
+	 * Writes an XML file from the given xml data object to a file.
+	 * 
+	 * Call: marshal(new ObjectFactory().create<T>(the<T>), file, schema) 
 	 * 
 	 * @param theDataElement data model
 	 * @param theFileName filename of the file to write to
