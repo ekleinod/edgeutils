@@ -124,12 +124,11 @@ public class MMDMarkup {
 	/**
 	 * Returns table start token.
 	 * 
-	 * @param iColCount number of columns
 	 * @param theHeadings heading (null or empty allowed)
 	 * @param theColWidths column widths
 	 * @return table start token
 	 */
-	public static String getTableStartToken(int iColCount, List<String> theHeadings, List<Double> theColWidths) {
+	public static String getTableStartToken(List<String> theHeadings, List<Double> theColWidths) {
 		
 		StringBuilder sbHead = new StringBuilder();
 		if ((theHeadings != null) && (!theHeadings.isEmpty())) {
@@ -161,12 +160,11 @@ public class MMDMarkup {
 	/**
 	 * Returns table line token.
 	 * 
-	 * @param iColCount number of columns
 	 * @param theContents heading (null or empty allowed)
 	 * @param isAutoline set autoline?
 	 * @return table line token
 	 */
-	public static String getTableLineToken(int iColCount, List<String> theContents, boolean isAutoline) {
+	public static String getTableLineToken(List<String> theContents, boolean isAutoline) {
 		
 		StringBuilder sbContent = new StringBuilder();
 		if ((theContents != null) && (!theContents.isEmpty())) {
