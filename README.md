@@ -32,6 +32,17 @@ Additionally, the following branches my occur:
 - `release-*` - synchronizing release versions between `develop` and `master`
 - `hotfix-*` - fast bugfixes
 
+## Released Versions
+
+### Version 0.1
+
+Classes for easing the use of
+
+- command line parameters
+- file access
+- LaTeX output
+- multimarkdown output
+
 ## Copyright
 
 Copyright 2010-2014 Ekkart Kleinod <ekleinod@edgesoft.de>
