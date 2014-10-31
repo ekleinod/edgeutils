@@ -46,7 +46,7 @@ import de.edgesoft.edgeutils.EdgeUtilsException;
 public class JAXBFiles {
 	
 	/** Standard encoding to use: UTF-8. */
-	public static String sEncoding = StandardCharsets.UTF_8.name();
+	private static String sEncoding = StandardCharsets.UTF_8.name();
 	
 	/**
 	 * Sets the file encoding.
