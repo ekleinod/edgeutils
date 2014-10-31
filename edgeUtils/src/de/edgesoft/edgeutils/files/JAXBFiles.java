@@ -44,7 +44,29 @@ import de.edgesoft.edgeutils.EdgeUtilsException;
  * @since 0.1
  */
 public class JAXBFiles {
-
+	
+	/** Standard encoding to use: UTF-8. */
+	public static String sEncoding = StandardCharsets.UTF_8.name();
+	
+	/**
+	 * Sets the file encoding.
+	 * 
+	 * Encoding is not checked for validity.
+	 * For the standard encodings see java.nio.charsets.StandardCharsets.
+	 * 
+	 * Use them as follows, example: UTF-8:
+	 * 
+	 *   JAXBFiles.setEncoding(StandardCharsets.UTF_8.name());
+	 * 
+	 * @param theEncoding the filename of the file to unmarshal
+	 * 
+	 * @version 0.1
+	 * @since 0.1
+	 */
+	public static void setEncoding(String theEncoding) {
+		sEncoding = theEncoding;
+	}
+	
 	/**
 	 * Returns the xml data object saved in the supplied file.
 	 * 
@@ -130,7 +152,7 @@ public class JAXBFiles {
 		try {
 			
 			Marshaller m = JAXBContext.newInstance(theDataElement.getDeclaredType().getPackage().getName()).createMarshaller();
-			m.setProperty(Marshaller.JAXB_ENCODING, StandardCharsets.UTF_8.name());
+			m.setProperty(Marshaller.JAXB_ENCODING, sEncoding);
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			
 			if (theSchema != null) {
@@ -168,7 +190,7 @@ public class JAXBFiles {
 		try {
 			
 			Marshaller m = JAXBContext.newInstance(theDataElement.getDeclaredType().getPackage().getName()).createMarshaller();
-			m.setProperty(Marshaller.JAXB_ENCODING, StandardCharsets.UTF_8.name());
+			m.setProperty(Marshaller.JAXB_ENCODING, sEncoding);
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			
 			if (theSchema != null) {
