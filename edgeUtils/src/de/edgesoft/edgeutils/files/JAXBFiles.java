@@ -78,6 +78,11 @@ public class JAXBFiles {
 	/**
 	 * Returns the xml data object saved in the supplied reader.
 	 * 
+	 * In order to unmarshal a String, use a StringReader:
+	 * 
+	 *   String sXML = ...;
+	 *   JAXBFiles.unmarshal(new StringReader(sXML), XAZ.class);
+	 *   
 	 * @param theReader the filename of the file to unmarshal
 	 * @param theClass class of return type (needed for package information)
 	 * @return xml data object
@@ -104,7 +109,12 @@ public class JAXBFiles {
 	/**
 	 * Writes an XML file from the given xml data object to a file.
 	 * 
-	 * Call: marshal(new ObjectFactory().create<T>(the<T>), file, schema) 
+	 * Call: marshal(new ObjectFactory().create<T>(the<T>), file, schema)
+	 * 
+	 * Example (<T> = IssuesType):
+	 *   IssuesType theIssues = new IssuesType();
+	 *   ...
+	 *   JAXBFiles.marshal(new ObjectFactory().createIssues(theIssues), "test.xml", null);
 	 * 
 	 * @param theDataElement data model
 	 * @param theFileName filename of the file to write to
@@ -137,6 +147,13 @@ public class JAXBFiles {
 	/**
 	 * Writes a given xml data object to a string. 
 	 * 
+	 * Call: marshal(new ObjectFactory().create<T>(the<T>), file, schema)
+	 * 
+	 * Example (<T> = IssuesType):
+	 *   IssuesType theIssues = new IssuesType();
+	 *   ...
+	 *   String sXML = JAXBFiles.marshal(new ObjectFactory().createIssues(theIssues), "test.xml", null);
+	 *   
 	 * @param theDataElement data model
 	 * @param theSchema schema location (null allowed)
 	 * @return string representation
