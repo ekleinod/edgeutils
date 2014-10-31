@@ -1,9 +1,11 @@
 package de.edgesoft.edgeutils.multimarkdown;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
+
+import de.edgesoft.edgeutils.latex.LaTeXMarkup;
 
 
 /**
@@ -34,6 +36,12 @@ import java.util.Locale;
  */
 public class MMDMarkup {
 	
+	/** direct LaTeX. */
+	public final static String LATEX = "<!--%s-->";
+	
+	/** LaTeX content. */
+	public final static String LATEX_CONTENT = "-->%s<!--";
+	
 	/** heading token. */
 	public final static String HEADING_TOKEN = "#";
 	
@@ -41,7 +49,7 @@ public class MMDMarkup {
 	public final static String HEADING = "%s %%s [%%s]\n\n";
 	
 	/** minisec. */
-	public final static String MINISEC = "<!-- \\minisec{-->%s<!--} -->\n\n";
+	public final static String MINISEC = String.format("%s\n\n", String.format(LATEX, String.format(LaTeXMarkup.MINISEC, LATEX_CONTENT)));
 	
 	/** emphasized text. */
 	public final static String EMPH = "*%s*";
@@ -50,16 +58,16 @@ public class MMDMarkup {
 	public final static String BOLD = "**%s**";
 	
 	/** colored text (named). */
-	public final static String TEXTCOLOR_NAMED = "<!--\\textcolor{%s}{-->%s<!--}-->";
+	public final static String TEXTCOLOR_NAMED = String.format(LATEX, String.format(LaTeXMarkup.TEXTCOLOR_NAMED, "%s", LATEX_CONTENT));
 	
 	/** colored background (named). */
-	public final static String BGCOLOR_NAMED = "<!--\\colorbox{%s}{-->%s<!--}-->";
+	public final static String BGCOLOR_NAMED = String.format(LATEX, String.format(LaTeXMarkup.BGCOLOR_NAMED, "%s", LATEX_CONTENT));
 	
 	/** colored text (RGB). */
-	public final static String TEXTCOLOR_RGB = "<!--\\textcolor[rgb]{%.2f,%.2f,%.2f}{-->%%s<!--}-->";
+	public final static String TEXTCOLOR_RGB = String.format(LATEX, LaTeXMarkup.TEXTCOLOR_RGB);
 	
 	/** colored background (RGB). */
-	public final static String BGCOLOR_RGB = "<!--\\colorbox[rgb]{%.2f,%.2f,%.2f}{-->%%s<!--}-->";
+	public final static String BGCOLOR_RGB = String.format(LATEX, LaTeXMarkup.BGCOLOR_RGB);
 	
 	/** footnote reference. */
 	public final static String FOOTNOTE_REFERENCE = "[%s]";
@@ -71,13 +79,13 @@ public class MMDMarkup {
 	public final static String TEXT_REFERENCE = "[%s][%s]";
 	
 	/** tabbing start. */
-	public final static String TABBING_START = "<!--\\begin{tabbing}%s\\=\\kill-->\n";
+	public final static String TABBING_START = String.format("%s\n", String.format(LATEX, String.format(LaTeXMarkup.TABBING_START, LATEX_CONTENT)));
 	
 	/** tabbing line. */
-	public final static String TABBING_LINE = "%s<!--\\>-->%s<!--\\\\-->\n";
+	public final static String TABBING_LINE = String.format("%s\n", String.format(LATEX, String.format(LaTeXMarkup.TABBING_LINE, LATEX_CONTENT, LATEX_CONTENT)));
 	
 	/** tabbing end. */
-	public final static String TABBING_END = "<!--\\end{tabbing}-->\n\n";
+	public final static String TABBING_END = String.format("%s\n\n", String.format(LATEX, LaTeXMarkup.TABBING_END, LATEX_CONTENT));
 	
 	/** table start. */
 	public final static String TABLE_START = "<!--\n\\begin{smalltable}[%snoautoline=true]\n\t" +
@@ -98,6 +106,9 @@ public class MMDMarkup {
 	 * 
 	 * @param iLevel level of heading
 	 * @return heading token
+	 * 
+	 * @version 0.1
+	 * @since 0.1
 	 */
 	public static String getHeadingToken(int iLevel) {
 		
@@ -116,69 +127,69 @@ public class MMDMarkup {
 	 * @param theToken color token
 	 * @param theColor color
 	 * @return color token
+	 * 
+	 * @version 0.1
+	 * @since 0.1
 	 */
 	public static String getRGBColorToken(String theToken, Color theColor) {
-		return String.format(Locale.ENGLISH, theToken, theColor.getRGBComponents(null)[0], theColor.getRGBComponents(null)[1], theColor.getRGBComponents(null)[2]);
+		return String.format(LaTeXMarkup.getRGBColorToken(theToken, theColor), LATEX_CONTENT);
 	}
 	
 	/**
 	 * Returns table start token.
 	 * 
+	 * @param theTableName name of the table (null = longtable)
 	 * @param theHeadings heading (null or empty allowed)
 	 * @param theColWidths column widths
+	 * @param isHeadingBold format heading as bold text?
+	 * @param theRule rule to print after heading (null = no rule)
 	 * @return table start token
+	 * 
+	 * @version 0.1
+	 * @since 0.1
 	 */
-	public static String getTableStartToken(List<String> theHeadings, List<Double> theColWidths) {
-		
-		StringBuilder sbHead = new StringBuilder();
-		if ((theHeadings != null) && (!theHeadings.isEmpty())) {
-			sbHead.append("head={");
-			boolean bMore = false;
+	public static String getTableStartToken(String theTableName, List<String> theHeadings, List<Double> theColWidths, boolean isHeadingBold, String theRule) {
+		List<String> lstHeadings = new ArrayList<>();
+		if (theHeadings != null) {
 			for (String theHeading : theHeadings) {
-				if (bMore) {
-					sbHead.append(" & ");
-				}
-				sbHead.append(String.format("\\textbf{%s}", theHeading));
-				bMore = true;
+				lstHeadings.add(String.format(LATEX_CONTENT, (isHeadingBold) ? String.format(BOLD, theHeading) : theHeading));
 			}
-			sbHead.append("\\\\},");
-		}
-
-		StringBuilder sbCols = new StringBuilder();
-		boolean bMore = false;
-		for (Double theColWidth : theColWidths) {
-			if (bMore) {
-				sbCols.append("@{\\hspace{.02\\textwidth}}");
-			}
-			sbCols.append(String.format(Locale.ENGLISH, "p{%.2f\\textwidth}", theColWidth));
-			bMore = true;
 		}
 		
-		return String.format(TABLE_START, sbHead.toString(), sbCols.toString());
+		return String.format(LATEX, LaTeXMarkup.getTableStartToken(theTableName, lstHeadings, theColWidths, false, theRule));
 	}
 	
 	/**
 	 * Returns table line token.
 	 * 
-	 * @param theContents heading (null or empty allowed)
-	 * @param isAutoline set autoline?
+	 * @param theContent heading (null or empty allowed)
+	 * @param theRule rule to print after line (null = no rule)
 	 * @return table line token
+	 * 
+	 * @version 0.1
+	 * @since 0.1
 	 */
-	public static String getTableLineToken(List<String> theContents, boolean isAutoline) {
-		
-		StringBuilder sbContent = new StringBuilder();
-		if ((theContents != null) && (!theContents.isEmpty())) {
-			boolean bMore = false;
-			for (String theContent : theContents) {
-				if (bMore) {
-					sbContent.append("&");
-				}
-				sbContent.append(String.format(" -->%s<!-- ", theContent));
-				bMore = true;
+	public static String getTableLineToken(List<String> theContent, String theRule) {
+		List<String> lstContent = new ArrayList<>();
+		if (theContent != null) {
+			for (String theCellContent : theContent) {
+				lstContent.add(String.format(LATEX_CONTENT, theCellContent));
 			}
 		}
 		
-		return String.format(TABLE_LINE, sbContent.toString(), (isAutoline) ? "\n\t\\fhgmidline" : "");
+		return String.format(LATEX, LaTeXMarkup.getTableLineToken(lstContent, theRule));
+	}
+	
+	/**
+	 * Returns table end token.
+	 * 
+	 * @param theTableName name of the table (null = longtable)
+	 * 
+	 * @version 0.1
+	 * @since 0.1
+	 */
+	public static String getTableEndToken(String theTableName) {
+		return String.format(LATEX, LaTeXMarkup.getTableEndToken(theTableName));
 	}
 	
 }
