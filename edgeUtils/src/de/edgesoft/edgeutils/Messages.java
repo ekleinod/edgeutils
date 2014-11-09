@@ -29,7 +29,7 @@ package de.edgesoft.edgeutils;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * @author Ekkart Kleinod
- * @version 0.1
+ * @version 0.2
  * @since 0.1
  */
 public class Messages {
@@ -51,11 +51,11 @@ public class Messages {
 	 * 
 	 * @param theError the error message
 	 *  
-	 * @version 0.1
+	 * @version 0.2
 	 * @since 0.1
 	 */
 	public static void printError(String theError) {
-		System.out.println(theError);
+		System.err.println(theError);
 	}
 	
 	/**
