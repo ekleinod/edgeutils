@@ -8,7 +8,7 @@ package de.edgesoft.edgeutils.reveal;
  * 
  * ## Legal stuff
  * 
- * Copyright 2010-2014 Ekkart Kleinod <ekleinod@edgesoft.de>
+ * Copyright 2014-2014 Ekkart Kleinod <ekleinod@edgesoft.de>
  * 
  * This file is part of edgeUtils.
  * 
@@ -54,6 +54,12 @@ public class RevealMarkup {
 	
 	/** list end. */
 	public final static String LIST_END = "</ol>\n";
+	
+	/** blockquote start. */
+	public final static String BLOCKQUOTE_START = "<blockquote>\n";
+	
+	/** blockquote end. */
+	public final static String BLOCKQUOTE_END = "</blockquote>\n";
 	
 	/**
 	 * Returns heading token for given level.
