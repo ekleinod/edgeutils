@@ -6,7 +6,7 @@ Feel free to use them in your project, I am using a LGPL license, which means:
 
 - you are free to use the classes as you wish
 - you can use the classes even in commercial projects
-- if you modify the classes, you have to apply LPGL to the modified classes and reveal their source code
+- if you modify the classes, you have to apply LGPL to the modified classes and reveal their source code
 
 I am using other libraries in this project:
 
