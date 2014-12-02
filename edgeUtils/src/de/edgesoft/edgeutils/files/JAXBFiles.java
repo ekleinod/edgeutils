@@ -8,11 +8,19 @@ import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 
+import javax.xml.bind.JAXB;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParserFactory;
+import javax.xml.transform.sax.SAXSource;
+
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
 
 import de.edgesoft.edgeutils.EdgeUtilsException;
 
@@ -40,7 +48,7 @@ import de.edgesoft.edgeutils.EdgeUtilsException;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * @author Ekkart Kleinod
- * @version 0.1
+ * @version 0.2
  * @since 0.1
  */
 public class JAXBFiles {
@@ -93,6 +101,41 @@ public class JAXBFiles {
 			return doc.getValue();
 			
 		} catch (JAXBException e) {
+			throw new EdgeUtilsException(MessageFormat.format("Error reading data: {0}", e.getMessage()));
+		}
+	}
+	
+	/**
+	 * Returns the xml data object saved in the supplied file, uses includes.
+	 * 
+	 * Code from https://stackoverflow.com/questions/10212781/facing-issue-while-parsing-xml-containing-xiincludes-with-jaxb
+	 * 
+	 * @param theFileName the filename of the file to unmarshal
+	 * @param theClass class of return type (needed for package information)
+	 * @return xml data object
+	 * 
+	 * @throws EdgeUtilsException if some JAXB-error happened
+	 * 
+	 * @version 0.2
+	 * @since 0.2
+	 */
+	public static <T> T unmarshalInclude(String theFileName, Class<T> theClass) throws EdgeUtilsException {
+		
+		try {
+			
+			if (theFileName.isEmpty()) {
+				return null;
+			}
+			
+			SAXParserFactory spf = SAXParserFactory.newInstance();
+	        spf.setXIncludeAware(true);
+	        spf.setNamespaceAware(true);
+	        XMLReader xr = spf.newSAXParser().getXMLReader();
+	        SAXSource src = new SAXSource(xr, new InputSource(theFileName));
+	        
+	        return JAXB.unmarshal(src, theClass);
+			
+		} catch (SAXException | ParserConfigurationException e) {
 			throw new EdgeUtilsException(MessageFormat.format("Error reading data: {0}", e.getMessage()));
 		}
 	}

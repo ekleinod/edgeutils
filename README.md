@@ -6,7 +6,7 @@ Feel free to use them in your project, I am using a LGPL license, which means:
 
 - you are free to use the classes as you wish
 - you can use the classes even in commercial projects
-- if you modify the classes, you have to apply LPGL to the modified classes and reveal their source code
+- if you modify the classes, you have to apply LGPL to the modified classes and reveal their source code
 
 I am using other libraries in this project:
 
@@ -33,6 +33,13 @@ Additionally, the following branches my occur:
 - `hotfix-*` - fast bugfixes
 
 ## Released Versions
+
+### Version 0.2
+
+- binary export to jar (for use of edgeutils in submodules)
+- reveal markup
+- bugfixes: license, error printing
+- jaxb unmarshall with includes
 
 ### Version 0.1
 
