@@ -34,6 +34,13 @@ Additionally, the following branches my occur:
 
 ## Released Versions
 
+### Version 0.2
+
+- binary export to jar (for use of edgeutils in submodules)
+- reveal markup
+- bugfixes: license, error printing
+- jaxb unmarshall with includes
+
 ### Version 0.1
 
 Classes for easing the use of
