@@ -13,7 +13,7 @@ import de.edgesoft.edgeutils.latex.LaTeXMarkup;
  * 
  * ## Legal stuff
  * 
- * Copyright 2010-2014 Ekkart Kleinod <ekleinod@edgesoft.de>
+ * Copyright 2014-2014 Ekkart Kleinod <ekleinod@edgesoft.de>
  * 
  * This file is part of edgeUtils.
  * 
