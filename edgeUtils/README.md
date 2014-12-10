@@ -28,6 +28,6 @@ In this build file I have to give the path to `edgeUtils`.
 This path is different for my different development computers (one using Windows, one using Linux).
 
 To unify this path, I include `edgeUtils` as submodule in both projects.
-Thus I have unified paths but two instances of `edgeUtils`, which I cannot use sinmultaneously in eclipse.
+Thus I have unified paths but two instances of `edgeUtils`, which I cannot use simultaneously in eclipse.
 Therefore I use the jar file.
 
