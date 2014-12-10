@@ -52,12 +52,18 @@ To use the common bindings, declare them in the call of your jaxb compiler (exam
 
 I included useful options as well:
 
-- *npa* suppress generation of package level annotations (`**/package-info.java`)
-- *no-header* suppress generation of a file header with timestamp
-- *encoding* specify character encoding for generated source files
-- *d* generated files will go into this directory
-- *p* specifies the target package
-- *b* specify external bindings files (each file must have its own -b)
+- *npa*
+	- suppress generation of package level annotations (`**/package-info.java`)
+- *no-header*
+	- suppress generation of a file header with timestamp
+- *encoding*
+	- specify character encoding for generated source files
+- *d*
+	- generated files will go into this directory
+- *p*
+	- specifies the target package
+- *b*
+	- specify external bindings files (each file must have its own -b)
 
 It is possible to use several binding files, thus you don't have to merge `commons.xjb`:
 
