@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+XSD Schema for common xsd structures.
+
+- InfoType
+	- elements: created, modified, version, creator
+- VersionType
+	- elements: major, minor, patch
+- IntGreaterEqualNull
+	- an integer that is greater or equal to 0
+
+v0.3
+
+## Legal stuff
+
+Copyright 2014 Ekkart Kleinod <ekleinod@edgesoft.de>
+
+This file is part of edgeUtils.
+
+edgeUtils is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+edgeUtils is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+						xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+						jxb:version="2.0">
+
+	<!-- Document metainformation. -->
+	<xsd:complexType name="InfoType">
+		<xsd:complexContent>
+			<xsd:extension base="TimestampType">
+				<xsd:sequence>
+					<xsd:element name="version" type="VersionType" minOccurs="1" maxOccurs="1" />
+					<xsd:element name="creator" type="xsd:string" minOccurs="0" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<!-- Timestamps: creation, last modification. -->
+	<xsd:complexType name="TimestampType" abstract="true">
+		<xsd:sequence>
+			<xsd:element name="created" type="xsd:dateTime" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="modified" type="xsd:dateTime" minOccurs="1" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Version: Major.Minor.Patch -->
+	<xsd:complexType name="VersionType">
+		<xsd:sequence>
+			<xsd:element name="major" type="IntGreaterEqualNull" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="minor" type="IntGreaterEqualNull" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="patch" type="IntGreaterEqualNull" minOccurs="1" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Integer eqaul or greater than 0 -->
+	<xsd:simpleType name="IntGreaterEqualNull">
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="0" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<!-- Generic type for references to ids (casting in java code required) -->
+	<xsd:complexType name="RefType">
+		<xsd:attribute name="idref" type="xsd:IDREF" use="required">
+			<xsd:annotation>
+				<xsd:appinfo>
+					<jxb:property>
+						<jxb:baseType name="IDType"/>
+					</jxb:property>
+				</xsd:appinfo>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<!-- Generic type for elements with ids (casting in java code required) -->
+	<xsd:complexType name="IDType" abstract="true">
+		<xsd:attribute name="id" type="xsd:ID" use="required" />
+	</xsd:complexType>
+
+</xsd:schema>
+
+<!-- EOF -->
+

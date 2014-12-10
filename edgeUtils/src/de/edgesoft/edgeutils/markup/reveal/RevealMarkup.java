@@ -1,4 +1,4 @@
-package de.edgesoft.edgeutils.reveal;
+package de.edgesoft.edgeutils.markup.reveal;
 
 
 
@@ -26,7 +26,7 @@ package de.edgesoft.edgeutils.reveal;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * @author Ekkart Kleinod
- * @version 0.2
+ * @version 0.3
  * @since 0.2
  */
 public class RevealMarkup {
