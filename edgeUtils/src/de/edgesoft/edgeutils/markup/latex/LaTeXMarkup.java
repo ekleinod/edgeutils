@@ -1,4 +1,4 @@
-package de.edgesoft.edgeutils.latex;
+package de.edgesoft.edgeutils.markup.latex;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ import java.util.Locale;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * @author Ekkart Kleinod
- * @version 0.1
+ * @version 0.3
  * @since 0.1
  */
 public class LaTeXMarkup {

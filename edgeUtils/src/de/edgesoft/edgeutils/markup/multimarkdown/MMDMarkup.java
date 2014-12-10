@@ -1,11 +1,11 @@
-package de.edgesoft.edgeutils.multimarkdown;
+package de.edgesoft.edgeutils.markup.multimarkdown;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import de.edgesoft.edgeutils.latex.LaTeXMarkup;
+import de.edgesoft.edgeutils.markup.latex.LaTeXMarkup;
 
 
 /**
@@ -31,7 +31,7 @@ import de.edgesoft.edgeutils.latex.LaTeXMarkup;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * @author Ekkart Kleinod
- * @version 0.1
+ * @version 0.3
  * @since 0.1
  */
 public class MMDMarkup {

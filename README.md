@@ -1,6 +1,14 @@
 # edgeUtils
 
-This project contains java utility classes for my projects.
+This project contains utilities for my projects.
+
+- java
+	- classes
+- jaxb
+	- schemata
+	- bindings
+
+Every subdirectory contains its own readme file describing main issues such as usage of the given utilities.
 
 Feel free to use them in your project, I am using a LGPL license, which means:
 
@@ -14,6 +22,8 @@ I am using other libraries in this project:
 	- API for parsing command line options
 	- http://commons.apache.org/proper/commons-cli/
 	- license: Apache License, Version 2.0, see http://www.apache.org/licenses/LICENSE-2.0
+
+
 
 ## Git repository
 
