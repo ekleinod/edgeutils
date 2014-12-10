@@ -44,6 +44,13 @@ Additionally, the following branches my occur:
 
 ## Released Versions
 
+### Version 0.3
+
+- containing package for markup
+- new `commons.xsd` containing common xml schema structures/types
+- new `commons.xjb` containing common jaxb bindings
+- readme for jaxb file usage
+
 ### Version 0.2
 
 - binary export to jar (for use of edgeutils in submodules)
