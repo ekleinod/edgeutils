@@ -41,7 +41,8 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 		<xsd:complexContent>
 			<xsd:extension base="TimestampType">
 				<xsd:sequence>
-					<xsd:element name="version" type="VersionType" minOccurs="1" maxOccurs="1" />
+					<xsd:element name="docversion" type="VersionType" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="appversion" type="VersionType" minOccurs="1" maxOccurs="1" />
 					<xsd:element name="creator" type="xsd:string" minOccurs="0" maxOccurs="1" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -60,8 +61,8 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 	<xsd:complexType name="VersionType">
 		<xsd:sequence>
 			<xsd:element name="major" type="IntGreaterEqualNull" minOccurs="1" maxOccurs="1" />
-			<xsd:element name="minor" type="IntGreaterEqualNull" minOccurs="1" maxOccurs="1" />
-			<xsd:element name="patch" type="IntGreaterEqualNull" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="minor" type="IntGreaterEqualNull" minOccurs="0" maxOccurs="1" />
+			<xsd:element name="patch" type="IntGreaterEqualNull" minOccurs="0" maxOccurs="1" />
 		</xsd:sequence>
 	</xsd:complexType>
 
