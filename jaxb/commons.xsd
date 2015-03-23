@@ -59,6 +59,11 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 
 	<!-- Version: Major.Minor.Patch -->
 	<xsd:complexType name="VersionType">
+		<xsd:annotation>
+			<xsd:appinfo>
+				<jxb:class implClass="de.edgesoft.edgeutils.commons.ext.VersionTypeExt" />
+			</xsd:appinfo>
+		</xsd:annotation>
 		<xsd:sequence>
 			<xsd:element name="major" type="IntGreaterEqualNull" minOccurs="1" maxOccurs="1" />
 			<xsd:element name="minor" type="IntGreaterEqualNull" minOccurs="0" maxOccurs="1" />
