@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<project name="edgeUtils" default="help" basedir=".">
+<project name="edgeUtilsCommons" default="help" basedir=".">
 
 	<target name="help" description="Shows help text.">
 		<echo>${ant.project.name}</echo>
@@ -30,6 +30,14 @@
 			<arg value="-no-header" /> <!-- suppress generation of a file header with timestamp -->
 			<arg value="${xjc:xsd}" />
 		</exec>
+
+	</target>
+
+	<target name="deletemodel">
+
+		<delete>
+			<fileset dir="${del:path}" includes="*.java" />
+		</delete>
 
 	</target>
 

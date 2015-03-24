@@ -7,15 +7,22 @@
 	<property name="concrete:xsd" value="commons.xsd" />
 	<property name="concrete:outpath" value="../edgeUtils/src/" />
 	<property name="concrete:package" value="de.edgesoft.edgeutils.commons" />
+	<property name="concrete:packagepath" value="${concrete:outpath}de/edgesoft/edgeutils/commons/" />
 	<property name="concrete:bindings" value="commons.xjb" />
 
-	<target name="model" description="Generates the commons model classes from xsd.">
+	<target name="model" description="Removes, then generates the commons model classes from xsd.">
+
+		<antcall target="deletemodel">
+			<param name="del:path" value="${concrete:packagepath}" />
+		</antcall>
+
 		<antcall target="callxjc">
 			<param name="xjc:outpath" value="${concrete:outpath}" />
 			<param name="xjc:package" value="${concrete:package}" />
 			<param name="xjc:xsd" value="${concrete:xsd}" />
 			<param name="xjc:bindings" value="${concrete:bindings}" />
 		</antcall>
+
 	</target>
 
 </project>
