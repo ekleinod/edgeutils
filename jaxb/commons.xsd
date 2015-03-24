@@ -4,17 +4,25 @@
 XSD Schema for common xsd structures.
 
 - InfoType
-	- elements: created, modified, version, creator
+	- extends: TimestampType
+	- elements: docversion, appversion, creator
+- TimestampType
+	- elements: created, modified
 - VersionType
 	- elements: major, minor, patch
+	- extending class: ...ext.VersionTypeExt
 - IntGreaterEqualNull
 	- an integer that is greater or equal to 0
+- RefType
+	- reference to an id type
+- IDType
+	- element with an id that can be referenced
 
-v0.3
+v0.4
 
 ## Legal stuff
 
-Copyright 2014 Ekkart Kleinod <ekleinod@edgesoft.de>
+Copyright 2014-2015 Ekkart Kleinod <ekleinod@edgesoft.de>
 
 This file is part of edgeUtils.
 
@@ -71,7 +79,7 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 		</xsd:sequence>
 	</xsd:complexType>
 
-	<!-- Integer eqaul or greater than 0 -->
+	<!-- Integer equal or greater than 0 -->
 	<xsd:simpleType name="IntGreaterEqualNull">
 		<xsd:restriction base="xsd:integer">
 			<xsd:minInclusive value="0" />
