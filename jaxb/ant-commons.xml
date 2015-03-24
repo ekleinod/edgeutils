@@ -32,6 +32,7 @@
 			<arg value="${xjc:package}" />
 			<arg value="-encoding" /> <!-- specify character encoding for generated source files -->
 			<arg value="UTF-8" />
+			<arg value="-extension" /> <!-- allow vendor extensions - do not strictly follow the Compatibility Rules and App E.2 from the JAXB Spec -->
 			<arg value="-npa" /> <!-- suppress generation of package level annotations -->
 			<arg value="-no-header" /> <!-- suppress generation of a file header with timestamp -->
 			<arg value="${xjc:xsd}" />
@@ -53,6 +54,7 @@
 			<arg value="${xjc:package}" />
 			<arg value="-encoding" /> <!-- specify character encoding for generated source files -->
 			<arg value="UTF-8" />
+			<arg value="-extension" /> <!-- allow vendor extensions - do not strictly follow the Compatibility Rules and App E.2 from the JAXB Spec -->
 			<arg value="-npa" /> <!-- suppress generation of package level annotations -->
 			<arg value="-no-header" /> <!-- suppress generation of a file header with timestamp -->
 			<arg value="${xjc:xsd}" />
