@@ -16,6 +16,12 @@
 	</target>
 
 	<target name="callxjc">
+		<antcall target="callxjc1b" />
+		<antcall target="callxjc2b" />
+	</target>
+
+	<target name="callxjc1b" unless="xjc:bindings2">
+		<!-- i.e. 1 binding -->
 
 		<exec executable="xjc">
 			<arg value="-b" /> <!-- specify external bindings files (each <file> must have its own -b) -->
@@ -33,7 +39,7 @@
 
 	</target>
 
-	<target name="callxjc2b">
+	<target name="callxjc2b" if="xjc:bindings2">
 		<!-- i.e. 2 bindings -->
 
 		<exec executable="xjc">
