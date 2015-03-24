@@ -33,6 +33,27 @@
 
 	</target>
 
+	<target name="callxjc2b">
+		<!-- i.e. 2 bindings -->
+
+		<exec executable="xjc">
+			<arg value="-b" /> <!-- specify external bindings files (each <file> must have its own -b) -->
+			<arg value="${xjc:bindings}" />
+			<arg value="-b" /> <!-- specify external bindings files (each <file> must have its own -b) -->
+			<arg value="${xjc:bindings2}" />
+			<arg value="-d" /> <!-- generated files will go into this directory -->
+			<arg value="${xjc:outpath}" />
+			<arg value="-p" /> <!-- specifies the target package -->
+			<arg value="${xjc:package}" />
+			<arg value="-encoding" /> <!-- specify character encoding for generated source files -->
+			<arg value="UTF-8" />
+			<arg value="-npa" /> <!-- suppress generation of package level annotations -->
+			<arg value="-no-header" /> <!-- suppress generation of a file header with timestamp -->
+			<arg value="${xjc:xsd}" />
+		</exec>
+
+	</target>
+
 	<target name="deletemodel">
 
 		<delete>
