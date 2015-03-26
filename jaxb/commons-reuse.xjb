@@ -27,13 +27,13 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 
 <jxb:bindings xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 							xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
-							version="2.1">
+							jxb:version="2.1">
 
 	<!-- bindings for commons -->
 	<jxb:bindings schemaLocation="commons.xsd">
 
 		<jxb:bindings node="//xsd:complexType[@name='TimestampType']">
-			<class ref="de.edgesoft.edgeutils.commons.TimestampType" />
+			<jxb:class ref="de.edgesoft.edgeutils.commons.TimestampType" />
 		</jxb:bindings>
 
 	</jxb:bindings>
