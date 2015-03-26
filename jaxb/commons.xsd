@@ -88,7 +88,15 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 
 	<!-- Generic type for references to ids (casting in java code required) -->
 	<xsd:complexType name="RefType">
-		<xsd:attribute name="idref" type="xsd:IDREF" use="required" />
+		<xsd:attribute name="idref" type="xsd:IDREF" use="required">
+			<xsd:annotation>
+				<xsd:appinfo>
+					<jxb:property>
+						<jxb:baseType name="IDType"/>
+					</jxb:property>
+				</xsd:appinfo>
+			</xsd:annotation>
+		</xsd:attribute>
 	</xsd:complexType>
 
 	<!-- Generic type for elements with ids (casting in java code required) -->
