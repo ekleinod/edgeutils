@@ -40,9 +40,9 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 			<jxb:class ref="de.edgesoft.edgeutils.commons.InfoType" />
 		</jxb:bindings>
 
-		<!--jxb:bindings node="//xsd:complexType[@name='RefType']">
+		<jxb:bindings node="//xsd:complexType[@name='RefType']">
 			<jxb:class ref="de.edgesoft.edgeutils.commons.RefType" />
-		</jxb:bindings-->
+		</jxb:bindings>
 
 		<jxb:bindings node="//xsd:complexType[@name='TimestampType']">
 			<jxb:class ref="de.edgesoft.edgeutils.commons.TimestampType" />
