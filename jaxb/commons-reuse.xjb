@@ -32,8 +32,24 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 	<!-- bindings for commons -->
 	<jxb:bindings schemaLocation="commons.xsd">
 
+		<jxb:bindings node="//xsd:complexType[@name='IDType']">
+			<jxb:class ref="de.edgesoft.edgeutils.commons.IDType" />
+		</jxb:bindings>
+
+		<jxb:bindings node="//xsd:complexType[@name='InfoType']">
+			<jxb:class ref="de.edgesoft.edgeutils.commons.InfoType" />
+		</jxb:bindings>
+
+		<!--jxb:bindings node="//xsd:complexType[@name='RefType']">
+			<jxb:class ref="de.edgesoft.edgeutils.commons.RefType" />
+		</jxb:bindings-->
+
 		<jxb:bindings node="//xsd:complexType[@name='TimestampType']">
 			<jxb:class ref="de.edgesoft.edgeutils.commons.TimestampType" />
+		</jxb:bindings>
+
+		<jxb:bindings node="//xsd:complexType[@name='VersionType']">
+			<jxb:class ref="de.edgesoft.edgeutils.commons.VersionType" />
 		</jxb:bindings>
 
 	</jxb:bindings>
