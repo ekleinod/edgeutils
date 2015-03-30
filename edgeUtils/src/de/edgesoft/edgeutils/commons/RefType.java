@@ -10,6 +10,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
+ * Connection of idref to IDType is not inline, because otherwise generation outside of edgeutils would fail.
+ * Therefore, this connection is made in the `commons-only.xjb` bindings file.
+ * 
  * <p>Java class for RefType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.

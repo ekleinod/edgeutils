@@ -4,23 +4,25 @@
 
 	<import file="ant-commons.xml"/>
 
-	<property name="concrete:xsd" value="commons.xsd" />
-	<property name="concrete:outpath" value="../edgeUtils/src/" />
-	<property name="concrete:package" value="de.edgesoft.edgeutils.commons" />
-	<property name="concrete:packagepath" value="${concrete:outpath}de/edgesoft/edgeutils/commons/" />
-	<property name="concrete:bindings" value="commons.xjb" />
+	<property name="commons:xsd" value="commons.xsd" />
+	<property name="commons:outpath" value="../edgeUtils/src/" />
+	<property name="commons:package" value="de.edgesoft.edgeutils.commons" />
+	<property name="commons:packagepath" value="${commons:outpath}de/edgesoft/edgeutils/commons/" />
+	<property name="commons:bindings" value="commons.xjb" />
+	<property name="commons:bindings2" value="commons-only.xjb" />
 
 	<target name="model" description="Removes, then generates the commons model classes from xsd.">
 
 		<antcall target="deletemodel">
-			<param name="del:path" value="${concrete:packagepath}" />
+			<param name="del:path" value="${commons:packagepath}" />
 		</antcall>
 
 		<antcall target="callxjc">
-			<param name="xjc:outpath" value="${concrete:outpath}" />
-			<param name="xjc:package" value="${concrete:package}" />
-			<param name="xjc:xsd" value="${concrete:xsd}" />
-			<param name="xjc:bindings" value="${concrete:bindings}" />
+			<param name="xjc:outpath" value="${commons:outpath}" />
+			<param name="xjc:package" value="${commons:package}" />
+			<param name="xjc:xsd" value="${commons:xsd}" />
+			<param name="xjc:bindings" value="${commons:bindings}" />
+			<param name="xjc:bindings2" value="${commons:bindings2}" />
 		</antcall>
 
 	</target>
