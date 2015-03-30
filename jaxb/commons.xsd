@@ -68,9 +68,8 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 	<!-- Version: Major.Minor.Patch -->
 	<xsd:complexType name="VersionType">
 		<xsd:annotation>
-			<xsd:appinfo>
-				<jxb:class implClass="de.edgesoft.edgeutils.commons.ext.VersionTypeExt" />
-			</xsd:appinfo>
+			<xsd:documentation>Implementing class is not inline, because otherwise generation outside of edgeutils would fail.
+Therefore, this declaration is given in the `commons-only.xjb` bindings file.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:sequence>
 			<xsd:element name="major" type="IntGreaterEqualNull" minOccurs="1" maxOccurs="1" />
@@ -88,11 +87,11 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 
 	<!-- Generic type for references to ids (casting in java code required) -->
 	<xsd:complexType name="RefType">
-				<xsd:annotation>
-					<xsd:documentation>Connection of idref to IDType is not inline, because otherwise generation outside of edgeutils would fail.
+		<xsd:annotation>
+			<xsd:documentation>Connection of idref to IDType is not inline, because otherwise generation outside of edgeutils would fail.
 Therefore, this connection is made in the `commons-only.xjb` bindings file.</xsd:documentation>
-				</xsd:annotation>
-				<xsd:attribute name="idref" type="xsd:IDREF" use="required" />
+		</xsd:annotation>
+		<xsd:attribute name="idref" type="xsd:IDREF" use="required" />
 	</xsd:complexType>
 
 	<!-- Generic type for elements with ids (casting in java code required) -->
