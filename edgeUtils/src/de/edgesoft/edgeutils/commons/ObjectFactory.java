@@ -31,6 +31,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link AdditionalType }
+     * 
+     */
+    public AdditionalType createAdditionalType() {
+        return new AdditionalType();
+    }
+
+    /**
      * Create an instance of {@link VersionType }
      * 
      */

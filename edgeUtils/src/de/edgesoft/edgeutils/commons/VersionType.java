@@ -9,6 +9,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 /**
+ * Implementing class is not inline, because otherwise generation outside of edgeutils would fail.
+ * Therefore, this declaration is given in the `commons-only.xjb` bindings file.
+ * 
  * <p>Java class for VersionType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
@@ -21,6 +24,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *         &lt;element name="major" type="{}IntGreaterEqualNull"/>
  *         &lt;element name="minor" type="{}IntGreaterEqualNull" minOccurs="0"/>
  *         &lt;element name="patch" type="{}IntGreaterEqualNull" minOccurs="0"/>
+ *         &lt;element name="additional" type="{}AdditionalType" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -33,7 +37,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "VersionType", propOrder = {
     "major",
     "minor",
-    "patch"
+    "patch",
+    "additional"
 })
 public class VersionType {
 
@@ -46,6 +51,7 @@ public class VersionType {
     @XmlElement(type = String.class)
     @XmlJavaTypeAdapter(Adapter2 .class)
     protected Integer patch;
+    protected AdditionalType additional;
 
     /**
      * Gets the value of the major property.
@@ -117,6 +123,30 @@ public class VersionType {
      */
     public void setPatch(Integer value) {
         this.patch = value;
+    }
+
+    /**
+     * Gets the value of the additional property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link AdditionalType }
+     *     
+     */
+    public AdditionalType getAdditional() {
+        return additional;
+    }
+
+    /**
+     * Sets the value of the additional property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link AdditionalType }
+     *     
+     */
+    public void setAdditional(AdditionalType value) {
+        this.additional = value;
     }
 
 }

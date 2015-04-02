@@ -9,7 +9,7 @@ XSD Schema for common xsd structures.
 - TimestampType
 	- elements: created, modified
 - VersionType
-	- elements: major, minor, patch
+	- elements: major, minor, patch, additional
 	- extending class: ...ext.VersionTypeExt
 - IntGreaterEqualNull
 	- an integer that is greater or equal to 0
@@ -65,7 +65,7 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 		</xsd:sequence>
 	</xsd:complexType>
 
-	<!-- Version: Major.Minor.Patch -->
+	<!-- Version: Major.Minor.Patch Additional -->
 	<xsd:complexType name="VersionType">
 		<xsd:annotation>
 			<xsd:documentation>Implementing class is not inline, because otherwise generation outside of edgeutils would fail.
@@ -75,13 +75,32 @@ Therefore, this declaration is given in the `commons-only.xjb` bindings file.</x
 			<xsd:element name="major" type="IntGreaterEqualNull" minOccurs="1" maxOccurs="1" />
 			<xsd:element name="minor" type="IntGreaterEqualNull" minOccurs="0" maxOccurs="1" />
 			<xsd:element name="patch" type="IntGreaterEqualNull" minOccurs="0" maxOccurs="1" />
+			<xsd:element name="additional" type="AdditionalType" minOccurs="0" maxOccurs="1" />
 		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- Additional type. -->
+	<xsd:complexType name="AdditionalType">
+		<xsd:simpleContent>
+			<xsd:extension base="IntGreaterEqualNull">
+				<xsd:attribute name="type" type="AdditionalTypeType" use="required" />
+			</xsd:extension>
+		</xsd:simpleContent>
 	</xsd:complexType>
 
 	<!-- Integer equal or greater than 0 -->
 	<xsd:simpleType name="IntGreaterEqualNull">
 		<xsd:restriction base="xsd:integer">
 			<xsd:minInclusive value="0" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<!-- Additional types -->
+	<xsd:simpleType name="AdditionalTypeType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="pre" />
+			<xsd:enumeration value="alpha" />
+			<xsd:enumeration value="beta" />
 		</xsd:restriction>
 	</xsd:simpleType>
 
