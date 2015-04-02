@@ -1,5 +1,11 @@
 package de.edgesoft.edgeutils.commons.ext;
 
+import java.util.List;
+
+import de.edgesoft.edgeutils.collections.CollectionHelper;
+import de.edgesoft.edgeutils.commons.AdditionalType;
+import de.edgesoft.edgeutils.commons.AdditionalTypeType;
+import de.edgesoft.edgeutils.commons.ObjectFactory;
 import de.edgesoft.edgeutils.commons.VersionType;
 
 /**
@@ -41,21 +47,60 @@ public class VersionTypeExt extends VersionType {
 	}
 
 	/**
-	 * Constructor, setting version in one call.
+	 * Constructor, setting version in one call, version as string.
 	 * 
-	 * @param theMajor major
-	 * @param theMinor minor
-	 * @param thePatch patch
+	 * - "2"
+	 * - "2.0"
+	 * - "2.0.1"
+	 * - "2 pre 2"
+	 * - "2.0 alpha 1"
+	 * - "2.0.1 beta 5"
+	 * 
+	 * @param theVersion version
 	 * 
 	 * @version 0.4
 	 * @since 0.4
 	 */
-	public VersionTypeExt(Integer theMajor, Integer theMinor, Integer thePatch) {
+	public VersionTypeExt(String theVersion) {
 		super();
 		
-		setMajor(theMajor);
-		setMinor(theMinor);
-		setPatch(thePatch);
+		setMajor(0);
+		
+		if ((theVersion == null) || theVersion.trim().isEmpty()) {
+			return;
+		}
+
+		String sVersion = theVersion.trim();
+		
+		int index = 1;
+		for (AdditionalTypeType theAdditionalType : AdditionalTypeType.values()) {
+			List<String> lstTemp = CollectionHelper.fromCSVString(sVersion, theAdditionalType.value());
+			if (lstTemp.size() > index) {
+				AdditionalType addType = new ObjectFactory().createAdditionalType();
+				addType.setType(theAdditionalType);
+				addType.setValue(Integer.parseInt(lstTemp.get(index)));
+				setAdditional(addType);
+				sVersion = lstTemp.get(0);
+			}
+		}
+		
+		List<String> lstTemp = CollectionHelper.fromCSVString(sVersion, ".");
+		
+		index = 0;
+		if (lstTemp.size() > index) {
+			setMajor(Integer.parseInt(lstTemp.get(index)));
+		}
+		
+		index = 1;
+		if (lstTemp.size() > index) {
+			setMinor(Integer.parseInt(lstTemp.get(index)));
+		}
+		
+		index = 2;
+		if (lstTemp.size() > index) {
+			setPatch(Integer.parseInt(lstTemp.get(index)));
+		}
+		
 	}
 	
 }
