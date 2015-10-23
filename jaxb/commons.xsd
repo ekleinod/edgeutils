@@ -58,7 +58,7 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 	</xsd:complexType>
 
 	<!-- Timestamps: creation, last modification. -->
-	<xsd:complexType name="TimestampType" abstract="true">
+	<xsd:complexType name="TimestampType">
 		<xsd:sequence>
 			<xsd:element name="created" type="xsd:dateTime" minOccurs="1" maxOccurs="1" />
 			<xsd:element name="modified" type="xsd:dateTime" minOccurs="1" maxOccurs="1" />
