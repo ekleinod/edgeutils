@@ -1,5 +1,8 @@
 package de.edgesoft.edgeutils.commandline;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
@@ -191,6 +194,15 @@ public abstract class AbstractMainClass {
 	/**
 	 * Returns the usage message with exception message.
 	 * 
+	 * The default implementation of {@link HelpFormatter#printHelp(String, String, Options, String)}
+	 * prints to {@link System#out}, I want to get the usage String by its own, then
+	 * deciding what to do with it.
+	 * 
+	 * Thus, I set the default values as in the original class and use
+	 * a {@link StringWriter} as output of the {@link PrintWriter}.
+	 * 
+	 * Complicated but I did not see another good solution.
+	 * 
 	 * @return usage message
 	 * 
 	 * @version 0.4.0
@@ -198,11 +210,22 @@ public abstract class AbstractMainClass {
 	 */
 	public static String getUsage(Exception e) {
 		
-		HelpFormatter helpFormatter = new HelpFormatter();
-		helpFormatter.printHelp(getCallingClass().getSimpleName(), getDescription(), getOptions(), (e == null) ? "" : e.getMessage(), true);
-		
-		return "";
+		HelpFormatter hFormatter = new HelpFormatter();
+		StringWriter sWriter = new StringWriter();
+        PrintWriter pWriter = new PrintWriter(sWriter);
 
+		hFormatter.printHelp(pWriter, 
+				hFormatter.getWidth(), 
+				getCallingClass().getSimpleName(), 
+				getDescription(), 
+				getOptions(), 
+				hFormatter.getLeftPadding(), 
+				hFormatter.getDescPadding(), 
+				((e == null) ? "" : e.getMessage()),
+				true);
+		
+        pWriter.flush();
+		return sWriter.toString();
 	}
 	
 }
