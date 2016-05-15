@@ -1,12 +1,10 @@
 package de.edgesoft.edgeutils.commandline;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
-import org.apache.commons.cli.PosixParser;
 
 import de.edgesoft.edgeutils.Messages;
 
@@ -17,7 +15,7 @@ import de.edgesoft.edgeutils.Messages;
  * 
  * ## Legal stuff
  * 
- * Copyright 2010-2014 Ekkart Kleinod <ekleinod@edgesoft.de>
+ * Copyright 2010-2016 Ekkart Kleinod <ekleinod@edgesoft.de>
  * 
  * This file is part of edgeUtils.
  * 
@@ -35,19 +33,22 @@ import de.edgesoft.edgeutils.Messages;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * @author Ekkart Kleinod
- * @version 0.1
+ * @version 0.4.0
  * @since 0.1
  */
 public abstract class AbstractMainClass {
 	
-	/** Storage for options. */
-	private static List<CommandOption> lstCommandOptions = null;
+	/** Options. */
+	private static Options optOptions = null;
 	
 	/** Command line values. */
-	private static CommandLine theCommandLine = null;
+	private static CommandLine cliCommandLine = null;
+	
+	/** Description of class. */
+	private static String sDescription = null;
 	
 	/** Calling class. */
-	private static Class<? extends AbstractMainClass> theCallingClass = null;
+	private static Class<? extends AbstractMainClass> clsCalling = null;
 
 	/**
 	 * Initialization with and parsing of arguments.
@@ -56,84 +57,123 @@ public abstract class AbstractMainClass {
 	 * If parsing fails, init prints the error message and usage information, and exits with error code `1`. 
 	 * 
 	 * @param args command line arguments
-	 * @param theClass calling class (needed for printing usage information)
 	 * 
-	 * @version 0.1
+	 * @version 0.4.0
 	 * @since 0.1
 	 */
-	public static void init(String[] args, Class<? extends AbstractMainClass> theClass) {
+	public static void init(String[] args) {
 		try {
-			// store calling class
-			theCallingClass = theClass;
-			
-			// handle commandline options with apache commons cli
-			Options theOptions = new Options();
-			for (CommandOption theCommandOption : lstCommandOptions) {
-				theOptions.addOption(theCommandOption);
-			}
-			
 			// parse options
-			theCommandLine = new PosixParser().parse(theOptions, args);
+			cliCommandLine = new DefaultParser().parse(getOptions(), args);
 		} catch (Exception e) {
-			Messages.printError("");
-			Messages.printError(getUsage());
-			Messages.printError("");
-			Messages.printError(e);
+			Messages.printError(getUsage(e));
 			System.exit(1);
 		}
 	}
 
 	/**
-	 * Adds a command option.
+	 * Adds an option.
 	 * 
-	 * @param theCommandOption new command option
+	 * @param theShortName short name
+	 * @param theLongName long name
+	 * @param theDescription description
+	 * @param hasArgument does option have an argument?
+	 * @param isRequired is option required?
 	 *  
-	 * @version 0.1
+	 * @version 0.4.0
 	 * @since 0.1
 	 */
-	public static void addCommandOption(CommandOption theCommandOption) {
-		getCommandOptions().add(theCommandOption);
+	public static void addOption(String theShortName, String theLongName, String theDescription, boolean hasArgument, boolean isRequired) {
+		getOptions().addOption(Option.builder(theShortName).longOpt(theLongName).desc(theDescription).hasArg(hasArgument).required(isRequired).build());
 	}
 	
 	/**
-	 * Returns the command options.
+	 * Returns the options.
 	 * 
-	 * @return command options (empty list if there are none)
+	 * @return options
 	 *  
-	 * @version 0.1
+	 * @version 0.4.0
 	 * @since 0.1
 	 */
-	public static List<CommandOption> getCommandOptions() {
-		if (lstCommandOptions == null) {
-			lstCommandOptions = new ArrayList<>();
+	public static Options getOptions() {
+		if (optOptions == null) {
+			optOptions = new Options();
 		}
-		return lstCommandOptions;
+		return optOptions;
 	}
 	
 	/**
-	 * Returns value of given option.
+	 * Returns value of option.
 	 * 
-	 * @param theCommandOption option
+	 * @param theShortName option
 	 * @return value
 	 *  
-	 * @version 0.1
+	 * @version 0.4.0
 	 * @since 0.1
 	 */
-	public static String getOptionValue(CommandOption theCommandOption) {
-		return theCommandLine.getOptionValue(theCommandOption.getOpt());
+	public static String getOptionValue(String theShortName) {
+		return cliCommandLine.getOptionValue(theShortName);
 	}
 
 	/**
-	 * Returns if given option was stated.
+	 * Returns if option was stated.
 	 * 
-	 * @param theCommandOption option
+	 * @param theShortName option
 	 * @return if option in command line?
 	 *  
-	 * @version 0.1
+	 * @version 0.4.0
 	 * @since 0.1
 	 */
-	public static boolean hasOption(CommandOption theCommandOption) {
-		return theCommandLine.hasOption(theCommandOption.getOpt());
+	public static boolean hasOption(String theShortName) {
+		return cliCommandLine.hasOption(theShortName);
+	}
+
+	/**
+	 * Returns the calling class.
+	 * 
+	 * @return the calling class (abstract class if empty)
+	 * 
+	 * @version 0.4.0
+	 * @since 0.4.0
+	 */
+	public static Class<? extends AbstractMainClass> getCallingClass() {
+		return (clsCalling == null) ? AbstractMainClass.class : clsCalling;
+	}
+
+	/**
+	 * Sets calling class (for usage text).
+	 * 
+	 * @param theCallingClass the calling class
+	 * 
+	 * @version 0.4.0
+	 * @since 0.4.0
+	 */
+	public static void setCallingClass(Class<? extends AbstractMainClass> theCallingClass) {
+		clsCalling = theCallingClass;
+	}
+
+	/**
+	 * Returns the description.
+	 * 
+	 * @return the description (empty if not set)
+	 * 
+	 * @version 0.4.0
+	 * @since 0.4.0
+	 */
+	public static String getDescription() {
+		return (sDescription == null) ? "" : sDescription;
+	}
+
+	/**
+	 * Sets the description.
+	 * 
+	 * @param theDescription the description to set
+	 * 
+	 * @version 0.4.0
+	 * @since 0.4.0
+	 */
+	public static void setDescription(String theDescription) {
+		sDescription = theDescription;
 	}
 
 	/**
@@ -141,23 +181,28 @@ public abstract class AbstractMainClass {
 	 * 
 	 * @return usage message
 	 * 
-	 * @version 0.1
+	 * @version 0.4.0
 	 * @since 0.1
 	 */
 	public static String getUsage() {
-		StringBuffer sbReturn = new StringBuffer();
+		return getUsage(null);
+	}
+	
+	/**
+	 * Returns the usage message with exception message.
+	 * 
+	 * @return usage message
+	 * 
+	 * @version 0.4.0
+	 * @since 0.4.0
+	 */
+	public static String getUsage(Exception e) {
+		
+		HelpFormatter helpFormatter = new HelpFormatter();
+		helpFormatter.printHelp(getCallingClass().getSimpleName(), getDescription(), getOptions(), (e == null) ? "" : e.getMessage(), true);
+		
+		return "";
 
-		sbReturn.append(MessageFormat.format("Call: java -jar {0}.jar{1}",
-				theCallingClass.getSimpleName().toLowerCase(),
-				System.getProperty("line.separator")));
-
-		for (CommandOption theCommandOption : lstCommandOptions) {
-			sbReturn.append(MessageFormat.format("\t{0}{1}",
-					theCommandOption.getUsage(),
-					System.getProperty("line.separator")));
-		}
-
-		return sbReturn.toString();
 	}
 	
 }
