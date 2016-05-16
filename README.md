@@ -34,15 +34,24 @@ This means, there are always at least three branches:
 
 1. `master` - contains released versions
 2. `develop` - main synchronisation branch for feature, release, and hotfix branches
-3. `feature-work` - main wirking branch for development
+3. `feature/work` - main working branch for development
 
 Additionally, the following branches my occur:
 
-- `feature-*` - writing a special feature
-- `release-*` - synchronizing release versions between `develop` and `master`
-- `hotfix-*` - fast bugfixes
+- `feature/*` - writing a special feature
+- `release/*` - synchronizing release versions between `develop` and `master`
+- `hotfix/*` - fast bugfixes
 
 ## Released Versions
+
+### Version 0.4.0
+
+- using maven
+- no jars anymore, deployment via maven
+
+### Version 0.3.1
+
+- Hotfix: timestamp not abstract
 
 ### Version 0.3
 

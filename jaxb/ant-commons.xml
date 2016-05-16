@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project name="edgeUtilsCommons" default="help" basedir=".">
+
+	<target name="help" description="Shows help text.">
+		<echo>${ant.project.name}</echo>
+		<echo />
+		<echo>You can use the following targets:</echo>
+
+		<!-- show all available targets -->
+		<java classname="org.apache.tools.ant.Main">
+			<arg value="-projecthelp" />
+			<arg value="-buildfile" />
+			<arg value="${ant.file}" />
+		</java>
+	</target>
+
+	<target name="callxjc">
+		<antcall target="callxjc1b" />
+		<antcall target="callxjc2b" />
+	</target>
+
+	<target name="callxjc1b" unless="xjc:bindings2">
+		<!-- i.e. 1 binding -->
+
+		<exec executable="xjc">
+			<arg value="-b" /> <!-- specify external bindings files (each <file> must have its own -b) -->
+			<arg value="${xjc:bindings}" />
+			<arg value="-d" /> <!-- generated files will go into this directory -->
+			<arg value="${xjc:outpath}" />
+			<arg value="-p" /> <!-- specifies the target package -->
+			<arg value="${xjc:package}" />
+			<arg value="-encoding" /> <!-- specify character encoding for generated source files -->
+			<arg value="UTF-8" />
+			<arg value="-extension" /> <!-- allow vendor extensions - do not strictly follow the Compatibility Rules and App E.2 from the JAXB Spec -->
+			<arg value="-npa" /> <!-- suppress generation of package level annotations -->
+			<arg value="-no-header" /> <!-- suppress generation of a file header with timestamp -->
+			<arg value="${xjc:xsd}" />
+		</exec>
+
+	</target>
+
+	<target name="callxjc2b" if="xjc:bindings2">
+		<!-- i.e. 2 bindings -->
+
+		<exec executable="xjc">
+			<arg value="-b" /> <!-- specify external bindings files (each <file> must have its own -b) -->
+			<arg value="${xjc:bindings}" />
+			<arg value="-b" /> <!-- specify external bindings files (each <file> must have its own -b) -->
+			<arg value="${xjc:bindings2}" />
+			<arg value="-d" /> <!-- generated files will go into this directory -->
+			<arg value="${xjc:outpath}" />
+			<arg value="-p" /> <!-- specifies the target package -->
+			<arg value="${xjc:package}" />
+			<arg value="-encoding" /> <!-- specify character encoding for generated source files -->
+			<arg value="UTF-8" />
+			<arg value="-extension" /> <!-- allow vendor extensions - do not strictly follow the Compatibility Rules and App E.2 from the JAXB Spec -->
+			<arg value="-npa" /> <!-- suppress generation of package level annotations -->
+			<arg value="-no-header" /> <!-- suppress generation of a file header with timestamp -->
+			<arg value="${xjc:xsd}" />
+		</exec>
+
+	</target>
+
+	<target name="deletemodel">
+
+		<delete>
+			<fileset dir="${del:path}" includes="*.java" />
+		</delete>
+
+	</target>
+
+</project>
+
