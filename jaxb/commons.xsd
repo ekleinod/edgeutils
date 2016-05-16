@@ -4,13 +4,21 @@
 XSD Schema for common xsd structures.
 
 - InfoType
-	- elements: created, modified, version, creator
+	- extends: TimestampType
+	- elements: docversion, appversion, creator
+- TimestampType
+	- elements: created, modified
 - VersionType
-	- elements: major, minor, patch
+	- elements: major, minor, patch, additional
+	- extending class: ...ext.VersionTypeExt
 - IntGreaterEqualNull
 	- an integer that is greater or equal to 0
+- RefType
+	- reference to an id type
+- IDType
+	- element with an id that can be referenced
 
-v0.3.1
+v0.4
 
 ## Legal stuff
 
@@ -34,14 +42,15 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 						xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
-						jxb:version="2.0">
+						jxb:version="2.1">
 
 	<!-- Document metainformation. -->
 	<xsd:complexType name="InfoType">
 		<xsd:complexContent>
 			<xsd:extension base="TimestampType">
 				<xsd:sequence>
-					<xsd:element name="version" type="VersionType" minOccurs="1" maxOccurs="1" />
+					<xsd:element name="docversion" type="VersionType" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="appversion" type="VersionType" minOccurs="1" maxOccurs="1" />
 					<xsd:element name="creator" type="xsd:string" minOccurs="0" maxOccurs="1" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -56,33 +65,52 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 		</xsd:sequence>
 	</xsd:complexType>
 
-	<!-- Version: Major.Minor.Patch -->
+	<!-- Version: Major.Minor.Patch Additional -->
 	<xsd:complexType name="VersionType">
+		<xsd:annotation>
+			<xsd:documentation>Implementing class is not inline, because otherwise generation outside of edgeutils would fail.
+Therefore, this declaration is given in the `commons-only.xjb` bindings file.</xsd:documentation>
+		</xsd:annotation>
 		<xsd:sequence>
 			<xsd:element name="major" type="IntGreaterEqualNull" minOccurs="1" maxOccurs="1" />
-			<xsd:element name="minor" type="IntGreaterEqualNull" minOccurs="1" maxOccurs="1" />
-			<xsd:element name="patch" type="IntGreaterEqualNull" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="minor" type="IntGreaterEqualNull" minOccurs="0" maxOccurs="1" />
+			<xsd:element name="patch" type="IntGreaterEqualNull" minOccurs="0" maxOccurs="1" />
+			<xsd:element name="additional" type="AdditionalType" minOccurs="0" maxOccurs="1" />
 		</xsd:sequence>
 	</xsd:complexType>
 
-	<!-- Integer eqaul or greater than 0 -->
+	<!-- Additional type. -->
+	<xsd:complexType name="AdditionalType">
+		<xsd:simpleContent>
+			<xsd:extension base="IntGreaterEqualNull">
+				<xsd:attribute name="type" type="AdditionalTypeType" use="required" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+
+	<!-- Integer equal or greater than 0 -->
 	<xsd:simpleType name="IntGreaterEqualNull">
 		<xsd:restriction base="xsd:integer">
 			<xsd:minInclusive value="0" />
 		</xsd:restriction>
 	</xsd:simpleType>
 
+	<!-- Additional types -->
+	<xsd:simpleType name="AdditionalTypeType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="pre" />
+			<xsd:enumeration value="alpha" />
+			<xsd:enumeration value="beta" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
 	<!-- Generic type for references to ids (casting in java code required) -->
 	<xsd:complexType name="RefType">
-		<xsd:attribute name="idref" type="xsd:IDREF" use="required">
-			<xsd:annotation>
-				<xsd:appinfo>
-					<jxb:property>
-						<jxb:baseType name="IDType"/>
-					</jxb:property>
-				</xsd:appinfo>
-			</xsd:annotation>
-		</xsd:attribute>
+		<xsd:annotation>
+			<xsd:documentation>Connection of idref to IDType is not inline, because otherwise generation outside of edgeutils would fail.
+Therefore, this connection is made in the `commons-only.xjb` bindings file.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name="idref" type="xsd:IDREF" use="required" />
 	</xsd:complexType>
 
 	<!-- Generic type for elements with ids (casting in java code required) -->

@@ -5,8 +5,10 @@ There are some issues that, if you know how to work around, are not difficult to
 
 This readme file contains some of the points I found out using jaxb.
 
+- `ant-commons.xml` ant targets for all deriving projects
+- `build.xml` ant file for creating common model classes
 - `commons.xsd` common xsd structures/types
-- `commons.xjb` common jaxb bindings
+- `commons.xjb` common jaxb bindings (data types)
 
 ## Using commons.xsd
 

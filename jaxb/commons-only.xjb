@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Common bindings only for edgeutils.
+
+These bindings are necessary, because otherwise class generation outside of edgeutils fails.
+
+v0.4
+
+## Legal stuff
+
+Copyright 2014-2015 Ekkart Kleinod <ekleinod@edgesoft.de>
+
+This file is part of edgeUtils.
+
+edgeUtils is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+edgeUtils is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<jxb:bindings xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+							xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+							version="2.1">
+
+	<!-- bindings for commons -->
+	<jxb:bindings schemaLocation="commons.xsd">
+
+		<!-- idrefs reference id types -->
+		<jxb:bindings node="//xsd:complexType[@name='RefType']/xsd:attribute[@name='idref']">
+			<jxb:property>
+				<jxb:baseType name="IDType" />
+			</jxb:property>
+		</jxb:bindings>
+
+		<!-- implementing class for version type -->
+		<jxb:bindings node="//xsd:complexType[@name='VersionType']">
+			<jxb:class implClass="de.edgesoft.edgeutils.commons.ext.VersionTypeExt" />
+		</jxb:bindings>
+
+	</jxb:bindings>
+
+</jxb:bindings>
+
+<!-- EOF -->
+
