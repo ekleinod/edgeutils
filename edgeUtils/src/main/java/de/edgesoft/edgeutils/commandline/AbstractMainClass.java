@@ -16,6 +16,8 @@ import de.edgesoft.edgeutils.Messages;
 /**
  * Basic abstract class for classes with command line interface and a `main` method.
  * 
+ * For a sample implementation see {@link TestClass}.
+ * 
  * ## Legal stuff
  * 
  * Copyright 2010-2016 Ekkart Kleinod <ekleinod@edgesoft.de>
@@ -42,17 +44,29 @@ import de.edgesoft.edgeutils.Messages;
 public abstract class AbstractMainClass {
 	
 	/** Options. */
-	private static Options optOptions = null;
+	private Options optOptions = null;
 	
 	/** Command line values. */
-	private static CommandLine cliCommandLine = null;
+	private CommandLine cliCommandLine = null;
 	
 	/** Description of class. */
-	private static String sDescription = null;
-	
-	/** Calling class. */
-	private static Class<? extends AbstractMainClass> clsCalling = null;
+	private String sDescription = null;
 
+	/**
+	 * Programmatic entry point, initializing and executing main functionality.
+	 * 
+	 * - set description setDescription("...");
+	 * - add options addOption("short", "long", "description", argument?, required?);
+	 * - call init(args);
+	 * - call operation execution with arguments
+	 * 
+	 * @param args command line arguments
+	 * 
+	 * @version 0.4.0
+	 * @since 0.4.0
+	 */
+	public abstract void executeOperation(String[] args);
+		
 	/**
 	 * Initialization with and parsing of arguments.
 	 * 
@@ -64,7 +78,7 @@ public abstract class AbstractMainClass {
 	 * @version 0.4.0
 	 * @since 0.1
 	 */
-	public static void init(String[] args) {
+	public void init(String[] args) {
 		try {
 			// parse options
 			cliCommandLine = new DefaultParser().parse(getOptions(), args);
@@ -86,7 +100,7 @@ public abstract class AbstractMainClass {
 	 * @version 0.4.0
 	 * @since 0.1
 	 */
-	public static void addOption(String theShortName, String theLongName, String theDescription, boolean hasArgument, boolean isRequired) {
+	public void addOption(String theShortName, String theLongName, String theDescription, boolean hasArgument, boolean isRequired) {
 		getOptions().addOption(Option.builder(theShortName).longOpt(theLongName).desc(theDescription).hasArg(hasArgument).required(isRequired).build());
 	}
 	
@@ -98,7 +112,7 @@ public abstract class AbstractMainClass {
 	 * @version 0.4.0
 	 * @since 0.1
 	 */
-	public static Options getOptions() {
+	public Options getOptions() {
 		if (optOptions == null) {
 			optOptions = new Options();
 		}
@@ -114,7 +128,7 @@ public abstract class AbstractMainClass {
 	 * @version 0.4.0
 	 * @since 0.1
 	 */
-	public static String getOptionValue(String theShortName) {
+	public String getOptionValue(String theShortName) {
 		return cliCommandLine.getOptionValue(theShortName);
 	}
 
@@ -127,32 +141,8 @@ public abstract class AbstractMainClass {
 	 * @version 0.4.0
 	 * @since 0.1
 	 */
-	public static boolean hasOption(String theShortName) {
+	public boolean hasOption(String theShortName) {
 		return cliCommandLine.hasOption(theShortName);
-	}
-
-	/**
-	 * Returns the calling class.
-	 * 
-	 * @return the calling class (abstract class if empty)
-	 * 
-	 * @version 0.4.0
-	 * @since 0.4.0
-	 */
-	public static Class<? extends AbstractMainClass> getCallingClass() {
-		return (clsCalling == null) ? AbstractMainClass.class : clsCalling;
-	}
-
-	/**
-	 * Sets calling class (for usage text).
-	 * 
-	 * @param theCallingClass the calling class
-	 * 
-	 * @version 0.4.0
-	 * @since 0.4.0
-	 */
-	public static void setCallingClass(Class<? extends AbstractMainClass> theCallingClass) {
-		clsCalling = theCallingClass;
 	}
 
 	/**
@@ -163,7 +153,7 @@ public abstract class AbstractMainClass {
 	 * @version 0.4.0
 	 * @since 0.4.0
 	 */
-	public static String getDescription() {
+	public String getDescription() {
 		return (sDescription == null) ? "" : sDescription;
 	}
 
@@ -175,7 +165,7 @@ public abstract class AbstractMainClass {
 	 * @version 0.4.0
 	 * @since 0.4.0
 	 */
-	public static void setDescription(String theDescription) {
+	public void setDescription(String theDescription) {
 		sDescription = theDescription;
 	}
 
@@ -187,7 +177,7 @@ public abstract class AbstractMainClass {
 	 * @version 0.4.0
 	 * @since 0.1
 	 */
-	public static String getUsage() {
+	public String getUsage() {
 		return getUsage(null);
 	}
 	
@@ -208,7 +198,7 @@ public abstract class AbstractMainClass {
 	 * @version 0.4.0
 	 * @since 0.4.0
 	 */
-	public static String getUsage(Exception e) {
+	public String getUsage(Exception e) {
 		
 		HelpFormatter hFormatter = new HelpFormatter();
 		StringWriter sWriter = new StringWriter();
@@ -216,7 +206,7 @@ public abstract class AbstractMainClass {
 
 		hFormatter.printHelp(pWriter, 
 				hFormatter.getWidth(), 
-				getCallingClass().getSimpleName(), 
+				this.getClass().getSimpleName(), 
 				getDescription(), 
 				getOptions(), 
 				hFormatter.getLeftPadding(), 
