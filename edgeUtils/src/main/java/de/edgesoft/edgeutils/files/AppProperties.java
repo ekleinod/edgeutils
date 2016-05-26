@@ -1,6 +1,7 @@
 package de.edgesoft.edgeutils.files;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -68,6 +69,26 @@ public class AppProperties {
 		}
 	        
 		return appProps;
+		
+	}
+	
+	/**
+	 * Save properties.
+	 * 
+	 * @param theProps properties to save
+	 * @param thePropFile properties file
+	 * @param theComment comment (null for no comment)
+	 * 
+	 * @throws IOException if one occurs, just delegates thrown exceptions
+	 *  
+	 * @version 0.5.0
+	 * @since 0.5.0
+	 */
+	public static void saveProperties(Properties theProps, String thePropFile, String theComment) throws IOException {
+		
+		try (FileOutputStream stmOut = new FileOutputStream(thePropFile)) {
+			theProps.store(stmOut, theComment);
+		} 
 		
 	}
 	
