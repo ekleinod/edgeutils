@@ -1,16 +1,16 @@
 package de.edgesoft.edgeutils.files;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 
@@ -19,7 +19,7 @@ import java.util.Objects;
  * 
  * ## Legal stuff
  * 
- * Copyright 2010-2014 Ekkart Kleinod <ekleinod@edgesoft.de>
+ * Copyright 2010-2016 Ekkart Kleinod <ekleinod@edgesoft.de>
  * 
  * This file is part of edgeUtils.
  * 
@@ -59,7 +59,8 @@ public class FileAccess {
 	 * @version 0.5.0
 	 * @since 0.1
 	 */
-	public static void setEncoding(Charset newEncoding) {
+	public static void setEncoding(final Charset newEncoding) {
+		Objects.requireNonNull(newEncoding, "encoding must not be null");
 		theEncoding = newEncoding;
 	}
 	
@@ -69,26 +70,49 @@ public class FileAccess {
 	 * @param theFileName filename
 	 * @return file content
 	 * 
-	 * @throws Exception if one occurs, just delegates thrown exceptions
+	 * @throws Exception if one occurs
 	 *  
 	 * @version 0.5.0
 	 * @since 0.1
 	 */
-	public static StringBuilder readFile(String theFileName) throws Exception {
+	public static StringBuilder readFile(final String theFileName) throws Exception {
+		
+		Objects.requireNonNull(theFileName, "filename must not be null");
 		
 		StringBuilder sbReturn = new StringBuilder();
 		
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(theFileName), theEncoding))) {
-		
-			String sLine = "";
-			while ((sLine = reader.readLine()) != null) {
-				sbReturn.append(sLine);
-				sbReturn.append("\n");
-			}
-			
-		}
+		readFileInList(theFileName).stream().forEach(
+				(String line) -> {
+					sbReturn.append(line);
+					sbReturn.append(System.lineSeparator());
+					}
+				);
 		
 		return sbReturn;
+	}
+	        
+	/**
+	 * Read content of a file as list.
+	 * 
+	 * @param theFileName filename
+	 * @return file content as list
+	 * 
+	 * @throws Exception if one occurs
+	 *  
+	 * @version 0.5.0
+	 * @since 0.5.0
+	 */
+	public static List<String> readFileInList(final String theFileName) throws Exception {
+		
+		Objects.requireNonNull(theFileName, "filename must not be null");
+		
+		Stream<String> stmFileContent = Files.lines(Paths.get(theFileName), theEncoding);
+		
+		List<String> lstReturn = stmFileContent.collect(Collectors.toList());
+		
+		stmFileContent.close();
+		
+		return lstReturn;
 	}
 	        
 	/**

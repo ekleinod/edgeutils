@@ -1,9 +1,11 @@
 package de.edgesoft.edgeutils.files;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.FileSystemException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.nio.file.attribute.PosixFilePermissions;
 
@@ -42,8 +44,11 @@ import org.junit.rules.ExpectedException;
  */
 public class FileAccessTest {
 	
-	/** File name default property file: */
+	/** File name. */
 	private static final String FILENAME = String.format("%s.txt", FileAccessTest.class.getSimpleName().toLowerCase());
+	
+	/** Test text. */
+	private static final String TESTTEXT = String.format("Testtext%nLore ipsum.%n\t  mehr Test mit Leerzeichen  .   \t%nUnd Umlauten: äöüÄÖÜß");
 	
 	/**
 	 * Delete files.
@@ -72,8 +77,8 @@ public class FileAccessTest {
 	@Test
 	public void testErrorReadFileNotFound() throws Exception {
 
-		exception.expect(FileNotFoundException.class);
-		exception.expectMessage(String.format("%s (No such file or directory)", FILENAME));
+		exception.expect(NoSuchFileException.class);
+		exception.expectMessage(FILENAME);
 		FileAccess.readFile(FILENAME);
 		
 	}
@@ -86,8 +91,8 @@ public class FileAccessTest {
 
 		Files.createDirectory(Paths.get(FILENAME));
 		
-		exception.expect(FileNotFoundException.class);
-		exception.expectMessage(String.format("%s (Is a directory)", FILENAME));
+		exception.expect(UncheckedIOException.class);
+		exception.expectMessage(String.format("%s: Is a directory", IOException.class.getCanonicalName()));
 		FileAccess.readFile(FILENAME);
 		
 	}
@@ -169,6 +174,42 @@ public class FileAccessTest {
 	}
 	
 	/**
+	 * Tests encoding params null.
+	 */
+	@Test
+	public void testErrorEncodingParamsNull() throws Exception {
+
+		exception.expect(NullPointerException.class);
+		exception.expectMessage("encoding must not be null");
+		FileAccess.setEncoding(null);
+		
+	}
+	
+	/**
+	 * Tests read params null.
+	 */
+	@Test
+	public void testErrorReadParamsNull() throws Exception {
+
+		exception.expect(NullPointerException.class);
+		exception.expectMessage("filename must not be null");
+		FileAccess.readFile(null);
+		
+	}
+	
+	/**
+	 * Tests read list params null.
+	 */
+	@Test
+	public void testErrorReadListParamsNull() throws Exception {
+
+		exception.expect(NullPointerException.class);
+		exception.expectMessage("filename must not be null");
+		FileAccess.readFileInList(null);
+		
+	}
+	
+	/**
 	 * Tests write - read cycle.
 	 */
 	@SuppressWarnings("static-method")
@@ -177,7 +218,7 @@ public class FileAccessTest {
 		
 		try {
 			
-			FileAccess.writeFile(FILENAME, "Testtext\nLore ipsum.\n\t  mehr Test mit Leerzeichen  .   \t\nUnd Umlaute: äöüÄÖÜß");
+			FileAccess.writeFile(FILENAME, TESTTEXT);
 			
 			Assert.assertTrue(String.format("File '%s' does not exist.", Paths.get(FILENAME)), Files.exists(Paths.get(FILENAME)));
 			Assert.assertTrue(String.format("File '%s' is no regular file.", Paths.get(FILENAME)), Files.isRegularFile(Paths.get(FILENAME)));
@@ -186,6 +227,14 @@ public class FileAccessTest {
 			Assert.assertTrue(String.format("File '%s' is not writeable.", Paths.get(FILENAME)), Files.isWritable(Paths.get(FILENAME)));
 			
 			Assert.assertEquals(4, Files.readAllLines(Paths.get(FILENAME)).size());
+			
+			StringBuilder sbTest = FileAccess.readFile(FILENAME);
+			
+			Assert.assertNotNull(sbTest);
+			
+			StringBuilder sbExpected = new StringBuilder(TESTTEXT);
+			sbExpected.append(System.lineSeparator());
+			Assert.assertEquals(sbExpected.toString(), sbTest.toString());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
