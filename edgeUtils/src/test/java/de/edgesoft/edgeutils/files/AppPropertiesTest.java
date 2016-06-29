@@ -1,8 +1,10 @@
 package de.edgesoft.edgeutils.files;
 
-import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.Properties;
 
@@ -53,7 +55,7 @@ public class AppPropertiesTest {
 	 */
 	@BeforeClass
 	public static void savePropfiles() throws Exception {
-		FileAccess.setEncoding(StandardCharsets.ISO_8859_1.name());
+		FileAccess.setEncoding(StandardCharsets.ISO_8859_1);
 		FileAccess.writeFile(DEFAULT, "color=blue\nperson=me\nname=täter");
 		FileAccess.writeFile(APP, "color=red");
 	}
@@ -64,10 +66,8 @@ public class AppPropertiesTest {
 	 */
 	@AfterClass
 	public static void deletePropfiles() throws Exception {
-		File fleTemp = new File(DEFAULT);
-		fleTemp.delete();
-		fleTemp = new File(APP);
-		fleTemp.delete();
+		Files.deleteIfExists(Paths.get(DEFAULT));
+		Files.deleteIfExists(Paths.get(APP));
 	}
 	
 	/**
@@ -77,15 +77,14 @@ public class AppPropertiesTest {
 	public ExpectedException exception = ExpectedException.none();
 	
 	/**
-	 * Tests extreme cases.
+	 * Tests null null.
 	 */
+	@SuppressWarnings("static-method")
 	@Test
-	public void testError() throws IOException {
-		
-		Properties prpTest = null;
+	public void testErrorNullNull() {
 		
 		try {
-			prpTest = AppProperties.getProperties(null, null);
+			Properties prpTest = AppProperties.getProperties(null, null);
 			
 			Assert.assertNotNull(prpTest);
 			Assert.assertEquals(new Properties(), prpTest);
@@ -93,23 +92,48 @@ public class AppPropertiesTest {
 			Assert.fail(e.getMessage());
 		}
 
-		exception.expect(IOException.class);
-		exception.expectMessage("missing.properties (No such file or directory)");
-		prpTest = AppProperties.getProperties("missing.properties", null);
+	}
+	
+	/**
+	 * Tests missing null.
+	 */
+	@Test
+	public void testErrorMissingNull() throws IOException {
 		
-		exception.expect(IOException.class);
+		exception.expect(FileNotFoundException.class);
 		exception.expectMessage("missing.properties (No such file or directory)");
-		prpTest = AppProperties.getProperties(null, "missing.properties");
+		AppProperties.getProperties("missing.properties", null);
 		
-		exception.expect(IOException.class);
+	}
+	
+	/**
+	 * Tests null missing.
+	 */
+	@Test
+	public void testErrorNullMissing() throws IOException {
+		
+		exception.expect(FileNotFoundException.class);
 		exception.expectMessage("missing.properties (No such file or directory)");
-		prpTest = AppProperties.getProperties("missing.properties", "missing.properties");
+		AppProperties.getProperties(null, "missing.properties");
+		
+	}
+	
+	/**
+	 * Tests missing missing.
+	 */
+	@Test
+	public void testErrorMissingMissing() throws IOException {
+		
+		exception.expect(FileNotFoundException.class);
+		exception.expectMessage("missing.properties (No such file or directory)");
+		AppProperties.getProperties("missing.properties", "missing.properties");
 		
 	}
 	
 	/**
 	 * Tests default.
 	 */
+	@SuppressWarnings("static-method")
 	@Test
 	public void testDefault() {
 		
@@ -137,6 +161,7 @@ public class AppPropertiesTest {
 	/**
 	 * Tests app.
 	 */
+	@SuppressWarnings("static-method")
 	@Test
 	public void testApp() {
 		
@@ -164,6 +189,7 @@ public class AppPropertiesTest {
 	/**
 	 * Tests both.
 	 */
+	@SuppressWarnings("static-method")
 	@Test
 	public void testBoth() {
 		
@@ -191,6 +217,7 @@ public class AppPropertiesTest {
 	/**
 	 * Tests change.
 	 */
+	@SuppressWarnings("static-method")
 	@Test
 	public void testChange() {
 		
