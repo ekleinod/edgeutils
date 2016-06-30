@@ -133,7 +133,7 @@ public class FileAccessTest {
 
 		exception.expect(NullPointerException.class);
 		exception.expectMessage("filename must not be null");
-		FileAccess.writeFile(null, null);
+		FileAccess.writeFile(null, (String) null);
 		
 	}
 	
@@ -157,7 +157,7 @@ public class FileAccessTest {
 
 		exception.expect(NullPointerException.class);
 		exception.expectMessage("content must not be null");
-		FileAccess.writeFile("", null);
+		FileAccess.writeFile("", (String) null);
 		
 	}
 	

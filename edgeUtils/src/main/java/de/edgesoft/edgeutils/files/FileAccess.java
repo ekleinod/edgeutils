@@ -123,12 +123,33 @@ public class FileAccess {
 	 * @param theFileName filename
 	 * @param theContent file content
 	 *  
-	 * @throws Exception if one occurs, just delegates thrown exceptions; throws own exceptions
+	 * @throws Exception if one occurs
 	 *  
 	 * @version 0.5.0
 	 * @since 0.1
 	 */
 	public static void writeFile(final String theFileName, final String theContent) throws IOException {
+		
+		Objects.requireNonNull(theFileName, "filename must not be null");
+		Objects.requireNonNull(theContent, "content must not be null");
+		
+		writeFile(theFileName, Arrays.asList(theContent));
+	}
+	
+	/**
+	 * Write list content to a file.
+	 * 
+	 * This method creates the whole path to the file, if it does not exist.
+	 * 
+	 * @param theFileName filename
+	 * @param theContent file content (list)
+	 *  
+	 * @throws Exception if one occurs
+	 *  
+	 * @version 0.5.0
+	 * @since 0.5.0
+	 */
+	public static void writeFile(final String theFileName, final List<String> theContent) throws IOException {
 		
 		Objects.requireNonNull(theFileName, "filename must not be null");
 		Objects.requireNonNull(theContent, "content must not be null");
@@ -139,7 +160,7 @@ public class FileAccess {
 			Files.createDirectories(outFilePath.getParent());
 		}
 		
-		Files.write(outFilePath, Arrays.asList(theContent), theEncoding);
+		Files.write(outFilePath, theContent, theEncoding);
 
 	}
 	
