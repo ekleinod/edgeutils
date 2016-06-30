@@ -49,6 +49,10 @@ Additionally, the following branches my occur:
 
 ## Released Versions
 
+### Version 0.5.1
+
+- hotfix: filenames are paths now instead of strings
+
 ### Version 0.5.0
 
 - file access based on Java 8

@@ -5,7 +5,6 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -72,10 +71,10 @@ public class FileAccess {
 	 * 
 	 * @throws Exception if one occurs
 	 *  
-	 * @version 0.5.0
+	 * @version 0.5.1
 	 * @since 0.1
 	 */
-	public static StringBuilder readFile(final String theFileName) throws Exception {
+	public static StringBuilder readFile(final Path theFileName) throws Exception {
 		
 		Objects.requireNonNull(theFileName, "filename must not be null");
 		
@@ -99,14 +98,14 @@ public class FileAccess {
 	 * 
 	 * @throws Exception if one occurs
 	 *  
-	 * @version 0.5.0
+	 * @version 0.5.1
 	 * @since 0.5.0
 	 */
-	public static List<String> readFileInList(final String theFileName) throws Exception {
+	public static List<String> readFileInList(final Path theFileName) throws Exception {
 		
 		Objects.requireNonNull(theFileName, "filename must not be null");
 		
-		Stream<String> stmFileContent = Files.lines(Paths.get(theFileName), theEncoding);
+		Stream<String> stmFileContent = Files.lines(theFileName, theEncoding);
 		
 		List<String> lstReturn = stmFileContent.collect(Collectors.toList());
 		
@@ -125,10 +124,10 @@ public class FileAccess {
 	 *  
 	 * @throws Exception if one occurs
 	 *  
-	 * @version 0.5.0
+	 * @version 0.5.1
 	 * @since 0.1
 	 */
-	public static void writeFile(final String theFileName, final String theContent) throws IOException {
+	public static void writeFile(final Path theFileName, final String theContent) throws IOException {
 		
 		Objects.requireNonNull(theFileName, "filename must not be null");
 		Objects.requireNonNull(theContent, "content must not be null");
@@ -146,21 +145,19 @@ public class FileAccess {
 	 *  
 	 * @throws Exception if one occurs
 	 *  
-	 * @version 0.5.0
+	 * @version 0.5.1
 	 * @since 0.5.0
 	 */
-	public static void writeFile(final String theFileName, final List<String> theContent) throws IOException {
+	public static void writeFile(final Path theFileName, final List<String> theContent) throws IOException {
 		
 		Objects.requireNonNull(theFileName, "filename must not be null");
 		Objects.requireNonNull(theContent, "content must not be null");
 		
-		Path outFilePath = Paths.get(theFileName);
-	        
-		if (outFilePath.getParent() != null) {
-			Files.createDirectories(outFilePath.getParent());
+		if (theFileName.getParent() != null) {
+			Files.createDirectories(theFileName.getParent());
 		}
 		
-		Files.write(outFilePath, theContent, theEncoding);
+		Files.write(theFileName, theContent, theEncoding);
 
 	}
 	
