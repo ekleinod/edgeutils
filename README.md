@@ -2,8 +2,8 @@
 
 This project contains utilities for my projects.
 
-- java
-	- classes
+- edgeUtils
+	- java classes
 - jaxb
 	- schemata
 	- bindings
@@ -16,12 +16,17 @@ Feel free to use them in your project, I am using a LGPL license, which means:
 - you can use the classes even in commercial projects
 - if you modify the classes, you have to apply LGPL to the modified classes and reveal their source code
 
-I am using other libraries in this project:
+I am using other libraries in this project (via maven):
 
 - apache commons cli
 	- API for parsing command line options
-	- http://commons.apache.org/proper/commons-cli/
 	- license: Apache License, Version 2.0, see http://www.apache.org/licenses/LICENSE-2.0
+- log4j
+	- logging framework
+	- license: Apache License, Version 2.0, see http://www.apache.org/licenses/LICENSE-2.0
+- JUnit
+	- unit testing framework
+	- license: Eclipse Public License, Version 1.0, see https://www.eclipse.org/legal/epl-v10.html
 
 
 
@@ -43,6 +48,12 @@ Additionally, the following branches my occur:
 - `hotfix/*` - fast bugfixes
 
 ## Released Versions
+
+### Version 0.5.0
+
+- file access based on Java 8
+- property file class
+- started with unit tests
 
 ### Version 0.4.0
 
@@ -78,7 +89,7 @@ Classes for easing the use of
 
 ## Copyright
 
-Copyright 2010-2014 Ekkart Kleinod <ekleinod@edgesoft.de>
+Copyright 2010-2016 Ekkart Kleinod <ekleinod@edgesoft.de>
 
 The program is distributed under the terms of the GNU Lesser General Public License.
 
