@@ -95,16 +95,23 @@ public class AbstractMainClassTest {
 	public void testUsage() {
 		
 		StringBuilder sbTest = new StringBuilder();
-		sbTest.append("usage: TestClass [-a <arg>] [-n] -r -t <arg>\n");
-		sbTest.append("JUnit test class.\n");
-		sbTest.append(" -a,--argument <arg>   optional parameter with argument\n");
-		sbTest.append(" -n,--non-argument     optional parameter without argument\n");
-		sbTest.append(" -r,--required         required parameter without argument\n");
-		sbTest.append(" -t,--true <arg>       required parameter with argument\n");
+		sbTest.append("usage: TestClass [-a <arg>] [-n] -r -t <arg>");
+		sbTest.append(System.lineSeparator());
+		sbTest.append("JUnit test class.");
+		sbTest.append(System.lineSeparator());
+		sbTest.append(" -a,--argument <arg>   optional parameter with argument");
+		sbTest.append(System.lineSeparator());
+		sbTest.append(" -n,--non-argument     optional parameter without argument");
+		sbTest.append(System.lineSeparator());
+		sbTest.append(" -r,--required         required parameter without argument");
+		sbTest.append(System.lineSeparator());
+		sbTest.append(" -t,--true <arg>       required parameter with argument");
+		sbTest.append(System.lineSeparator());
 		
 		Assert.assertEquals(sbTest.toString(), clsTest.getUsage());
 
-		sbTest.append("null test\n");
+		sbTest.append("null test");
+		sbTest.append(System.lineSeparator());
 		Assert.assertEquals(sbTest.toString(), clsTest.getUsage(new NullPointerException("null test")));
 
 	}
