@@ -56,8 +56,8 @@ public class AppPropertiesTest {
 	@BeforeClass
 	public static void savePropfiles() throws Exception {
 		FileAccess.setEncoding(StandardCharsets.ISO_8859_1);
-		FileAccess.writeFile(DEFAULT, "color=blue\nperson=me\nname=täter");
-		FileAccess.writeFile(APP, "color=red");
+		FileAccess.writeFile(Paths.get(DEFAULT), "color=blue\nperson=me\nname=täter");
+		FileAccess.writeFile(Paths.get(APP), "color=red");
 	}
 	
 	/**

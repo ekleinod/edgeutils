@@ -79,7 +79,7 @@ public class FileAccessTest {
 
 		exception.expect(NoSuchFileException.class);
 		exception.expectMessage(FILENAME);
-		FileAccess.readFile(FILENAME);
+		FileAccess.readFile(Paths.get(FILENAME));
 		
 	}
 	
@@ -93,7 +93,7 @@ public class FileAccessTest {
 		
 		exception.expect(UncheckedIOException.class);
 		exception.expectMessage(String.format("%s: Is a directory", IOException.class.getCanonicalName()));
-		FileAccess.readFile(FILENAME);
+		FileAccess.readFile(Paths.get(FILENAME));
 		
 	}
 	
@@ -107,7 +107,7 @@ public class FileAccessTest {
 		
 		exception.expect(FileSystemException.class);
 		exception.expectMessage(String.format("%s: Is a directory", FILENAME));
-		FileAccess.writeFile(FILENAME, "");
+		FileAccess.writeFile(Paths.get(FILENAME), "");
 		
 	}
 	
@@ -121,7 +121,7 @@ public class FileAccessTest {
 		
 		exception.expect(AccessDeniedException.class);
 		exception.expectMessage(FILENAME);
-		FileAccess.writeFile(FILENAME, "");
+		FileAccess.writeFile(Paths.get(FILENAME), "");
 		
 	}
 	
@@ -157,7 +157,7 @@ public class FileAccessTest {
 
 		exception.expect(NullPointerException.class);
 		exception.expectMessage("content must not be null");
-		FileAccess.writeFile("", (String) null);
+		FileAccess.writeFile(Paths.get(""), (String) null);
 		
 	}
 	
@@ -169,7 +169,7 @@ public class FileAccessTest {
 
 		exception.expect(FileSystemException.class);
 		exception.expectMessage(": Is a directory");
-		FileAccess.writeFile("", "");
+		FileAccess.writeFile(Paths.get(""), "");
 		
 	}
 	
@@ -218,7 +218,7 @@ public class FileAccessTest {
 		
 		try {
 			
-			FileAccess.writeFile(FILENAME, TESTTEXT);
+			FileAccess.writeFile(Paths.get(FILENAME), TESTTEXT);
 			
 			Assert.assertTrue(String.format("File '%s' does not exist.", Paths.get(FILENAME)), Files.exists(Paths.get(FILENAME)));
 			Assert.assertTrue(String.format("File '%s' is no regular file.", Paths.get(FILENAME)), Files.isRegularFile(Paths.get(FILENAME)));
@@ -228,7 +228,7 @@ public class FileAccessTest {
 			
 			Assert.assertEquals(4, Files.readAllLines(Paths.get(FILENAME)).size());
 			
-			StringBuilder sbTest = FileAccess.readFile(FILENAME);
+			StringBuilder sbTest = FileAccess.readFile(Paths.get(FILENAME));
 			
 			Assert.assertNotNull(sbTest);
 			
