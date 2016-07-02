@@ -31,22 +31,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AdditionalType }
-     * 
-     */
-    public AdditionalType createAdditionalType() {
-        return new AdditionalType();
-    }
-
-    /**
-     * Create an instance of {@link VersionType }
-     * 
-     */
-    public VersionType createVersionType() {
-        return new VersionTypeExt();
-    }
-
-    /**
      * Create an instance of {@link RefType }
      * 
      */
@@ -55,11 +39,35 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link AdditionalType }
+     * 
+     */
+    public AdditionalType createAdditionalType() {
+        return new AdditionalType();
+    }
+
+    /**
+     * Create an instance of {@link TimestampType }
+     * 
+     */
+    public TimestampType createTimestampType() {
+        return new TimestampType();
+    }
+
+    /**
      * Create an instance of {@link InfoType }
      * 
      */
     public InfoType createInfoType() {
         return new InfoType();
+    }
+
+    /**
+     * Create an instance of {@link VersionType }
+     * 
+     */
+    public VersionType createVersionType() {
+        return new VersionTypeExt();
     }
 
 }

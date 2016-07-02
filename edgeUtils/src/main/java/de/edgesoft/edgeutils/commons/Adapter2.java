@@ -1,22 +1,23 @@
 
 package de.edgesoft.edgeutils.commons;
 
+import java.util.Calendar;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 public class Adapter2
-    extends XmlAdapter<String, Integer>
+    extends XmlAdapter<String, Calendar>
 {
 
 
-    public Integer unmarshal(String value) {
-        return (javax.xml.bind.DatatypeConverter.parseInt(value));
+    public Calendar unmarshal(String value) {
+        return (javax.xml.bind.DatatypeConverter.parseDate(value));
     }
 
-    public String marshal(Integer value) {
+    public String marshal(Calendar value) {
         if (value == null) {
             return null;
         }
-        return (javax.xml.bind.DatatypeConverter.printInt(value));
+        return (javax.xml.bind.DatatypeConverter.printDate(value));
     }
 
 }
