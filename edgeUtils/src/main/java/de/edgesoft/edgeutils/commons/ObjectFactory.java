@@ -1,7 +1,10 @@
 
 package de.edgesoft.edgeutils.commons;
 
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
+import javax.xml.namespace.QName;
 import de.edgesoft.edgeutils.commons.ext.VersionTypeExt;
 
 
@@ -22,12 +25,21 @@ import de.edgesoft.edgeutils.commons.ext.VersionTypeExt;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _Test_QNAME = new QName("", "test");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: de.edgesoft.edgeutils.commons
      * 
      */
     public ObjectFactory() {
+    }
+
+    /**
+     * Create an instance of {@link InfoType }
+     * 
+     */
+    public InfoType createInfoType() {
+        return new InfoType();
     }
 
     /**
@@ -55,19 +67,20 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link InfoType }
-     * 
-     */
-    public InfoType createInfoType() {
-        return new InfoType();
-    }
-
-    /**
      * Create an instance of {@link VersionType }
      * 
      */
     public VersionType createVersionType() {
         return new VersionTypeExt();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link InfoType }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "test")
+    public JAXBElement<InfoType> createTest(InfoType value) {
+        return new JAXBElement<InfoType>(_Test_QNAME, InfoType.class, null, value);
     }
 
 }

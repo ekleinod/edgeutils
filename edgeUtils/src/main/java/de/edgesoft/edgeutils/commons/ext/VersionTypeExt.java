@@ -13,7 +13,7 @@ import de.edgesoft.edgeutils.commons.VersionType;
  * 
  * ## Legal stuff
  * 
- * Copyright 2010-2015 Ekkart Kleinod <ekleinod@edgesoft.de>
+ * Copyright 2010-2016 Ekkart Kleinod <ekleinod@edgesoft.de>
  * 
  * This file is part of edgeUtils.
  * 
@@ -31,7 +31,7 @@ import de.edgesoft.edgeutils.commons.VersionType;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * @author Ekkart Kleinod
- * @version 0.4
+ * @version 0.6.0
  * @since 0.4
  */
 public class VersionTypeExt extends VersionType {
@@ -101,6 +101,40 @@ public class VersionTypeExt extends VersionType {
 			setPatch(Integer.parseInt(lstTemp.get(index)));
 		}
 		
+	}
+	
+	/**
+	 * Creates string representation of version.
+	 * 
+	 * @return string representation of version
+	 * 
+	 * @version 0.6.0
+	 * @since 0.6.0
+	 */
+	@Override
+	public String toString() {
+		StringBuilder sbReturn = new StringBuilder();
+		
+		sbReturn.append(getMajor());
+		
+		if (getMinor() != null) {
+			sbReturn.append(".");
+			sbReturn.append(getMinor());
+			
+			if (getPatch() != null) {
+				sbReturn.append(".");
+				sbReturn.append(getPatch());
+			}
+		}
+		
+		if (getAdditional() != null) {
+			sbReturn.append(" ");
+			sbReturn.append(getAdditional().getType().value());
+			sbReturn.append(" ");
+			sbReturn.append(getAdditional().getValue());
+		}
+		
+		return sbReturn.toString();
 	}
 	
 }

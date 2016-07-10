@@ -107,6 +107,7 @@ public class JAXBFiles {
 			return doc.getValue();
 			
 		} catch (JAXBException e) {
+			e.printStackTrace();
 			throw new EdgeUtilsException(MessageFormat.format("Error reading data: {0}", e.getMessage()));
 		}
 	}
@@ -210,7 +211,7 @@ public class JAXBFiles {
 		try {
 			
 			Marshaller m = JAXBContext.newInstance(theDataElement.getDeclaredType().getPackage().getName()).createMarshaller();
-			m.setProperty(Marshaller.JAXB_ENCODING, theEncoding);
+			m.setProperty(Marshaller.JAXB_ENCODING, theEncoding.name());
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			
 			if (theSchema != null) {
@@ -250,7 +251,7 @@ public class JAXBFiles {
 		try {
 			
 			Marshaller m = JAXBContext.newInstance(theDataElement.getDeclaredType().getPackage().getName()).createMarshaller();
-			m.setProperty(Marshaller.JAXB_ENCODING, theEncoding);
+			m.setProperty(Marshaller.JAXB_ENCODING, theEncoding.name());
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			
 			if (theSchema != null) {
