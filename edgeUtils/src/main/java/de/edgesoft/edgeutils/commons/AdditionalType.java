@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class AdditionalType {
 
     @XmlValue
-    @XmlJavaTypeAdapter(Adapter2 .class)
+    @XmlJavaTypeAdapter(Adapter1 .class)
     protected Integer value;
     @XmlAttribute(name = "type", required = true)
     protected AdditionalTypeType type;

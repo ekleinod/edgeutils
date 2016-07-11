@@ -51,7 +51,7 @@ public class FileAccess {
 	 * 
 	 * Use them as follows, example: UTF-8:
 	 * 
-	 *   JAXBFiles.setEncoding(StandardCharsets.UTF_8);
+	 *   FileAccess.setEncoding(StandardCharsets.UTF_8);
 	 * 
 	 * @param newEncoding the file encoding
 	 * 

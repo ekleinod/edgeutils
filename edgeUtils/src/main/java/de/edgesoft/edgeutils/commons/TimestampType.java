@@ -1,7 +1,7 @@
 
 package de.edgesoft.edgeutils.commons;
 
-import java.util.Calendar;
+import java.time.LocalDateTime;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import de.edgesoft.edgeutils.commons.ext.LocalDateTimeAdapter;
 
 
 /**
@@ -39,16 +40,16 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlSeeAlso({
     InfoType.class
 })
-public abstract class TimestampType {
+public class TimestampType {
 
     @XmlElement(required = true, type = String.class)
-    @XmlJavaTypeAdapter(Adapter1 .class)
+    @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
     @XmlSchemaType(name = "dateTime")
-    protected Calendar created;
+    protected LocalDateTime created;
     @XmlElement(required = true, type = String.class)
-    @XmlJavaTypeAdapter(Adapter1 .class)
+    @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
     @XmlSchemaType(name = "dateTime")
-    protected Calendar modified;
+    protected LocalDateTime modified;
 
     /**
      * Gets the value of the created property.
@@ -58,7 +59,7 @@ public abstract class TimestampType {
      *     {@link String }
      *     
      */
-    public Calendar getCreated() {
+    public LocalDateTime getCreated() {
         return created;
     }
 
@@ -70,7 +71,7 @@ public abstract class TimestampType {
      *     {@link String }
      *     
      */
-    public void setCreated(Calendar value) {
+    public void setCreated(LocalDateTime value) {
         this.created = value;
     }
 
@@ -82,7 +83,7 @@ public abstract class TimestampType {
      *     {@link String }
      *     
      */
-    public Calendar getModified() {
+    public LocalDateTime getModified() {
         return modified;
     }
 
@@ -94,7 +95,7 @@ public abstract class TimestampType {
      *     {@link String }
      *     
      */
-    public void setModified(Calendar value) {
+    public void setModified(LocalDateTime value) {
         this.modified = value;
     }
 

@@ -5,8 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.Reader;
 import java.io.StringWriter;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
+import java.util.Objects;
 
 import javax.xml.bind.JAXB;
 import javax.xml.bind.JAXBContext;
@@ -30,7 +32,7 @@ import de.edgesoft.edgeutils.EdgeUtilsException;
  * 
  * ## Legal stuff
  * 
- * Copyright 2010-2014 Ekkart Kleinod <ekleinod@edgesoft.de>
+ * Copyright 2010-2016 Ekkart Kleinod <ekleinod@edgesoft.de>
  * 
  * This file is part of edgeUtils.
  * 
@@ -48,32 +50,33 @@ import de.edgesoft.edgeutils.EdgeUtilsException;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * @author Ekkart Kleinod
- * @version 0.2
+ * @version 0.6.0
  * @since 0.1
  */
 public class JAXBFiles {
 	
 	/** Standard encoding to use: UTF-8. */
-	private static String sEncoding = StandardCharsets.UTF_8.name();
+	private static Charset theEncoding = StandardCharsets.UTF_8;
 	
 	/**
 	 * Sets the file encoding.
 	 * 
-	 * Encoding is not checked for validity.
 	 * For the standard encodings see java.nio.charsets.StandardCharsets.
 	 * 
 	 * Use them as follows, example: UTF-8:
 	 * 
-	 *   JAXBFiles.setEncoding(StandardCharsets.UTF_8.name());
+	 *   JAXBFiles.setEncoding(StandardCharsets.UTF_8);
 	 * 
-	 * @param theEncoding the filename of the file to unmarshal
+	 * @param newEncoding the file encoding
 	 * 
-	 * @version 0.1
+	 * @version 0.6.0
 	 * @since 0.1
 	 */
-	public static void setEncoding(String theEncoding) {
-		sEncoding = theEncoding;
+	public static void setEncoding(final Charset newEncoding) {
+		Objects.requireNonNull(newEncoding, "encoding must not be null");
+		theEncoding = newEncoding;
 	}
+	
 	
 	/**
 	 * Returns the xml data object saved in the supplied file.
@@ -84,10 +87,13 @@ public class JAXBFiles {
 	 * 
 	 * @throws EdgeUtilsException if some JAXB-error happened
 	 * 
-	 * @version 0.1
+	 * @version 0.6.0
 	 * @since 0.1
 	 */
 	public static <T> T unmarshal(String theFileName, Class<T> theClass) throws EdgeUtilsException {
+		
+		Objects.requireNonNull(theFileName, "file name must not be null");
+		Objects.requireNonNull(theClass, "class must not be null");
 		
 		try {
 			
@@ -116,10 +122,13 @@ public class JAXBFiles {
 	 * 
 	 * @throws EdgeUtilsException if some JAXB-error happened
 	 * 
-	 * @version 0.2
+	 * @version 0.6.0
 	 * @since 0.2
 	 */
 	public static <T> T unmarshalInclude(String theFileName, Class<T> theClass) throws EdgeUtilsException {
+		
+		Objects.requireNonNull(theFileName, "file name must not be null");
+		Objects.requireNonNull(theClass, "class must not be null");
 		
 		try {
 			
@@ -154,10 +163,13 @@ public class JAXBFiles {
 	 * 
 	 * @throws EdgeUtilsException if some JAXB-error happened
 	 * 
-	 * @version 0.1
+	 * @version 0.6.0
 	 * @since 0.1
 	 */
 	public static <T> T unmarshal(Reader theReader, Class<T> theClass) throws EdgeUtilsException {
+		
+		Objects.requireNonNull(theReader, "reader must not be null");
+		Objects.requireNonNull(theClass, "class must not be null");
 		
 		try {
 			
@@ -187,15 +199,18 @@ public class JAXBFiles {
 	 * 
 	 * @throws EdgeUtilsException if some JAXB-error happened
 	 * 
-	 * @version 0.1
+	 * @version 0.6.0
 	 * @since 0.1
 	 */
 	public static <T> void marshal(JAXBElement<T> theDataElement, String theFileName, String theSchema) throws EdgeUtilsException {
 		
+		Objects.requireNonNull(theDataElement, "data element must not be null");
+		Objects.requireNonNull(theFileName, "file name must not be null");
+		
 		try {
 			
 			Marshaller m = JAXBContext.newInstance(theDataElement.getDeclaredType().getPackage().getName()).createMarshaller();
-			m.setProperty(Marshaller.JAXB_ENCODING, sEncoding);
+			m.setProperty(Marshaller.JAXB_ENCODING, theEncoding.name());
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			
 			if (theSchema != null) {
@@ -225,15 +240,17 @@ public class JAXBFiles {
 	 * 
 	 * @throws EdgeUtilsException if some JAXB-error happened
 	 * 
-	 * @version 0.1
+	 * @version 0.6.0
 	 * @since 0.1
 	 */
 	public static <T> String marshalToString(JAXBElement<T> theDataElement, String theSchema) throws EdgeUtilsException {
 		
+		Objects.requireNonNull(theDataElement, "data element must not be null");
+		
 		try {
 			
 			Marshaller m = JAXBContext.newInstance(theDataElement.getDeclaredType().getPackage().getName()).createMarshaller();
-			m.setProperty(Marshaller.JAXB_ENCODING, sEncoding);
+			m.setProperty(Marshaller.JAXB_ENCODING, theEncoding.name());
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			
 			if (theSchema != null) {
