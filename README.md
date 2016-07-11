@@ -49,6 +49,12 @@ Additionally, the following branches my occur:
 
 ## Released Versions
 
+### Version 0.6.0
+
+- XML bindings of date, time, and datetime to LocalDate, LocalTime, and LocalDateTime
+- version class with toString
+- call of xjc always with three bindings
+
 ### Version 0.5.1
 
 - hotfix: filenames are paths now instead of strings
