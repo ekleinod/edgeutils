@@ -11,7 +11,7 @@ import java.util.List;
  * 
  * ## Legal stuff
  * 
- * Copyright 2014-2014 Ekkart Kleinod <ekleinod@edgesoft.de>
+ * Copyright 2014-2016 Ekkart Kleinod <ekleinod@edgesoft.de>
  * 
  * This file is part of edgeUtils.
  * 
@@ -29,7 +29,7 @@ import java.util.List;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * @author Ekkart Kleinod
- * @version 0.2
+ * @version 0.6.0
  * @since 0.2
  */
 public class CollectionHelper {
@@ -79,7 +79,7 @@ public class CollectionHelper {
 	 * @param theSeparator separator between entries
 	 * @return list with splitted, trimmed entries
 	 * 
-	 * @version 0.2
+	 * @version 0.6.0
 	 * @since 0.2
 	 */
 	public static List<String> fromCSVString(String theLine, String theSeparator) {
@@ -91,9 +91,12 @@ public class CollectionHelper {
 			lstReturn.add(theEntry.trim());
 		}
 		
-		int iSepCount = countOccurrences(theLine, theSeparator.charAt(0));
-		for (int i = lstReturn.size(); (i <= iSepCount); i++) {
-			lstReturn.add("");
+		// fill if separator is one character only
+		if (theSeparator.length() == 1) {
+			int iSepCount = countOccurrences(theLine, theSeparator.charAt(0));
+			for (int i = lstReturn.size(); (i <= iSepCount); i++) {
+				lstReturn.add("");
+			}
 		}
 		
 		return lstReturn;

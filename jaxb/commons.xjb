@@ -6,11 +6,11 @@ Common bindings for xsd types.
 - `dateTime`, `time`, and `date` are mapped to `Calendar` instead of `XMLGregorianCalendar` which is a mess to cope with in code
 - `integer` is mapped to `Integer` instead of `BigInteger`
 
-v0.4
+v0.6.0
 
 ## Legal stuff
 
-Copyright 2014-2015 Ekkart Kleinod <ekleinod@edgesoft.de>
+Copyright 2014-2016 Ekkart Kleinod <ekleinod@edgesoft.de>
 
 This file is part of edgeUtils.
 
@@ -30,23 +30,27 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 
 <jxb:bindings xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 							xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+							xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
 							version="2.1">
 
 	<!-- globally for all schemas -->
 	<jxb:globalBindings>
 
 		<!-- date/time should be calendar -->
-		<jxb:javaType name="java.util.Calendar" xmlType="xsd:dateTime"
-			parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime"
-			printMethod="javax.xml.bind.DatatypeConverter.printDateTime"
+		<xjc:javaType
+			adapter="de.edgesoft.edgeutils.commons.ext.LocalDateAdapter"
+			name="java.time.LocalDate"
+			xmlType="xsd:date"
 		/>
-		<jxb:javaType name="java.util.Calendar" xmlType="xsd:time"
-			parseMethod="javax.xml.bind.DatatypeConverter.parseTime"
-			printMethod="javax.xml.bind.DatatypeConverter.printTime"
+		<xjc:javaType
+			xmlType="xsd:time"
+			name="java.time.LocalTime"
+			adapter="de.edgesoft.edgeutils.commons.ext.LocalTimeAdapter"
 		/>
-		<jxb:javaType name="java.util.Calendar" xmlType="xsd:date"
-			parseMethod="javax.xml.bind.DatatypeConverter.parseDate"
-			printMethod="javax.xml.bind.DatatypeConverter.printDate"
+		<xjc:javaType
+			xmlType="xsd:dateTime"
+			name="java.time.LocalDateTime"
+			adapter="de.edgesoft.edgeutils.commons.ext.LocalDateTimeAdapter"
 		/>
 
 		<!-- int should be int -->

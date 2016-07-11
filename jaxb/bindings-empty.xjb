@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Empty bindings file.
+
+This bindings file can be used for own bindings.
+
+v0.5.0
+
+## Legal stuff
+
+Copyright 2014-2016 Ekkart Kleinod <ekleinod@edgesoft.de>
+
+This file is part of edgeUtils.
+
+edgeUtils is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+edgeUtils is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<jxb:bindings xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+							xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+							jxb:version="2.1">
+
+	<!-- bindings for <schema>.xsd -->
+	<!--jxb:bindings schemaLocation="schema.xsd">
+
+
+	</jxb:bindings-->
+
+</jxb:bindings>
+
+<!-- EOF -->
+

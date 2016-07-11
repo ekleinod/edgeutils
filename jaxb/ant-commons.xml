@@ -16,47 +16,40 @@
 	</target>
 
 	<target name="callxjc">
-		<antcall target="callxjc1b" />
-		<antcall target="callxjc2b" />
-	</target>
-
-	<target name="callxjc1b" unless="xjc:bindings2">
-		<!-- i.e. 1 binding -->
+		<!-- always three bindings - use empty file if not neccessary -->
 
 		<exec executable="xjc">
-			<arg value="-b" /> <!-- specify external bindings files (each <file> must have its own -b) -->
-			<arg value="${xjc:bindings}" />
-			<arg value="-d" /> <!-- generated files will go into this directory -->
-			<arg value="${xjc:outpath}" />
-			<arg value="-p" /> <!-- specifies the target package -->
-			<arg value="${xjc:package}" />
-			<arg value="-encoding" /> <!-- specify character encoding for generated source files -->
-			<arg value="UTF-8" />
-			<arg value="-extension" /> <!-- allow vendor extensions - do not strictly follow the Compatibility Rules and App E.2 from the JAXB Spec -->
-			<arg value="-npa" /> <!-- suppress generation of package level annotations -->
-			<arg value="-no-header" /> <!-- suppress generation of a file header with timestamp -->
-			<arg value="${xjc:xsd}" />
-		</exec>
 
-	</target>
-
-	<target name="callxjc2b" if="xjc:bindings2">
-		<!-- i.e. 2 bindings -->
-
-		<exec executable="xjc">
-			<arg value="-b" /> <!-- specify external bindings files (each <file> must have its own -b) -->
-			<arg value="${xjc:bindings}" />
-			<arg value="-b" /> <!-- specify external bindings files (each <file> must have its own -b) -->
+			<!-- specify external bindings files (each <file> must have its own -b) -->
+			<arg value="-b" />
+			<arg value="${xjc:bindings1}" />
+			<arg value="-b" />
 			<arg value="${xjc:bindings2}" />
-			<arg value="-d" /> <!-- generated files will go into this directory -->
+			<arg value="-b" />
+			<arg value="${xjc:bindings3}" />
+
+			<!-- generated files will go into this directory -->
+			<arg value="-d" />
 			<arg value="${xjc:outpath}" />
-			<arg value="-p" /> <!-- specifies the target package -->
+
+			<!-- specifies the target package -->
+			<arg value="-p" />
 			<arg value="${xjc:package}" />
-			<arg value="-encoding" /> <!-- specify character encoding for generated source files -->
+
+			<!-- specify character encoding for generated source files -->
+			<arg value="-encoding" />
 			<arg value="UTF-8" />
-			<arg value="-extension" /> <!-- allow vendor extensions - do not strictly follow the Compatibility Rules and App E.2 from the JAXB Spec -->
-			<arg value="-npa" /> <!-- suppress generation of package level annotations -->
-			<arg value="-no-header" /> <!-- suppress generation of a file header with timestamp -->
+
+			<!-- allow vendor extensions - do not strictly follow the Compatibility Rules and App E.2 from the JAXB Spec -->
+			<arg value="-extension" />
+
+			<!-- suppress generation of package level annotations -->
+			<arg value="-npa" />
+
+			<!-- suppress generation of a file header with timestamp -->
+			<arg value="-no-header" />
+
+			<!-- schema file -->
 			<arg value="${xjc:xsd}" />
 		</exec>
 
