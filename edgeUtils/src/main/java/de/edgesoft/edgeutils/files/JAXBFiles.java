@@ -107,7 +107,6 @@ public class JAXBFiles {
 			return doc.getValue();
 			
 		} catch (JAXBException e) {
-			e.printStackTrace();
 			throw new EdgeUtilsException(MessageFormat.format("Error reading data: {0}", e.getMessage()));
 		}
 	}
