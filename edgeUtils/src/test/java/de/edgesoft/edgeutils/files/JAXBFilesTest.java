@@ -19,38 +19,38 @@ import de.edgesoft.edgeutils.commons.ext.VersionTypeExt;
 
 /**
  * Unit test for JAXBFiles.
- * 
+ *
  * ## Legal stuff
- * 
+ *
  * Copyright 2010-2016 Ekkart Kleinod <ekleinod@edgesoft.de>
- * 
+ *
  * This file is part of edgeUtils.
- * 
+ *
  * edgeUtils is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * edgeUtils is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  * @author Ekkart Kleinod
- * @version 0.6.0
+ * @version 0.6.1
  * @since 0.6.0
  */
 public class JAXBFilesTest {
-	
+
 	/** File name. */
 	private static final String FILENAME = String.format("%s.xml", JAXBFilesTest.class.getSimpleName().toLowerCase());
-	
+
 	/**
 	 * Delete files.
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	@SuppressWarnings("static-method")
 	@Before
@@ -62,13 +62,13 @@ public class JAXBFilesTest {
 			Assert.fail(e.getMessage());
 		}
 	}
-	
+
 	/**
 	 * Rule for expected exception
 	 */
 	@Rule
 	public ExpectedException exception = ExpectedException.none();
-	
+
 	/**
 	 * Tests read file not found.
 	 */
@@ -76,11 +76,18 @@ public class JAXBFilesTest {
 	public void testErrorUnmarshalFileNotFound() throws Exception {
 
 		exception.expect(EdgeUtilsException.class);
-		exception.expectMessage("Error reading data: null");
+
+		// windows and linux create different exceptions :(
+		if (System.getProperty("os.name").toLowerCase().startsWith("windows")) {
+			exception.expectMessage(String.format("Error reading data: %s (Das System kann die angegebene Datei nicht finden)", FILENAME));
+		} else {
+			exception.expectMessage("Error reading data: null");
+		}
+
 		JAXBFiles.unmarshal(FILENAME, InfoType.class);
-		
+
 	}
-	
+
 	/**
 	 * Tests read file exists but is dir.
 	 */
@@ -88,43 +95,50 @@ public class JAXBFilesTest {
 	public void testErrorUnmarshalFileIsDir() throws Exception {
 
 		Files.createDirectory(Paths.get(FILENAME));
-		
+
 		exception.expect(EdgeUtilsException.class);
-		exception.expectMessage("Error reading data: null");
+
+		// windows and linux create different exceptions :(
+		if (System.getProperty("os.name").toLowerCase().startsWith("windows")) {
+			exception.expectMessage(String.format("Error reading data: %s (Zugriff verweigert)", FILENAME));
+		} else {
+			exception.expectMessage("Error reading data: null");
+		}
+
 		JAXBFiles.unmarshal(FILENAME, InfoType.class);
-		
+
 	}
-	
+
 	/**
 	 * Tests write - read cycle.
 	 */
 	@SuppressWarnings("static-method")
 	@Test
 	public void testWriteRead() {
-		
+
 		try {
-			
+
 			LocalDateTime dteCreation = LocalDateTime.now();
 			LocalDateTime dteModification = dteCreation.plusHours(2);
-			
+
 			InfoType tpeTest = new InfoType();
-			
+
 			tpeTest.setCreated(dteCreation);
 			tpeTest.setModified(dteModification);
 			tpeTest.setAppversion(new VersionTypeExt("1.0.1"));
 			tpeTest.setDocversion(new VersionTypeExt("1.1.0 alpha 2"));
 			tpeTest.setCreator(String.format("äöü - %s", JAXBFilesTest.class.getCanonicalName()));
-			
+
 			JAXBFiles.marshal(new ObjectFactory().createTest(tpeTest), FILENAME, null);
-			
+
 			Assert.assertTrue(String.format("File '%s' does not exist.", Paths.get(FILENAME)), Files.exists(Paths.get(FILENAME)));
 			Assert.assertTrue(String.format("File '%s' is no regular file.", Paths.get(FILENAME)), Files.isRegularFile(Paths.get(FILENAME)));
 			Assert.assertFalse(String.format("File '%s' is a directory.", Paths.get(FILENAME)), Files.isDirectory(Paths.get(FILENAME)));
 			Assert.assertTrue(String.format("File '%s' is not readable.", Paths.get(FILENAME)), Files.isReadable(Paths.get(FILENAME)));
 			Assert.assertTrue(String.format("File '%s' is not writeable.", Paths.get(FILENAME)), Files.isWritable(Paths.get(FILENAME)));
-			
+
 			InfoType tpeResult = JAXBFiles.unmarshal(FILENAME, InfoType.class);
-			
+
 			Assert.assertEquals(dteCreation, tpeResult.getCreated());
 			Assert.assertEquals(dteModification, tpeResult.getModified());
 			Assert.assertEquals("1.0.1", tpeResult.getAppversion().toString());
@@ -133,26 +147,26 @@ public class JAXBFilesTest {
 
 			JAXBFiles.setEncoding(StandardCharsets.ISO_8859_1);
 			JAXBFiles.marshal(new ObjectFactory().createTest(tpeTest), FILENAME, null);
-			
+
 			Assert.assertTrue(String.format("File '%s' does not exist.", Paths.get(FILENAME)), Files.exists(Paths.get(FILENAME)));
 			Assert.assertTrue(String.format("File '%s' is no regular file.", Paths.get(FILENAME)), Files.isRegularFile(Paths.get(FILENAME)));
 			Assert.assertFalse(String.format("File '%s' is a directory.", Paths.get(FILENAME)), Files.isDirectory(Paths.get(FILENAME)));
 			Assert.assertTrue(String.format("File '%s' is not readable.", Paths.get(FILENAME)), Files.isReadable(Paths.get(FILENAME)));
 			Assert.assertTrue(String.format("File '%s' is not writeable.", Paths.get(FILENAME)), Files.isWritable(Paths.get(FILENAME)));
-			
+
 			tpeResult = JAXBFiles.unmarshal(FILENAME, InfoType.class);
-			
+
 			Assert.assertEquals(dteCreation, tpeResult.getCreated());
 			Assert.assertEquals(dteModification, tpeResult.getModified());
 			Assert.assertEquals("1.0.1", tpeResult.getAppversion().toString());
 			Assert.assertEquals("1.1.0 alpha 2", tpeResult.getDocversion().toString());
 			Assert.assertEquals(String.format("äöü - %s", JAXBFilesTest.class.getCanonicalName()), tpeResult.getCreator());
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			Assert.fail(e.getMessage());
 		}
-		
+
 	}
 
 }
