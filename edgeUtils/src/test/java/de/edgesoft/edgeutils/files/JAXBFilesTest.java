@@ -81,7 +81,7 @@ public class JAXBFilesTest {
 		if (System.getProperty("os.name").toLowerCase().startsWith("windows")) {
 			exception.expectMessage(String.format("Error reading data: %s (Das System kann die angegebene Datei nicht finden)", FILENAME));
 		} else {
-			exception.expectMessage("Error reading data: null");
+			exception.expectMessage(String.format("Error reading data: %s (No such file or directory)", FILENAME));
 		}
 
 		JAXBFiles.unmarshal(FILENAME, InfoType.class);
@@ -102,7 +102,7 @@ public class JAXBFilesTest {
 		if (System.getProperty("os.name").toLowerCase().startsWith("windows")) {
 			exception.expectMessage(String.format("Error reading data: %s (Zugriff verweigert)", FILENAME));
 		} else {
-			exception.expectMessage("Error reading data: null");
+			exception.expectMessage(String.format("Error reading data: %s (Is a directory)", FILENAME));
 		}
 
 		JAXBFiles.unmarshal(FILENAME, InfoType.class);
