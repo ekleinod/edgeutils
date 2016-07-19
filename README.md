@@ -49,6 +49,10 @@ Additionally, the following branches my occur:
 
 ## Released Versions
 
+### Version 0.6.1
+
+- hotfix: tests run under windows now (German windows)
+
 ### Version 0.6.0
 
 - XML bindings of date, time, and datetime to LocalDate, LocalTime, and LocalDateTime
