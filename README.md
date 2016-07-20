@@ -49,6 +49,10 @@ Additionally, the following branches my occur:
 
 ## Released Versions
 
+### Version 0.7.0
+
+- removed confuding "Test" suffixes
+
 ### Version 0.6.1
 
 - hotfix: tests run under windows now (German windows)
