@@ -13,19 +13,19 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * Implementing class is not inline, because otherwise generation outside of edgeutils would fail.
  * Therefore, this declaration is given in the `commons-only.xjb` bindings file.
  * 
- * <p>Java class for VersionType complex type.
+ * <p>Java class for Version complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="VersionType">
+ * &lt;complexType name="Version">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="major" type="{}IntGreaterEqualNull"/>
  *         &lt;element name="minor" type="{}IntGreaterEqualNull" minOccurs="0"/>
  *         &lt;element name="patch" type="{}IntGreaterEqualNull" minOccurs="0"/>
- *         &lt;element name="additional" type="{}AdditionalType" minOccurs="0"/>
+ *         &lt;element name="additional" type="{}Additional" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,13 +35,13 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "VersionType", propOrder = {
+@XmlType(name = "Version", propOrder = {
     "major",
     "minor",
     "patch",
     "additional"
 })
-public class VersionType {
+public class Version {
 
     @XmlElement(required = true, type = String.class)
     @XmlJavaTypeAdapter(Adapter1 .class)
@@ -55,7 +55,7 @@ public class VersionType {
     @XmlJavaTypeAdapter(Adapter1 .class)
     @XmlSchemaType(name = "integer")
     protected Integer patch;
-    protected AdditionalType additional;
+    protected Additional additional;
 
     /**
      * Gets the value of the major property.
@@ -134,10 +134,10 @@ public class VersionType {
      * 
      * @return
      *     possible object is
-     *     {@link AdditionalType }
+     *     {@link Additional }
      *     
      */
-    public AdditionalType getAdditional() {
+    public Additional getAdditional() {
         return additional;
     }
 
@@ -146,10 +146,10 @@ public class VersionType {
      * 
      * @param value
      *     allowed object is
-     *     {@link AdditionalType }
+     *     {@link Additional }
      *     
      */
-    public void setAdditional(AdditionalType value) {
+    public void setAdditional(Additional value) {
         this.additional = value;
     }
 

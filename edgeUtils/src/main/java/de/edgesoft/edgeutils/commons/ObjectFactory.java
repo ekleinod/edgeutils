@@ -5,7 +5,7 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
 import javax.xml.namespace.QName;
-import de.edgesoft.edgeutils.commons.ext.VersionTypeExt;
+import de.edgesoft.edgeutils.commons.ext.VersionExt;
 
 
 /**
@@ -35,11 +35,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link InfoType }
+     * Create an instance of {@link Info }
      * 
      */
-    public InfoType createInfoType() {
-        return new InfoType();
+    public Info createInfo() {
+        return new Info();
     }
 
     /**
@@ -51,11 +51,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AdditionalType }
+     * Create an instance of {@link Version }
      * 
      */
-    public AdditionalType createAdditionalType() {
-        return new AdditionalType();
+    public Version createVersion() {
+        return new VersionExt();
+    }
+
+    /**
+     * Create an instance of {@link Additional }
+     * 
+     */
+    public Additional createAdditional() {
+        return new Additional();
     }
 
     /**
@@ -67,20 +75,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link VersionType }
-     * 
-     */
-    public VersionType createVersionType() {
-        return new VersionTypeExt();
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link InfoType }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link Info }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "", name = "test")
-    public JAXBElement<InfoType> createTest(InfoType value) {
-        return new JAXBElement<InfoType>(_Test_QNAME, InfoType.class, null, value);
+    public JAXBElement<Info> createTest(Info value) {
+        return new JAXBElement<Info>(_Test_QNAME, Info.class, null, value);
     }
 
 }

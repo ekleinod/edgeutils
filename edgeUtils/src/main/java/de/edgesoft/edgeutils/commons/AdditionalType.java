@@ -1,89 +1,54 @@
 
 package de.edgesoft.edgeutils.commons;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlValue;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 /**
- * <p>Java class for AdditionalType complex type.
+ * <p>Java class for AdditionalType.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ * <p>
  * <pre>
- * &lt;complexType name="AdditionalType">
- *   &lt;simpleContent>
- *     &lt;extension base="&lt;>IntGreaterEqualNull">
- *       &lt;attribute name="type" use="required" type="{}AdditionalTypeType" />
- *     &lt;/extension>
- *   &lt;/simpleContent>
- * &lt;/complexType>
+ * &lt;simpleType name="AdditionalType">
+ *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *     &lt;enumeration value="pre"/>
+ *     &lt;enumeration value="alpha"/>
+ *     &lt;enumeration value="beta"/>
+ *   &lt;/restriction>
+ * &lt;/simpleType>
  * </pre>
  * 
- * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AdditionalType", propOrder = {
-    "value"
-})
-public class AdditionalType {
+@XmlType(name = "AdditionalType")
+@XmlEnum
+public enum AdditionalType {
 
-    @XmlValue
-    @XmlJavaTypeAdapter(Adapter1 .class)
-    protected Integer value;
-    @XmlAttribute(name = "type", required = true)
-    protected AdditionalTypeType type;
+    @XmlEnumValue("pre")
+    PRE("pre"),
+    @XmlEnumValue("alpha")
+    ALPHA("alpha"),
+    @XmlEnumValue("beta")
+    BETA("beta");
+    private final String value;
 
-    /**
-     * Gets the value of the value property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public Integer getValue() {
+    AdditionalType(String v) {
+        value = v;
+    }
+
+    public String value() {
         return value;
     }
 
-    /**
-     * Sets the value of the value property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setValue(Integer value) {
-        this.value = value;
-    }
-
-    /**
-     * Gets the value of the type property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link AdditionalTypeType }
-     *     
-     */
-    public AdditionalTypeType getType() {
-        return type;
-    }
-
-    /**
-     * Sets the value of the type property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link AdditionalTypeType }
-     *     
-     */
-    public void setType(AdditionalTypeType value) {
-        this.type = value;
+    public static AdditionalType fromValue(String v) {
+        for (AdditionalType c: AdditionalType.values()) {
+            if (c.value.equals(v)) {
+                return c;
+            }
+        }
+        throw new IllegalArgumentException(v);
     }
 
 }
