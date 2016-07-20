@@ -5,21 +5,21 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-import de.edgesoft.edgeutils.commons.ext.VersionTypeExt;
+import de.edgesoft.edgeutils.commons.ext.VersionExt;
 
 
 /**
- * <p>Java class for InfoType complex type.
+ * <p>Java class for Info complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="InfoType">
+ * &lt;complexType name="Info">
  *   &lt;complexContent>
  *     &lt;extension base="{}TimestampType">
  *       &lt;sequence>
- *         &lt;element name="docversion" type="{}VersionType" minOccurs="0"/>
- *         &lt;element name="appversion" type="{}VersionType"/>
+ *         &lt;element name="docversion" type="{}Version" minOccurs="0"/>
+ *         &lt;element name="appversion" type="{}Version"/>
  *         &lt;element name="creator" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
@@ -30,19 +30,19 @@ import de.edgesoft.edgeutils.commons.ext.VersionTypeExt;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "InfoType", propOrder = {
+@XmlType(name = "Info", propOrder = {
     "docversion",
     "appversion",
     "creator"
 })
-public class InfoType
+public class Info
     extends TimestampType
 {
 
-    @XmlElement(type = VersionTypeExt.class)
-    protected VersionTypeExt docversion;
-    @XmlElement(required = true, type = VersionTypeExt.class)
-    protected VersionTypeExt appversion;
+    @XmlElement(type = VersionExt.class)
+    protected VersionExt docversion;
+    @XmlElement(required = true, type = VersionExt.class)
+    protected VersionExt appversion;
     protected String creator;
 
     /**
@@ -50,10 +50,10 @@ public class InfoType
      * 
      * @return
      *     possible object is
-     *     {@link VersionType }
+     *     {@link Version }
      *     
      */
-    public VersionType getDocversion() {
+    public Version getDocversion() {
         return docversion;
     }
 
@@ -62,11 +62,11 @@ public class InfoType
      * 
      * @param value
      *     allowed object is
-     *     {@link VersionType }
+     *     {@link Version }
      *     
      */
-    public void setDocversion(VersionType value) {
-        this.docversion = ((VersionTypeExt) value);
+    public void setDocversion(Version value) {
+        this.docversion = ((VersionExt) value);
     }
 
     /**
@@ -74,10 +74,10 @@ public class InfoType
      * 
      * @return
      *     possible object is
-     *     {@link VersionType }
+     *     {@link Version }
      *     
      */
-    public VersionType getAppversion() {
+    public Version getAppversion() {
         return appversion;
     }
 
@@ -86,11 +86,11 @@ public class InfoType
      * 
      * @param value
      *     allowed object is
-     *     {@link VersionType }
+     *     {@link Version }
      *     
      */
-    public void setAppversion(VersionType value) {
-        this.appversion = ((VersionTypeExt) value);
+    public void setAppversion(Version value) {
+        this.appversion = ((VersionExt) value);
     }
 
     /**

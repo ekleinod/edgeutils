@@ -38,7 +38,7 @@ import de.edgesoft.edgeutils.commons.ext.LocalDateTimeAdapter;
     "modified"
 })
 @XmlSeeAlso({
-    InfoType.class
+    Info.class
 })
 public class TimestampType {
 

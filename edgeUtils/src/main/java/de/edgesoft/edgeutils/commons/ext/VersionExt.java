@@ -3,10 +3,10 @@ package de.edgesoft.edgeutils.commons.ext;
 import java.util.List;
 
 import de.edgesoft.edgeutils.collections.CollectionHelper;
+import de.edgesoft.edgeutils.commons.Additional;
 import de.edgesoft.edgeutils.commons.AdditionalType;
-import de.edgesoft.edgeutils.commons.AdditionalTypeType;
 import de.edgesoft.edgeutils.commons.ObjectFactory;
-import de.edgesoft.edgeutils.commons.VersionType;
+import de.edgesoft.edgeutils.commons.Version;
 
 /**
  * Helper and convenience methods for {@link VersionType}.
@@ -31,10 +31,10 @@ import de.edgesoft.edgeutils.commons.VersionType;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * @author Ekkart Kleinod
- * @version 0.6.0
+ * @version 0.7.0
  * @since 0.4
  */
-public class VersionTypeExt extends VersionType {
+public class VersionExt extends Version {
 
 	/**
 	 * Default constructor.
@@ -42,7 +42,7 @@ public class VersionTypeExt extends VersionType {
 	 * @version 0.4
 	 * @since 0.4
 	 */
-	public VersionTypeExt() {
+	public VersionExt() {
 		super();
 	}
 
@@ -58,10 +58,10 @@ public class VersionTypeExt extends VersionType {
 	 * 
 	 * @param theVersion version
 	 * 
-	 * @version 0.4
+	 * @version 0.7.0
 	 * @since 0.4
 	 */
-	public VersionTypeExt(String theVersion) {
+	public VersionExt(String theVersion) {
 		super();
 		
 		setMajor(0);
@@ -73,10 +73,10 @@ public class VersionTypeExt extends VersionType {
 		String sVersion = theVersion.trim();
 		
 		int index = 1;
-		for (AdditionalTypeType theAdditionalType : AdditionalTypeType.values()) {
+		for (AdditionalType theAdditionalType : AdditionalType.values()) {
 			List<String> lstTemp = CollectionHelper.fromCSVString(sVersion, theAdditionalType.value());
 			if (lstTemp.size() > index) {
-				AdditionalType addType = new ObjectFactory().createAdditionalType();
+				Additional addType = new ObjectFactory().createAdditional();
 				addType.setType(theAdditionalType);
 				addType.setValue(Integer.parseInt(lstTemp.get(index)));
 				setAdditional(addType);

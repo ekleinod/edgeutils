@@ -13,9 +13,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import de.edgesoft.edgeutils.EdgeUtilsException;
-import de.edgesoft.edgeutils.commons.InfoType;
+import de.edgesoft.edgeutils.commons.Info;
 import de.edgesoft.edgeutils.commons.ObjectFactory;
-import de.edgesoft.edgeutils.commons.ext.VersionTypeExt;
+import de.edgesoft.edgeutils.commons.ext.VersionExt;
 
 /**
  * Unit test for JAXBFiles.
@@ -40,7 +40,7 @@ import de.edgesoft.edgeutils.commons.ext.VersionTypeExt;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author Ekkart Kleinod
- * @version 0.6.1
+ * @version 0.7.0
  * @since 0.6.0
  */
 public class JAXBFilesTest {
@@ -84,7 +84,7 @@ public class JAXBFilesTest {
 			exception.expectMessage(String.format("Error reading data: %s (No such file or directory)", FILENAME));
 		}
 
-		JAXBFiles.unmarshal(FILENAME, InfoType.class);
+		JAXBFiles.unmarshal(FILENAME, Info.class);
 
 	}
 
@@ -105,7 +105,7 @@ public class JAXBFilesTest {
 			exception.expectMessage(String.format("Error reading data: %s (Is a directory)", FILENAME));
 		}
 
-		JAXBFiles.unmarshal(FILENAME, InfoType.class);
+		JAXBFiles.unmarshal(FILENAME, Info.class);
 
 	}
 
@@ -121,12 +121,12 @@ public class JAXBFilesTest {
 			LocalDateTime dteCreation = LocalDateTime.now();
 			LocalDateTime dteModification = dteCreation.plusHours(2);
 
-			InfoType tpeTest = new InfoType();
+			Info tpeTest = new Info();
 
 			tpeTest.setCreated(dteCreation);
 			tpeTest.setModified(dteModification);
-			tpeTest.setAppversion(new VersionTypeExt("1.0.1"));
-			tpeTest.setDocversion(new VersionTypeExt("1.1.0 alpha 2"));
+			tpeTest.setAppversion(new VersionExt("1.0.1"));
+			tpeTest.setDocversion(new VersionExt("1.1.0 alpha 2"));
 			tpeTest.setCreator(String.format("äöü - %s", JAXBFilesTest.class.getCanonicalName()));
 
 			JAXBFiles.marshal(new ObjectFactory().createTest(tpeTest), FILENAME, null);
@@ -137,7 +137,7 @@ public class JAXBFilesTest {
 			Assert.assertTrue(String.format("File '%s' is not readable.", Paths.get(FILENAME)), Files.isReadable(Paths.get(FILENAME)));
 			Assert.assertTrue(String.format("File '%s' is not writeable.", Paths.get(FILENAME)), Files.isWritable(Paths.get(FILENAME)));
 
-			InfoType tpeResult = JAXBFiles.unmarshal(FILENAME, InfoType.class);
+			Info tpeResult = JAXBFiles.unmarshal(FILENAME, Info.class);
 
 			Assert.assertEquals(dteCreation, tpeResult.getCreated());
 			Assert.assertEquals(dteModification, tpeResult.getModified());
@@ -154,7 +154,7 @@ public class JAXBFilesTest {
 			Assert.assertTrue(String.format("File '%s' is not readable.", Paths.get(FILENAME)), Files.isReadable(Paths.get(FILENAME)));
 			Assert.assertTrue(String.format("File '%s' is not writeable.", Paths.get(FILENAME)), Files.isWritable(Paths.get(FILENAME)));
 
-			tpeResult = JAXBFiles.unmarshal(FILENAME, InfoType.class);
+			tpeResult = JAXBFiles.unmarshal(FILENAME, Info.class);
 
 			Assert.assertEquals(dteCreation, tpeResult.getCreated());
 			Assert.assertEquals(dteModification, tpeResult.getModified());
