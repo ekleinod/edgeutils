@@ -4,6 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.Locale;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -78,7 +79,7 @@ public class JAXBFilesTest {
 		exception.expect(EdgeUtilsException.class);
 
 		// windows and linux create different exceptions :(
-		if (System.getProperty("os.name").toLowerCase().startsWith("windows")) {
+		if (System.getProperty("user.language").equalsIgnoreCase(Locale.GERMAN.getLanguage())) {
 			exception.expectMessage(String.format("Error reading data: %s (Das System kann die angegebene Datei nicht finden)", FILENAME));
 		} else {
 			exception.expectMessage(String.format("Error reading data: %s (No such file or directory)", FILENAME));
@@ -99,7 +100,7 @@ public class JAXBFilesTest {
 		exception.expect(EdgeUtilsException.class);
 
 		// windows and linux create different exceptions :(
-		if (System.getProperty("os.name").toLowerCase().startsWith("windows")) {
+		if (System.getProperty("user.language").equalsIgnoreCase(Locale.GERMAN.getLanguage())) {
 			exception.expectMessage(String.format("Error reading data: %s (Zugriff verweigert)", FILENAME));
 		} else {
 			exception.expectMessage(String.format("Error reading data: %s (Is a directory)", FILENAME));

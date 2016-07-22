@@ -91,7 +91,6 @@ public class FileAccessTest {
 
 		Files.createDirectory(Paths.get(FILENAME));
 
-
 		// windows and linux create different exceptions :(
 		if (System.getProperty("os.name").toLowerCase().startsWith("windows")) {
 			exception.expect(AccessDeniedException.class);
