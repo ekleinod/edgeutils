@@ -3,7 +3,7 @@
 <!--
 Common bindings for reusing all commons classes.
 
-v0.7.0
+v0.7.1
 
 ## Legal stuff
 
@@ -48,16 +48,16 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 			<jxb:class ref="de.edgesoft.edgeutils.commons.Info" />
 		</jxb:bindings>
 
+		<jxb:bindings node="//xsd:complexType[@name='ModelClass']">
+			<jxb:class ref="de.edgesoft.edgeutils.commons.ModelClass" />
+		</jxb:bindings>
+
 		<jxb:bindings node="//xsd:complexType[@name='RefType']">
 			<jxb:class ref="de.edgesoft.edgeutils.commons.RefType" />
 		</jxb:bindings>
 
 		<jxb:bindings node="//xsd:complexType[@name='TimestampType']">
 			<jxb:class ref="de.edgesoft.edgeutils.commons.TimestampType" />
-		</jxb:bindings>
-
-		<jxb:bindings node="//xsd:complexType[@name='Version']">
-			<jxb:class ref="de.edgesoft.edgeutils.commons.Version" />
 		</jxb:bindings>
 
 	</jxb:bindings>
