@@ -60,6 +60,10 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 			<jxb:class ref="de.edgesoft.edgeutils.commons.TimestampType" />
 		</jxb:bindings>
 
+		<jxb:bindings node="//xsd:complexType[@name='Version']">
+			<jxb:class ref="de.edgesoft.edgeutils.commons.Version" />
+		</jxb:bindings>
+
 	</jxb:bindings>
 
 </jxb:bindings>
