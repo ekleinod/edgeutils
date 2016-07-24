@@ -49,9 +49,13 @@ Additionally, the following branches my occur:
 
 ## Released Versions
 
+### Version 0.7.1
+
+- introduced base class for all model classes, for easier identification of model classes in source code
+
 ### Version 0.7.0
 
-- removed confuding "Test" suffixes
+- removed confusing "Test" suffixes
 
 ### Version 0.6.1
 
