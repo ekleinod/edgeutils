@@ -35,7 +35,7 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 	<jxb:bindings schemaLocation="commons.xsd">
 
 		<!-- idrefs reference id types -->
-		<jxb:bindings node="//xsd:complexType[@name='RefType']/xsd:attribute[@name='idref']">
+		<jxb:bindings node="//xsd:complexType[@name='RefType']/xsd:complexContent/xsd:extension/xsd:attribute[@name='idref']">
 			<jxb:property>
 				<jxb:baseType name="IDType" />
 			</jxb:property>

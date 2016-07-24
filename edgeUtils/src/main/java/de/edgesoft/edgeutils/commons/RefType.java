@@ -20,9 +20,9 @@ import javax.xml.bind.annotation.XmlType;
  * <pre>
  * &lt;complexType name="RefType">
  *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *     &lt;extension base="{}ModelClass">
  *       &lt;attribute name="idref" use="required" type="{http://www.w3.org/2001/XMLSchema}IDREF" />
- *     &lt;/restriction>
+ *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
@@ -31,7 +31,9 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "RefType")
-public class RefType {
+public class RefType
+    extends ModelClass
+{
 
     @XmlAttribute(name = "idref", required = true)
     @XmlIDREF
