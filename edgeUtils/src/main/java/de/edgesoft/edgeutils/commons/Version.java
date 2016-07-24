@@ -20,14 +20,14 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * <pre>
  * &lt;complexType name="Version">
  *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *     &lt;extension base="{}ModelClass">
  *       &lt;sequence>
  *         &lt;element name="major" type="{}IntGreaterEqualNull"/>
  *         &lt;element name="minor" type="{}IntGreaterEqualNull" minOccurs="0"/>
  *         &lt;element name="patch" type="{}IntGreaterEqualNull" minOccurs="0"/>
  *         &lt;element name="additional" type="{}Additional" minOccurs="0"/>
  *       &lt;/sequence>
- *     &lt;/restriction>
+ *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
@@ -41,7 +41,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
     "patch",
     "additional"
 })
-public class Version {
+public class Version
+    extends ModelClass
+{
 
     @XmlElement(required = true, type = String.class)
     @XmlJavaTypeAdapter(Adapter1 .class)

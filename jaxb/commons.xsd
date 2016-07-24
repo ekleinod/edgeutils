@@ -18,7 +18,7 @@ XSD Schema for common xsd structures.
 - IDType
 	- element with an id that can be referenced
 
-v0.7.0
+v0.7.1
 
 ## Legal stuff
 
@@ -62,10 +62,14 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 
 	<!-- Timestamps: creation, last modification. -->
 	<xsd:complexType name="TimestampType">
-		<xsd:sequence>
-			<xsd:element name="created" type="xsd:dateTime" minOccurs="1" maxOccurs="1" />
-			<xsd:element name="modified" type="xsd:dateTime" minOccurs="1" maxOccurs="1" />
-		</xsd:sequence>
+		<xsd:complexContent>
+			<xsd:extension base="ModelClass">
+				<xsd:sequence>
+					<xsd:element name="created" type="xsd:dateTime" minOccurs="1" maxOccurs="1" />
+					<xsd:element name="modified" type="xsd:dateTime" minOccurs="1" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
 	</xsd:complexType>
 
 	<!-- Version: Major.Minor.Patch Additional -->
@@ -74,12 +78,16 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 			<xsd:documentation>Implementing class is not inline, because otherwise generation outside of edgeutils would fail.
 Therefore, this declaration is given in the `commons-only.xjb` bindings file.</xsd:documentation>
 		</xsd:annotation>
-		<xsd:sequence>
-			<xsd:element name="major" type="IntGreaterEqualNull" minOccurs="1" maxOccurs="1" />
-			<xsd:element name="minor" type="IntGreaterEqualNull" minOccurs="0" maxOccurs="1" />
-			<xsd:element name="patch" type="IntGreaterEqualNull" minOccurs="0" maxOccurs="1" />
-			<xsd:element name="additional" type="Additional" minOccurs="0" maxOccurs="1" />
-		</xsd:sequence>
+		<xsd:complexContent>
+			<xsd:extension base="ModelClass">
+				<xsd:sequence>
+					<xsd:element name="major" type="IntGreaterEqualNull" minOccurs="1" maxOccurs="1" />
+					<xsd:element name="minor" type="IntGreaterEqualNull" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="patch" type="IntGreaterEqualNull" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="additional" type="Additional" minOccurs="0" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
 	</xsd:complexType>
 
 	<!-- Additional type. -->
@@ -113,12 +121,24 @@ Therefore, this declaration is given in the `commons-only.xjb` bindings file.</x
 			<xsd:documentation>Connection of idref to IDType is not inline, because otherwise generation outside of edgeutils would fail.
 Therefore, this connection is made in the `commons-only.xjb` bindings file.</xsd:documentation>
 		</xsd:annotation>
-		<xsd:attribute name="idref" type="xsd:IDREF" use="required" />
+		<xsd:complexContent>
+			<xsd:extension base="ModelClass">
+				<xsd:attribute name="idref" type="xsd:IDREF" use="required" />
+			</xsd:extension>
+		</xsd:complexContent>
 	</xsd:complexType>
 
 	<!-- Generic type for elements with ids (casting in java code required) -->
 	<xsd:complexType name="IDType" abstract="true">
-		<xsd:attribute name="id" type="xsd:ID" use="required" />
+		<xsd:complexContent>
+			<xsd:extension base="ModelClass">
+				<xsd:attribute name="id" type="xsd:ID" use="required" />
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<!-- Base class for all model classes - eases the identification of model classes in source code. -->
+	<xsd:complexType name="ModelClass" abstract="true">
 	</xsd:complexType>
 
 </xsd:schema>

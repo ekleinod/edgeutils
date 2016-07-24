@@ -20,12 +20,12 @@ import de.edgesoft.edgeutils.commons.ext.LocalDateTimeAdapter;
  * <pre>
  * &lt;complexType name="TimestampType">
  *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *     &lt;extension base="{}ModelClass">
  *       &lt;sequence>
  *         &lt;element name="created" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
  *         &lt;element name="modified" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
  *       &lt;/sequence>
- *     &lt;/restriction>
+ *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
@@ -40,7 +40,9 @@ import de.edgesoft.edgeutils.commons.ext.LocalDateTimeAdapter;
 @XmlSeeAlso({
     Info.class
 })
-public class TimestampType {
+public class TimestampType
+    extends ModelClass
+{
 
     @XmlElement(required = true, type = String.class)
     @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
