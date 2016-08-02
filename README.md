@@ -49,6 +49,10 @@ Additionally, the following branches my occur:
 
 ## Released Versions
 
+### Version 0.7.2
+
+- id of IDType may be optional
+
 ### Version 0.7.1
 
 - introduced base class for all model classes, for easier identification of model classes in source code
