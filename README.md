@@ -49,6 +49,10 @@ Additionally, the following branches my occur:
 
 ## Released Versions
 
+### Version 0.8.0
+
+- AppProperties with default properties as Properties object
+
 ### Version 0.7.3
 
 - hotfix: forgot to create model classes
