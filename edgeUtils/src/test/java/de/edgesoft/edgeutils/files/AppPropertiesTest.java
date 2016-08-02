@@ -284,6 +284,37 @@ public class AppPropertiesTest {
 		}
 	}
 
+	/**
+	 * Tests default (Properties).
+	 */
+	@SuppressWarnings("static-method")
+	@Test
+	public void testDefaultProperties() {
+		
+		Properties prpDefault = new Properties();
+		prpDefault.setProperty("color", "blue");
+		prpDefault.setProperty("person", "me");
+		prpDefault.setProperty("name", "täter");
+
+		try {
+			Properties prpTest = AppProperties.getProperties(prpDefault, null, false);
+
+			Assert.assertNotNull(prpTest);
+			Assert.assertEquals(0, prpTest.size());
+			Assert.assertArrayEquals(new String[]{"color", "person", "name"}, Collections.list(prpTest.propertyNames()).toArray());
+
+			Assert.assertEquals("blue", prpTest.getProperty("color"));
+			Assert.assertEquals("me", prpTest.getProperty("person"));
+			Assert.assertEquals("täter", prpTest.getProperty("name"));
+
+			Assert.assertNull(prpTest.getProperty("missing"));
+			Assert.assertNull(prpTest.getProperty(""));
+
+		} catch (IOException e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
 }
 
 /* EOF */
