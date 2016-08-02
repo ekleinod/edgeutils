@@ -39,7 +39,7 @@ import org.junit.rules.ExpectedException;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author Ekkart Kleinod
- * @version 0.5.1
+ * @version 0.8.0
  * @since 0.5.0
  */
 public class AppPropertiesTest {
@@ -85,7 +85,7 @@ public class AppPropertiesTest {
 	public void testErrorNullNull() {
 
 		try {
-			Properties prpTest = AppProperties.getProperties(null, null);
+			Properties prpTest = AppProperties.getProperties((String) null, null, false);
 
 			Assert.assertNotNull(prpTest);
 			Assert.assertEquals(new Properties(), prpTest);
@@ -110,7 +110,7 @@ public class AppPropertiesTest {
 			exception.expectMessage(String.format("%s (%s)", sFilename, "No such file or directory"));
 		}
 
-		AppProperties.getProperties(sFilename, null);
+		AppProperties.getProperties(sFilename, null, false);
 
 	}
 
@@ -129,7 +129,7 @@ public class AppPropertiesTest {
 			exception.expectMessage(String.format("%s (%s)", sFilename, "No such file or directory"));
 		}
 
-		AppProperties.getProperties(null, sFilename);
+		AppProperties.getProperties((String) null, sFilename, false);
 
 	}
 
@@ -148,7 +148,7 @@ public class AppPropertiesTest {
 			exception.expectMessage(String.format("%s (%s)", sFilename, "No such file or directory"));
 		}
 
-		AppProperties.getProperties(sFilename, sFilename);
+		AppProperties.getProperties(sFilename, sFilename, false);
 
 	}
 
@@ -162,7 +162,7 @@ public class AppPropertiesTest {
 		Properties prpTest = null;
 
 		try {
-			prpTest = AppProperties.getProperties(DEFAULT, null);
+			prpTest = AppProperties.getProperties(DEFAULT, null, false);
 
 			Assert.assertNotNull(prpTest);
 			Assert.assertEquals(0, prpTest.size());
@@ -190,7 +190,7 @@ public class AppPropertiesTest {
 		Properties prpTest = null;
 
 		try {
-			prpTest = AppProperties.getProperties(null, APP);
+			prpTest = AppProperties.getProperties((String) null, APP, false);
 
 			Assert.assertNotNull(prpTest);
 			Assert.assertEquals(1, prpTest.size());
@@ -218,7 +218,7 @@ public class AppPropertiesTest {
 		Properties prpTest = null;
 
 		try {
-			prpTest = AppProperties.getProperties(DEFAULT, APP);
+			prpTest = AppProperties.getProperties(DEFAULT, APP, false);
 
 			Assert.assertNotNull(prpTest);
 			Assert.assertEquals(1, prpTest.size());
@@ -246,7 +246,7 @@ public class AppPropertiesTest {
 		Properties prpTest = null;
 
 		try {
-			prpTest = AppProperties.getProperties(DEFAULT, APP);
+			prpTest = AppProperties.getProperties(DEFAULT, APP, false);
 
 			Assert.assertNotNull(prpTest);
 			Assert.assertEquals(1, prpTest.size());
@@ -265,7 +265,7 @@ public class AppPropertiesTest {
 
 			AppProperties.saveProperties(prpTest, APP, "Comment ~~");
 
-			prpTest = AppProperties.getProperties(DEFAULT, APP);
+			prpTest = AppProperties.getProperties(DEFAULT, APP, false);
 
 			Assert.assertNotNull(prpTest);
 			Assert.assertEquals(3, prpTest.size());

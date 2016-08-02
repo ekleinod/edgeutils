@@ -30,7 +30,7 @@ import java.util.Properties;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * @author Ekkart Kleinod
- * @version 0.5.0
+ * @version 0.8.0
  * @since 0.5.0
  */
 public class AppProperties {
@@ -38,17 +38,51 @@ public class AppProperties {
 	/**
 	 * Load properties.
 	 * 
-	 * @param theDefaultPropFile default properties file (null = none)
+	 * @param theDefaultProperties default properties (null = none)
 	 * @param theAppPropFile application properties file (null = none)
+	 * @param ignoreExceptions irgnore exceptions?
 	 * 
 	 * @return loaded properties
 	 *  
 	 * @throws IOException if one occurs, just delegates thrown exceptions
 	 *  
-	 * @version 0.5.0
+	 * @version 0.8.0
+	 * @since 0.8.0
+	 */
+	public static Properties getProperties(final Properties theDefaultProperties, final String theAppPropFile, final boolean ignoreExceptions) throws IOException {
+		
+		// load specific properties, fill with default if not present
+		Properties appProps = new Properties(theDefaultProperties);
+		
+		if (theAppPropFile != null) {
+			try (FileInputStream stmIn = new FileInputStream(theAppPropFile)) {
+				appProps.load(stmIn);
+			} catch (IOException e) {
+				if (!ignoreExceptions) {
+					throw e;
+				}
+			}
+		}
+	        
+		return appProps;
+		
+	}
+	
+	/**
+	 * Load properties.
+	 * 
+	 * @param theDefaultPropFile default properties file (null = none)
+	 * @param theAppPropFile application properties file (null = none)
+	 * @param ignoreExceptions irgnore exceptions?
+	 * 
+	 * @return loaded properties
+	 *  
+	 * @throws IOException if one occurs, just delegates thrown exceptions
+	 *  
+	 * @version 0.8.0
 	 * @since 0.5.0
 	 */
-	public static Properties getProperties(String theDefaultPropFile, String theAppPropFile) throws IOException {
+	public static Properties getProperties(String theDefaultPropFile, String theAppPropFile, final boolean ignoreExceptions) throws IOException {
 		
 		// load default properties
 		Properties defaultProps = new Properties();
@@ -56,6 +90,10 @@ public class AppProperties {
 		if (theDefaultPropFile != null) {
 			try (FileInputStream stmIn = new FileInputStream(theDefaultPropFile)) {
 				defaultProps.load(stmIn);
+			} catch (IOException e) {
+				if (!ignoreExceptions) {
+					throw e;
+				}
 			} 
 		}
 		
@@ -65,6 +103,10 @@ public class AppProperties {
 		if (theAppPropFile != null) {
 			try (FileInputStream stmIn = new FileInputStream(theAppPropFile)) {
 				appProps.load(stmIn);
+			} catch (IOException e) {
+				if (!ignoreExceptions) {
+					throw e;
+				}
 			} 
 		}
 	        
