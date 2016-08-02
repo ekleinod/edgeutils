@@ -49,6 +49,10 @@ Additionally, the following branches my occur:
 
 ## Released Versions
 
+### Version 0.7.3
+
+- hotfix: forgot to create model classes
+
 ### Version 0.7.2
 
 - id of IDType may be optional

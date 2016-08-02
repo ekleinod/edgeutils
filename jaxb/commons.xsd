@@ -18,7 +18,7 @@ XSD Schema for common xsd structures.
 - IDType
 	- element with an id that can be referenced
 
-v0.7.2
+v0.7.3
 
 ## Legal stuff
 
