@@ -18,7 +18,7 @@ XSD Schema for common xsd structures.
 - IDType
 	- element with an id that can be referenced
 
-v0.7.1
+v0.7.2
 
 ## Legal stuff
 
@@ -132,7 +132,7 @@ Therefore, this connection is made in the `commons-only.xjb` bindings file.</xsd
 	<xsd:complexType name="IDType" abstract="true">
 		<xsd:complexContent>
 			<xsd:extension base="ModelClass">
-				<xsd:attribute name="id" type="xsd:ID" use="required" />
+				<xsd:attribute name="id" type="xsd:ID" use="optional" />
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
