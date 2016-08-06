@@ -49,6 +49,10 @@ Additionally, the following branches my occur:
 
 ## Released Versions
 
+### Version 0.9.0
+
+- new class for DateTime convenience methods
+
 ### Version 0.8.0
 
 - AppProperties with default properties as Properties object
