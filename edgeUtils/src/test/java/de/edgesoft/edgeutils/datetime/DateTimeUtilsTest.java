@@ -58,6 +58,32 @@ public class DateTimeUtilsTest {
 		
 	}
 
+	/**
+	 * Tests fromString.
+	 */
+	@SuppressWarnings("static-method")
+	@Test
+	public void testFromString() {
+		
+		LocalDateTime dteReturn = null;
+				
+		dteReturn = DateTimeUtils.fromString("2016-05-24T12:34:56.789");
+		Assert.assertEquals(LocalDateTime.parse("2016-05-24T12:34:56.789"), dteReturn);
+		
+		dteReturn = DateTimeUtils.fromString("24.05.2016 12:34:56");
+		Assert.assertEquals(LocalDateTime.parse("2016-05-24T12:34:56.000"), dteReturn);
+		
+		dteReturn = DateTimeUtils.fromString("4.5.2016 12:34:56");
+		Assert.assertEquals(LocalDateTime.parse("2016-05-04T12:34:56.000"), dteReturn);
+		
+		dteReturn = DateTimeUtils.fromString("24.05.2016");
+		Assert.assertEquals(LocalDateTime.parse("2016-05-24T00:00:00.000"), dteReturn);
+		
+		dteReturn = DateTimeUtils.fromString("12:34:56");
+		Assert.assertEquals(LocalDateTime.parse("2000-01-01T12:34:56.000"), dteReturn);
+		
+	}
+
 }
 
 /* EOF */
