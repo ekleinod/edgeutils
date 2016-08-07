@@ -2,6 +2,8 @@ package de.edgesoft.edgeutils.datetime;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 
 
@@ -46,6 +48,56 @@ public class DateTimeUtils {
 	 */
 	public static Date toDate(final LocalDateTime theDateTime) {
 		return Date.from(theDateTime.atZone(ZoneId.systemDefault()).toInstant());
+	}
+	
+	/**
+	 * Convert text to {@link LocalDateTime}.
+	 * 
+	 * @todo this is hacked really badly, because I can't grasp formatters fully.
+	 * 
+	 * @param theString string representation
+	 * 
+	 * @return datetime
+	 * @retval null if conversion was not successful
+	 *  
+	 * @version 0.9.1
+	 * @since 0.9.1
+	 */
+	public static LocalDateTime fromString(final String theString) {
+		
+		LocalDateTime dtReturn = null;
+		
+		try {
+			dtReturn = LocalDateTime.parse(theString);
+		} catch (DateTimeParseException e) {
+			// ignore
+		}
+		
+		if (dtReturn == null) {
+			try {
+				dtReturn = LocalDateTime.parse(theString, DateTimeFormatter.ofPattern("d.M.uuuu HH:mm:ss"));
+			} catch (DateTimeParseException e) {
+				// ignore
+			}
+		}
+		
+		if (dtReturn == null) {
+			try {
+				dtReturn = LocalDateTime.parse(theString + " 00:00:00", DateTimeFormatter.ofPattern("d.M.uuuu HH:mm:ss"));
+			} catch (DateTimeParseException e) {
+				// ignore
+			}
+		}
+		
+		if (dtReturn == null) {
+			try {
+				dtReturn = LocalDateTime.parse("1.1.2000 " + theString, DateTimeFormatter.ofPattern("d.M.uuuu HH:mm:ss"));
+			} catch (DateTimeParseException e) {
+				// ignore
+			}
+		}
+		
+		return dtReturn;
 	}
 	
 }
