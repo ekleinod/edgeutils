@@ -2,10 +2,12 @@ package de.edgesoft.edgeutils.datetime;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -31,10 +33,72 @@ import org.junit.Test;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author Ekkart Kleinod
- * @version 0.9.0
+ * @version 0.9.2
  * @since 0.9.0
  */
 public class DateTimeUtilsTest {
+
+	/**
+	 * Before each test: reset date pattern.
+	 */
+	@SuppressWarnings("static-method")
+	@Before
+	public void resetPattern() {
+		DateTimeUtils.setDatePattern(DateTimeUtils.DATE_PATTERN);
+	}
+
+	/**
+	 * Tests formatDate.
+	 */
+	@SuppressWarnings("static-method")
+	@Test
+	public void testFormatDate() {
+		
+		LocalDate dteIn = LocalDate.parse("2016-05-24");
+		
+		Assert.assertEquals("24.05.2016", DateTimeUtils.formatDate(dteIn));
+		Assert.assertNull(DateTimeUtils.formatDate(null));
+		
+		DateTimeUtils.setDatePattern("MM-yyyy+dd");
+		Assert.assertEquals("05-2016+24", DateTimeUtils.formatDate(dteIn));
+		
+	}
+
+	/**
+	 * Tests parseDate.
+	 */
+	@SuppressWarnings("static-method")
+	@Test
+	public void testParseDate() {
+		
+		LocalDate dteExpected = LocalDate.parse("2016-05-24");
+		
+		Assert.assertEquals(dteExpected, DateTimeUtils.parseDate("24.05.2016"));
+		Assert.assertNull(DateTimeUtils.parseDate(null));
+		Assert.assertNull(DateTimeUtils.parseDate(""));
+		Assert.assertNull(DateTimeUtils.parseDate("abcde"));
+		
+		DateTimeUtils.setDatePattern("MM-yyyy+dd");
+		Assert.assertEquals(dteExpected, DateTimeUtils.parseDate("05-2016+24"));
+		
+	}
+
+	/**
+	 * Tests isValidDate.
+	 */
+	@SuppressWarnings("static-method")
+	@Test
+	public void testIsValidDate() {
+		
+		Assert.assertTrue(DateTimeUtils.isValidDate("24.05.2016"));
+		Assert.assertFalse(DateTimeUtils.isValidDate(null));
+		Assert.assertFalse(DateTimeUtils.isValidDate(""));
+		Assert.assertFalse(DateTimeUtils.isValidDate("abcde"));
+		
+		DateTimeUtils.setDatePattern("MM-yyyy+dd");
+		Assert.assertTrue(DateTimeUtils.isValidDate("05-2016+24"));
+		
+	}
 
 	/**
 	 * Tests toDate.

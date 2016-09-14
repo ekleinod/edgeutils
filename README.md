@@ -49,6 +49,10 @@ Additionally, the following branches my occur:
 
 ## Released Versions
 
+### Version 0.9.2
+
+- extending DateTimeUtils with formatting/parsing dates
+
 ### Version 0.9.1
 
 - method for parsing date and/or time strings
