@@ -1,5 +1,6 @@
 package de.edgesoft.edgeutils.datetime;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -31,10 +32,86 @@ import java.util.Date;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * @author Ekkart Kleinod
- * @version 0.9.0
+ * @version 0.9.2
  * @since 0.9.0
  */
 public class DateTimeUtils {
+	
+	/**
+	 * Standard pattern for dates.
+	 * 
+	 * @version 0.9.2
+	 * @since 0.9.2
+	 */
+	public static final String DATE_PATTERN = "dd.MM.yyyy";
+	
+	/**
+	 * Date formatter.
+	 * 
+	 * @version 0.9.2
+	 * @since 0.9.2
+	 */
+	public static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_PATTERN);
+	
+	/**
+	 * Set individual date pattern.
+	 * 
+	 * @param thePattern pattern
+	 * 
+	 * @version 0.9.2
+	 * @since 0.9.2
+	 */
+	public static void setDatePattern(final String thePattern) {
+		DATE_FORMATTER = DateTimeFormatter.ofPattern(thePattern);
+	}
+	
+	/**
+	 * Format date.
+	 * 
+	 * @param theDate date
+	 * @return formatted date
+	 * 
+	 * @version 0.9.2
+	 * @since 0.9.2
+	 */
+	public static String formatDate(final LocalDate theDate) {
+		return (theDate == null) ? null : DATE_FORMATTER.format(theDate);
+	}
+	
+	/**
+	 * Parse date.
+	 * 
+	 * @param theString date string
+	 * @return date
+	 * 
+	 * @version 0.9.2
+	 * @since 0.9.2
+	 */
+	public static LocalDate parseDate(final String theString) {
+		if (theString == null) {
+			return null;
+		}
+		
+        try {
+            return LocalDate.parse(theString, DATE_FORMATTER);
+        } catch (DateTimeParseException e) {
+            return null;
+        }
+    }
+	
+	/**
+	 * Is string valid date?
+	 * 
+	 * @param theString date string
+	 * @return valid date?
+	 * 
+	 * @version 0.9.2
+	 * @since 0.9.2
+	 */
+	public static boolean isValidDate(final String theString) {
+        return DateTimeUtils.parseDate(theString) != null;
+    }
+	
 	
 	/**
 	 * Convert {@link LocalDateTime} to {@link Date}.
