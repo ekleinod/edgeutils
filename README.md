@@ -49,6 +49,10 @@ Additionally, the following branches my occur:
 
 ## Released Versions
 
+### Version 0.9.3
+
+- new ColorUtils for formatting colors
+
 ### Version 0.9.2
 
 - extending DateTimeUtils with formatting/parsing dates
