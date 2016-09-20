@@ -49,6 +49,10 @@ Additionally, the following branches my occur:
 
 ## Released Versions
 
+### Version 0.9.5
+
+- split PropertyUtils into two XMLAdapters
+
 ### Version 0.9.4
 
 - new PropertyUtils for marshaling/unmarshaling JavaFX properties
