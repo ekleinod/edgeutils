@@ -79,7 +79,7 @@ public class JAXBFilesTest {
 		exception.expect(EdgeUtilsException.class);
 
 		// windows and linux create different exceptions :(
-		if (System.getProperty("user.language").equalsIgnoreCase(Locale.GERMAN.getLanguage())) {
+		if (System.getProperty("os.name").equalsIgnoreCase("Windows") && System.getProperty("user.language").equalsIgnoreCase(Locale.GERMAN.getLanguage())) {
 			exception.expectMessage(String.format("Error reading data: %s (Das System kann die angegebene Datei nicht finden)", FILENAME));
 		} else {
 			exception.expectMessage(String.format("Error reading data: %s (No such file or directory)", FILENAME));
@@ -100,7 +100,7 @@ public class JAXBFilesTest {
 		exception.expect(EdgeUtilsException.class);
 
 		// windows and linux create different exceptions :(
-		if (System.getProperty("user.language").equalsIgnoreCase(Locale.GERMAN.getLanguage())) {
+		if (System.getProperty("os.name").equalsIgnoreCase("Windows") && System.getProperty("user.language").equalsIgnoreCase(Locale.GERMAN.getLanguage())) {
 			exception.expectMessage(String.format("Error reading data: %s (Zugriff verweigert)", FILENAME));
 		} else {
 			exception.expectMessage(String.format("Error reading data: %s (Is a directory)", FILENAME));
