@@ -6,7 +6,7 @@ Common bindings for xsd types.
 - `dateTime`, `time`, and `date` are mapped to `Calendar` instead of `XMLGregorianCalendar` which is a mess to cope with in code
 - `integer` is mapped to `Integer` instead of `BigInteger`
 
-v0.6.0
+v0.9.6
 
 ## Legal stuff
 
