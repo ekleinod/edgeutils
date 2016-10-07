@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+XSD Schema for tests.
+
+v0.9.6
+
+## Legal stuff
+
+Copyright 2014-2016 Ekkart Kleinod <ekleinod@edgesoft.de>
+
+This file is part of edgeUtils.
+
+edgeUtils is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+edgeUtils is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+						xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+						jxb:version="2.1">
+
+	<!-- allow xml:base attribute in order to avoid include errors -->
+	<xsd:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2005/08/xml.xsd" />
+
+	<xsd:include schemaLocation="../../../../jaxb/commons.xsd" />
+
+	<xsd:element name="test" type="Test" />
+
+	<xsd:complexType name="Test">
+		<xsd:complexContent>
+			<xsd:extension base="ModelClass">
+				<xsd:sequence>
+					<xsd:element name="info" type="Info" minOccurs="1" maxOccurs="1" />
+					<xsd:element name="content" type="Content" minOccurs="1" maxOccurs="1" />
+				</xsd:sequence>
+				<xsd:attribute ref="xml:base" />
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="Content">
+		<xsd:complexContent>
+			<xsd:extension base="ModelClass">
+				<xsd:sequence>
+					<xsd:element name="boolprop" type="BooleanProperty" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="intprop" type="IntegerProperty" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="dateprop" type="LocalDateProperty" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="datetimeprop" type="LocalDateTimeProperty" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="timeprop" type="LocalTimeProperty" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="stringprop" type="StringProperty" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="idelement" type="IDElement" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="idrefelement" type="RefType" minOccurs="0" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="IDElement" abstract="true">
+		<xsd:complexContent>
+			<xsd:extension base="IDType">
+				<xsd:sequence>
+					<xsd:element name="title" type="xsd:string" minOccurs="0" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+</xsd:schema>
+
+<!-- EOF -->
