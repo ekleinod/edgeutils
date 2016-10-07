@@ -27,10 +27,10 @@ import de.edgesoft.edgeutils.commons.ext.VersionExt;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ModelClass")
 @XmlSeeAlso({
+    IDType.class,
     RefType.class,
     VersionExt.class,
-    TimestampType.class,
-    IDType.class
+    TimestampType.class
 })
 public abstract class ModelClass {
 

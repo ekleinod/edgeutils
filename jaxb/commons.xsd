@@ -44,9 +44,6 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 						xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
 						jxb:version="2.1">
 
-	<!-- test element in order to be able to test the generated classes -->
-	<xsd:element name="test" type="Info" />
-
 	<!-- Document metainformation. -->
 	<xsd:complexType name="Info">
 		<xsd:complexContent>
