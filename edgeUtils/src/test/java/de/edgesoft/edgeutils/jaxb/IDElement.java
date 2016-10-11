@@ -30,7 +30,7 @@ import de.edgesoft.edgeutils.commons.IDType;
 @XmlType(name = "IDElement", propOrder = {
     "title"
 })
-public abstract class IDElement
+public class IDElement
     extends IDType
 {
 

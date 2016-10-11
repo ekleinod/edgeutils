@@ -65,18 +65,18 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 			xmlType="IntegerProperty"
 		/>
 		<xjc:javaType
-			adapter="de.edgesoft.edgeutils.javafx.SimpleLocalDatePropertyAdapter"
-			name="javafx.beans.property.SimpleLocalDateProperty"
+			adapter="de.edgesoft.edgeutils.javafx.SimpleObjectPropertyLocalDateAdapter"
+			name="javafx.beans.property.SimpleObjectProperty"
 			xmlType="LocalDateProperty"
 		/>
 		<xjc:javaType
-			adapter="de.edgesoft.edgeutils.javafx.SimpleLocalDateTimePropertyAdapter"
-			name="javafx.beans.property.SimpleLocalDateTimeProperty"
+			adapter="de.edgesoft.edgeutils.javafx.SimpleObjectPropertyLocalDateTimeAdapter"
+			name="javafx.beans.property.SimpleObjectProperty"
 			xmlType="LocalDateTimeProperty"
 		/>
 		<xjc:javaType
-			adapter="de.edgesoft.edgeutils.javafx.SimpleLocalTimePropertyAdapter"
-			name="javafx.beans.property.SimpleLocalTimeProperty"
+			adapter="de.edgesoft.edgeutils.javafx.SimpleObjectPropertyLocalTimeAdapter"
+			name="javafx.beans.property.SimpleObjectProperty"
 			xmlType="LocalTimeProperty"
 		/>
 		<xjc:javaType

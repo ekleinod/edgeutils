@@ -3,7 +3,9 @@ package de.edgesoft.edgeutils.files;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Locale;
 
 import org.junit.After;
@@ -15,8 +17,15 @@ import org.junit.rules.ExpectedException;
 
 import de.edgesoft.edgeutils.EdgeUtilsException;
 import de.edgesoft.edgeutils.commons.Info;
-import de.edgesoft.edgeutils.commons.ObjectFactory;
+import de.edgesoft.edgeutils.commons.RefType;
 import de.edgesoft.edgeutils.commons.ext.VersionExt;
+import de.edgesoft.edgeutils.jaxb.Content;
+import de.edgesoft.edgeutils.jaxb.IDElement;
+import de.edgesoft.edgeutils.jaxb.ObjectFactory;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 /**
  * Unit test for JAXBFiles.
@@ -41,7 +50,7 @@ import de.edgesoft.edgeutils.commons.ext.VersionExt;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author Ekkart Kleinod
- * @version 0.7.0
+ * @version 0.9.6
  * @since 0.6.0
  */
 public class JAXBFilesTest {
@@ -119,18 +128,53 @@ public class JAXBFilesTest {
 
 		try {
 
+			ObjectFactory factory = new ObjectFactory();
+
+			de.edgesoft.edgeutils.jaxb.Test jxbTest = factory.createTest();
+
+			Info jxbInfo = new de.edgesoft.edgeutils.commons.ObjectFactory().createInfo();
+
 			LocalDateTime dteCreation = LocalDateTime.now();
 			LocalDateTime dteModification = dteCreation.plusHours(2);
 
-			Info tpeTest = new Info();
+			jxbInfo.setCreated(dteCreation);
+			jxbInfo.setModified(dteModification);
+			jxbInfo.setAppversion(new VersionExt("1.0.1"));
+			jxbInfo.setDocversion(new VersionExt("1.1.0 alpha 2"));
+			jxbInfo.setCreator(String.format("äöü - %s", JAXBFilesTest.class.getCanonicalName()));
 
-			tpeTest.setCreated(dteCreation);
-			tpeTest.setModified(dteModification);
-			tpeTest.setAppversion(new VersionExt("1.0.1"));
-			tpeTest.setDocversion(new VersionExt("1.1.0 alpha 2"));
-			tpeTest.setCreator(String.format("äöü - %s", JAXBFilesTest.class.getCanonicalName()));
+			jxbTest.setInfo(jxbInfo);
 
-			JAXBFiles.marshal(new ObjectFactory().createTest(tpeTest), FILENAME, null);
+
+			Content jxbContent = factory.createContent();
+
+			jxbContent.setBoolprop(new SimpleBooleanProperty(true));
+			jxbContent.setIntprop(new SimpleIntegerProperty(42));
+
+			LocalDate dteDateProp = LocalDate.now();
+			jxbContent.setDateprop(new SimpleObjectProperty<>(dteDateProp));
+
+			LocalDateTime dteDateTimeProp = LocalDateTime.now();
+			jxbContent.setDatetimeprop(new SimpleObjectProperty<>(dteDateTimeProp));
+
+			LocalTime dteTimeProp = LocalTime.now();
+			jxbContent.setTimeprop(new SimpleObjectProperty<>(dteTimeProp));
+
+			jxbContent.setStringprop(new SimpleStringProperty("äöü proptest"));
+
+			IDElement jxbIDElement = factory.createIDElement();
+			jxbIDElement.setId("myid");
+			jxbIDElement.setTitle("ID element myid");
+			jxbContent.setIdelement(jxbIDElement);
+
+			RefType jxbRefType = new de.edgesoft.edgeutils.commons.ObjectFactory().createRefType();
+			jxbRefType.setIdref(jxbIDElement);
+			jxbContent.setIdrefelement(jxbRefType);
+
+			jxbTest.setContent(jxbContent);
+
+
+			JAXBFiles.marshal(factory.createTest(jxbTest), FILENAME, null);
 
 			Assert.assertTrue(String.format("File '%s' does not exist.", Paths.get(FILENAME)), Files.exists(Paths.get(FILENAME)));
 			Assert.assertTrue(String.format("File '%s' is no regular file.", Paths.get(FILENAME)), Files.isRegularFile(Paths.get(FILENAME)));
@@ -138,16 +182,16 @@ public class JAXBFilesTest {
 			Assert.assertTrue(String.format("File '%s' is not readable.", Paths.get(FILENAME)), Files.isReadable(Paths.get(FILENAME)));
 			Assert.assertTrue(String.format("File '%s' is not writeable.", Paths.get(FILENAME)), Files.isWritable(Paths.get(FILENAME)));
 
-			Info tpeResult = JAXBFiles.unmarshal(FILENAME, Info.class);
+			de.edgesoft.edgeutils.jaxb.Test readTest = JAXBFiles.unmarshal(FILENAME, de.edgesoft.edgeutils.jaxb.Test.class);
 
-			Assert.assertEquals(dteCreation, tpeResult.getCreated());
-			Assert.assertEquals(dteModification, tpeResult.getModified());
-			Assert.assertEquals("1.0.1", tpeResult.getAppversion().toString());
-			Assert.assertEquals("1.1.0 alpha 2", tpeResult.getDocversion().toString());
-			Assert.assertEquals(String.format("äöü - %s", JAXBFilesTest.class.getCanonicalName()), tpeResult.getCreator());
+			Assert.assertEquals(dteCreation, readTest.getInfo().getCreated());
+			Assert.assertEquals(dteModification, readTest.getInfo().getModified());
+			Assert.assertEquals("1.0.1", readTest.getInfo().getAppversion().toString());
+			Assert.assertEquals("1.1.0 alpha 2", readTest.getInfo().getDocversion().toString());
+			Assert.assertEquals(String.format("äöü - %s", JAXBFilesTest.class.getCanonicalName()), readTest.getInfo().getCreator());
 
 			JAXBFiles.setEncoding(StandardCharsets.ISO_8859_1);
-			JAXBFiles.marshal(new ObjectFactory().createTest(tpeTest), FILENAME, null);
+			JAXBFiles.marshal(factory.createTest(jxbTest), FILENAME, null);
 
 			Assert.assertTrue(String.format("File '%s' does not exist.", Paths.get(FILENAME)), Files.exists(Paths.get(FILENAME)));
 			Assert.assertTrue(String.format("File '%s' is no regular file.", Paths.get(FILENAME)), Files.isRegularFile(Paths.get(FILENAME)));
@@ -155,13 +199,13 @@ public class JAXBFilesTest {
 			Assert.assertTrue(String.format("File '%s' is not readable.", Paths.get(FILENAME)), Files.isReadable(Paths.get(FILENAME)));
 			Assert.assertTrue(String.format("File '%s' is not writeable.", Paths.get(FILENAME)), Files.isWritable(Paths.get(FILENAME)));
 
-			tpeResult = JAXBFiles.unmarshal(FILENAME, Info.class);
+			readTest = JAXBFiles.unmarshal(FILENAME, de.edgesoft.edgeutils.jaxb.Test.class);
 
-			Assert.assertEquals(dteCreation, tpeResult.getCreated());
-			Assert.assertEquals(dteModification, tpeResult.getModified());
-			Assert.assertEquals("1.0.1", tpeResult.getAppversion().toString());
-			Assert.assertEquals("1.1.0 alpha 2", tpeResult.getDocversion().toString());
-			Assert.assertEquals(String.format("äöü - %s", JAXBFilesTest.class.getCanonicalName()), tpeResult.getCreator());
+			Assert.assertEquals(dteCreation, readTest.getInfo().getCreated());
+			Assert.assertEquals(dteModification, readTest.getInfo().getModified());
+			Assert.assertEquals("1.0.1", readTest.getInfo().getAppversion().toString());
+			Assert.assertEquals("1.1.0 alpha 2", readTest.getInfo().getDocversion().toString());
+			Assert.assertEquals(String.format("äöü - %s", JAXBFilesTest.class.getCanonicalName()), readTest.getInfo().getCreator());
 
 		} catch (Exception e) {
 			e.printStackTrace();

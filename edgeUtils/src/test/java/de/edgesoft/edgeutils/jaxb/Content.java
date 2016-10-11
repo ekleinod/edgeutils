@@ -3,9 +3,7 @@ package de.edgesoft.edgeutils.jaxb;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleLocalDateProperty;
-import javafx.beans.property.SimpleLocalDateTimeProperty;
-import javafx.beans.property.SimpleLocalTimeProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -17,9 +15,9 @@ import de.edgesoft.edgeutils.commons.ModelClass;
 import de.edgesoft.edgeutils.commons.RefType;
 import de.edgesoft.edgeutils.javafx.SimpleBooleanPropertyAdapter;
 import de.edgesoft.edgeutils.javafx.SimpleIntegerPropertyAdapter;
-import de.edgesoft.edgeutils.javafx.SimpleLocalDatePropertyAdapter;
-import de.edgesoft.edgeutils.javafx.SimpleLocalDateTimePropertyAdapter;
-import de.edgesoft.edgeutils.javafx.SimpleLocalTimePropertyAdapter;
+import de.edgesoft.edgeutils.javafx.SimpleObjectPropertyLocalDateAdapter;
+import de.edgesoft.edgeutils.javafx.SimpleObjectPropertyLocalDateTimeAdapter;
+import de.edgesoft.edgeutils.javafx.SimpleObjectPropertyLocalTimeAdapter;
 import de.edgesoft.edgeutils.javafx.SimpleStringPropertyAdapter;
 
 
@@ -73,17 +71,17 @@ public class Content
     @XmlSchemaType(name = "int")
     protected SimpleIntegerProperty intprop;
     @XmlElement(type = String.class)
-    @XmlJavaTypeAdapter(SimpleLocalDatePropertyAdapter.class)
+    @XmlJavaTypeAdapter(SimpleObjectPropertyLocalDateAdapter.class)
     @XmlSchemaType(name = "date")
-    protected SimpleLocalDateProperty dateprop;
+    protected SimpleObjectProperty dateprop;
     @XmlElement(type = String.class)
-    @XmlJavaTypeAdapter(SimpleLocalDateTimePropertyAdapter.class)
+    @XmlJavaTypeAdapter(SimpleObjectPropertyLocalDateTimeAdapter.class)
     @XmlSchemaType(name = "dateTime")
-    protected SimpleLocalDateTimeProperty datetimeprop;
+    protected SimpleObjectProperty datetimeprop;
     @XmlElement(type = String.class)
-    @XmlJavaTypeAdapter(SimpleLocalTimePropertyAdapter.class)
+    @XmlJavaTypeAdapter(SimpleObjectPropertyLocalTimeAdapter.class)
     @XmlSchemaType(name = "time")
-    protected SimpleLocalTimeProperty timeprop;
+    protected SimpleObjectProperty timeprop;
     @XmlElement(type = String.class)
     @XmlJavaTypeAdapter(SimpleStringPropertyAdapter.class)
     protected SimpleStringProperty stringprop;
@@ -146,7 +144,7 @@ public class Content
      *     {@link String }
      *     
      */
-    public SimpleLocalDateProperty getDateprop() {
+    public SimpleObjectProperty getDateprop() {
         return dateprop;
     }
 
@@ -158,7 +156,7 @@ public class Content
      *     {@link String }
      *     
      */
-    public void setDateprop(SimpleLocalDateProperty value) {
+    public void setDateprop(SimpleObjectProperty value) {
         this.dateprop = value;
     }
 
@@ -170,7 +168,7 @@ public class Content
      *     {@link String }
      *     
      */
-    public SimpleLocalDateTimeProperty getDatetimeprop() {
+    public SimpleObjectProperty getDatetimeprop() {
         return datetimeprop;
     }
 
@@ -182,7 +180,7 @@ public class Content
      *     {@link String }
      *     
      */
-    public void setDatetimeprop(SimpleLocalDateTimeProperty value) {
+    public void setDatetimeprop(SimpleObjectProperty value) {
         this.datetimeprop = value;
     }
 
@@ -194,7 +192,7 @@ public class Content
      *     {@link String }
      *     
      */
-    public SimpleLocalTimeProperty getTimeprop() {
+    public SimpleObjectProperty getTimeprop() {
         return timeprop;
     }
 
@@ -206,7 +204,7 @@ public class Content
      *     {@link String }
      *     
      */
-    public void setTimeprop(SimpleLocalTimeProperty value) {
+    public void setTimeprop(SimpleObjectProperty value) {
         this.timeprop = value;
     }
 

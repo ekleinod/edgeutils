@@ -42,6 +42,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link IDElement }
+     * 
+     */
+    public IDElement createIDElement() {
+        return new IDElement();
+    }
+
+    /**
      * Create an instance of {@link Content }
      * 
      */

@@ -65,7 +65,7 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 		</xsd:complexContent>
 	</xsd:complexType>
 
-	<xsd:complexType name="IDElement" abstract="true">
+	<xsd:complexType name="IDElement">
 		<xsd:complexContent>
 			<xsd:extension base="IDType">
 				<xsd:sequence>
