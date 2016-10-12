@@ -18,7 +18,7 @@ XSD Schema for common xsd structures.
 - IDType
 	- element with an id that can be referenced
 
-v0.7.3
+v0.9.6
 
 ## Legal stuff
 
@@ -43,9 +43,6 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 						xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
 						jxb:version="2.1">
-
-	<!-- test element in order to be able to test the generated classes -->
-	<xsd:element name="test" type="Info" />
 
 	<!-- Document metainformation. -->
 	<xsd:complexType name="Info">
@@ -89,6 +86,36 @@ Therefore, this declaration is given in the `commons-only.xjb` bindings file.</x
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+
+	<!-- BooleanProperty type -->
+	<xsd:simpleType name="BooleanProperty">
+		<xsd:restriction base="xsd:boolean" />
+	</xsd:simpleType>
+
+	<!-- IntegerProperty type -->
+	<xsd:simpleType name="IntegerProperty">
+		<xsd:restriction base="xsd:int" />
+	</xsd:simpleType>
+
+	<!-- LocalDateProperty type -->
+	<xsd:simpleType name="LocalDateProperty">
+		<xsd:restriction base="xsd:date" />
+	</xsd:simpleType>
+
+	<!-- LocalDateTimeProperty type -->
+	<xsd:simpleType name="LocalDateTimeProperty">
+		<xsd:restriction base="xsd:dateTime" />
+	</xsd:simpleType>
+
+	<!-- LocalTimeProperty type -->
+	<xsd:simpleType name="LocalTimeProperty">
+		<xsd:restriction base="xsd:time" />
+	</xsd:simpleType>
+
+	<!-- StringProperty type -->
+	<xsd:simpleType name="StringProperty">
+		<xsd:restriction base="xsd:string" />
+	</xsd:simpleType>
 
 	<!-- Additional type. -->
 	<xsd:complexType name="Additional">

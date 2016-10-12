@@ -6,7 +6,7 @@ Common bindings for xsd types.
 - `dateTime`, `time`, and `date` are mapped to `Calendar` instead of `XMLGregorianCalendar` which is a mess to cope with in code
 - `integer` is mapped to `Integer` instead of `BigInteger`
 
-v0.6.0
+v0.9.6
 
 ## Legal stuff
 
@@ -43,18 +43,52 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 			xmlType="xsd:date"
 		/>
 		<xjc:javaType
-			xmlType="xsd:time"
-			name="java.time.LocalTime"
 			adapter="de.edgesoft.edgeutils.commons.ext.LocalTimeAdapter"
+			name="java.time.LocalTime"
+			xmlType="xsd:time"
 		/>
 		<xjc:javaType
-			xmlType="xsd:dateTime"
-			name="java.time.LocalDateTime"
 			adapter="de.edgesoft.edgeutils.commons.ext.LocalDateTimeAdapter"
+			name="java.time.LocalDateTime"
+			xmlType="xsd:dateTime"
+		/>
+
+		<!-- JavaFX properties -->
+		<xjc:javaType
+			adapter="de.edgesoft.edgeutils.javafx.SimpleBooleanPropertyAdapter"
+			name="javafx.beans.property.SimpleBooleanProperty"
+			xmlType="BooleanProperty"
+		/>
+		<xjc:javaType
+			adapter="de.edgesoft.edgeutils.javafx.SimpleIntegerPropertyAdapter"
+			name="javafx.beans.property.SimpleIntegerProperty"
+			xmlType="IntegerProperty"
+		/>
+		<xjc:javaType
+			adapter="de.edgesoft.edgeutils.javafx.SimpleObjectPropertyLocalDateAdapter"
+			name="javafx.beans.property.SimpleObjectProperty"
+			xmlType="LocalDateProperty"
+		/>
+		<xjc:javaType
+			adapter="de.edgesoft.edgeutils.javafx.SimpleObjectPropertyLocalDateTimeAdapter"
+			name="javafx.beans.property.SimpleObjectProperty"
+			xmlType="LocalDateTimeProperty"
+		/>
+		<xjc:javaType
+			adapter="de.edgesoft.edgeutils.javafx.SimpleObjectPropertyLocalTimeAdapter"
+			name="javafx.beans.property.SimpleObjectProperty"
+			xmlType="LocalTimeProperty"
+		/>
+		<xjc:javaType
+			adapter="de.edgesoft.edgeutils.javafx.SimpleStringPropertyAdapter"
+			name="javafx.beans.property.SimpleStringProperty"
+			xmlType="StringProperty"
 		/>
 
 		<!-- int should be int -->
-		<jxb:javaType name="java.lang.Integer" xmlType="xsd:integer"
+		<jxb:javaType
+			name="java.lang.Integer"
+			xmlType="xsd:integer"
 			parseMethod="javax.xml.bind.DatatypeConverter.parseInt"
 			printMethod="javax.xml.bind.DatatypeConverter.printInt"
 		/>
