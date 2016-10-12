@@ -1,5 +1,6 @@
 package de.edgesoft.edgeutils.files;
 
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -57,6 +58,50 @@ public class JAXBFilesTest {
 
 	/** File name. */
 	private static final String FILENAME = String.format("%s.xml", JAXBFilesTest.class.getSimpleName().toLowerCase());
+
+	/**
+	 * Returns test model.
+	 */
+	private static de.edgesoft.edgeutils.jaxb.Test getModel() {
+
+		ObjectFactory factory = new ObjectFactory();
+
+		de.edgesoft.edgeutils.jaxb.Test jxbTest = factory.createTest();
+
+		Info jxbInfo = new de.edgesoft.edgeutils.commons.ObjectFactory().createInfo();
+
+		jxbInfo.setCreated(LocalDateTime.now());
+		jxbInfo.setModified(LocalDateTime.now().plusHours(2));
+		jxbInfo.setAppversion(new VersionExt("1.0.1"));
+		jxbInfo.setDocversion(new VersionExt("1.1.0 alpha 2"));
+		jxbInfo.setCreator(String.format("äöü - %s", JAXBFilesTest.class.getCanonicalName()));
+
+		jxbTest.setInfo(jxbInfo);
+
+
+		Content jxbContent = factory.createContent();
+
+		jxbContent.setBoolprop(new SimpleBooleanProperty(true));
+		jxbContent.setIntprop(new SimpleIntegerProperty(42));
+		jxbContent.setDateprop(new SimpleObjectProperty<>(LocalDate.now()));
+		jxbContent.setDatetimeprop(new SimpleObjectProperty<>(LocalDateTime.now()));
+		jxbContent.setTimeprop(new SimpleObjectProperty<>(LocalTime.now()));
+		jxbContent.setStringprop(new SimpleStringProperty("äöü proptest"));
+
+		IDElement jxbIDElement = factory.createIDElement();
+		jxbIDElement.setId("myid");
+		jxbIDElement.setTitle("ID element myid");
+		jxbContent.setIdelement(jxbIDElement);
+
+		RefType jxbRefType = new de.edgesoft.edgeutils.commons.ObjectFactory().createRefType();
+		jxbRefType.setIdref(jxbIDElement);
+		jxbContent.setIdrefelement(jxbRefType);
+
+		jxbTest.setContent(jxbContent);
+
+		return jxbTest;
+
+	}
 
 	/**
 	 * Delete files.
@@ -124,57 +169,30 @@ public class JAXBFilesTest {
 	 */
 	@SuppressWarnings("static-method")
 	@Test
-	public void testWriteRead() {
+	public void testWriteReadUTF8() {
+		executeTestWriteRead(StandardCharsets.UTF_8);
+	}
+
+	/**
+	 * Tests write - read cycle.
+	 */
+	@SuppressWarnings("static-method")
+	@Test
+	public void testWriteReadISO88951() {
+		executeTestWriteRead(StandardCharsets.ISO_8859_1);
+	}
+
+	/**
+	 * Executes write - read cycle.
+	 */
+	private static void executeTestWriteRead(final Charset theCharSet) {
 
 		try {
 
-			ObjectFactory factory = new ObjectFactory();
+			de.edgesoft.edgeutils.jaxb.Test jxbTest = getModel();
 
-			de.edgesoft.edgeutils.jaxb.Test jxbTest = factory.createTest();
-
-			Info jxbInfo = new de.edgesoft.edgeutils.commons.ObjectFactory().createInfo();
-
-			LocalDateTime dteCreation = LocalDateTime.now();
-			LocalDateTime dteModification = dteCreation.plusHours(2);
-
-			jxbInfo.setCreated(dteCreation);
-			jxbInfo.setModified(dteModification);
-			jxbInfo.setAppversion(new VersionExt("1.0.1"));
-			jxbInfo.setDocversion(new VersionExt("1.1.0 alpha 2"));
-			jxbInfo.setCreator(String.format("äöü - %s", JAXBFilesTest.class.getCanonicalName()));
-
-			jxbTest.setInfo(jxbInfo);
-
-
-			Content jxbContent = factory.createContent();
-
-			jxbContent.setBoolprop(new SimpleBooleanProperty(true));
-			jxbContent.setIntprop(new SimpleIntegerProperty(42));
-
-			LocalDate dteDateProp = LocalDate.now();
-			jxbContent.setDateprop(new SimpleObjectProperty<>(dteDateProp));
-
-			LocalDateTime dteDateTimeProp = LocalDateTime.now();
-			jxbContent.setDatetimeprop(new SimpleObjectProperty<>(dteDateTimeProp));
-
-			LocalTime dteTimeProp = LocalTime.now();
-			jxbContent.setTimeprop(new SimpleObjectProperty<>(dteTimeProp));
-
-			jxbContent.setStringprop(new SimpleStringProperty("äöü proptest"));
-
-			IDElement jxbIDElement = factory.createIDElement();
-			jxbIDElement.setId("myid");
-			jxbIDElement.setTitle("ID element myid");
-			jxbContent.setIdelement(jxbIDElement);
-
-			RefType jxbRefType = new de.edgesoft.edgeutils.commons.ObjectFactory().createRefType();
-			jxbRefType.setIdref(jxbIDElement);
-			jxbContent.setIdrefelement(jxbRefType);
-
-			jxbTest.setContent(jxbContent);
-
-
-			JAXBFiles.marshal(factory.createTest(jxbTest), FILENAME, null);
+			JAXBFiles.setEncoding(theCharSet);
+			JAXBFiles.marshal(new ObjectFactory().createTest(jxbTest), FILENAME, null);
 
 			Assert.assertTrue(String.format("File '%s' does not exist.", Paths.get(FILENAME)), Files.exists(Paths.get(FILENAME)));
 			Assert.assertTrue(String.format("File '%s' is no regular file.", Paths.get(FILENAME)), Files.isRegularFile(Paths.get(FILENAME)));
@@ -184,28 +202,24 @@ public class JAXBFilesTest {
 
 			de.edgesoft.edgeutils.jaxb.Test readTest = JAXBFiles.unmarshal(FILENAME, de.edgesoft.edgeutils.jaxb.Test.class);
 
-			Assert.assertEquals(dteCreation, readTest.getInfo().getCreated());
-			Assert.assertEquals(dteModification, readTest.getInfo().getModified());
-			Assert.assertEquals("1.0.1", readTest.getInfo().getAppversion().toString());
-			Assert.assertEquals("1.1.0 alpha 2", readTest.getInfo().getDocversion().toString());
-			Assert.assertEquals(String.format("äöü - %s", JAXBFilesTest.class.getCanonicalName()), readTest.getInfo().getCreator());
+			Assert.assertEquals(jxbTest.getInfo().getCreated(), readTest.getInfo().getCreated());
+			Assert.assertEquals(jxbTest.getInfo().getModified(), readTest.getInfo().getModified());
+			Assert.assertEquals(jxbTest.getInfo().getAppversion().toString(), readTest.getInfo().getAppversion().toString());
+			Assert.assertEquals(jxbTest.getInfo().getDocversion().toString(), readTest.getInfo().getDocversion().toString());
+			Assert.assertEquals(jxbTest.getInfo().getCreator(), readTest.getInfo().getCreator());
 
-			JAXBFiles.setEncoding(StandardCharsets.ISO_8859_1);
-			JAXBFiles.marshal(factory.createTest(jxbTest), FILENAME, null);
+			Assert.assertEquals(jxbTest.getContent().getBoolprop().get(), readTest.getContent().getBoolprop().get());
+			Assert.assertEquals(jxbTest.getContent().getIntprop().get(), readTest.getContent().getIntprop().get());
+			Assert.assertEquals(jxbTest.getContent().getDateprop().get(), readTest.getContent().getDateprop().get());
+			Assert.assertEquals(jxbTest.getContent().getDatetimeprop().get(), readTest.getContent().getDatetimeprop().get());
+			Assert.assertEquals(jxbTest.getContent().getTimeprop().get(), readTest.getContent().getTimeprop().get());
+			Assert.assertEquals(jxbTest.getContent().getStringprop().get(), readTest.getContent().getStringprop().get());
 
-			Assert.assertTrue(String.format("File '%s' does not exist.", Paths.get(FILENAME)), Files.exists(Paths.get(FILENAME)));
-			Assert.assertTrue(String.format("File '%s' is no regular file.", Paths.get(FILENAME)), Files.isRegularFile(Paths.get(FILENAME)));
-			Assert.assertFalse(String.format("File '%s' is a directory.", Paths.get(FILENAME)), Files.isDirectory(Paths.get(FILENAME)));
-			Assert.assertTrue(String.format("File '%s' is not readable.", Paths.get(FILENAME)), Files.isReadable(Paths.get(FILENAME)));
-			Assert.assertTrue(String.format("File '%s' is not writeable.", Paths.get(FILENAME)), Files.isWritable(Paths.get(FILENAME)));
+			Assert.assertEquals(jxbTest.getContent().getIdelement().getId(), readTest.getContent().getIdelement().getId());
+			Assert.assertEquals(jxbTest.getContent().getIdelement().getTitle(), readTest.getContent().getIdelement().getTitle());
 
-			readTest = JAXBFiles.unmarshal(FILENAME, de.edgesoft.edgeutils.jaxb.Test.class);
-
-			Assert.assertEquals(dteCreation, readTest.getInfo().getCreated());
-			Assert.assertEquals(dteModification, readTest.getInfo().getModified());
-			Assert.assertEquals("1.0.1", readTest.getInfo().getAppversion().toString());
-			Assert.assertEquals("1.1.0 alpha 2", readTest.getInfo().getDocversion().toString());
-			Assert.assertEquals(String.format("äöü - %s", JAXBFilesTest.class.getCanonicalName()), readTest.getInfo().getCreator());
+			Assert.assertEquals(jxbTest.getContent().getIdelement().getId(), readTest.getContent().getIdrefelement().getIdref().getId());
+			Assert.assertEquals(jxbTest.getContent().getIdelement().getTitle(), ((IDElement) readTest.getContent().getIdrefelement().getIdref()).getTitle());
 
 		} catch (Exception e) {
 			e.printStackTrace();
