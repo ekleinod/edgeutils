@@ -49,6 +49,11 @@ Additionally, the following branches my occur:
 
 ## Released Versions
 
+### Version 0.9.6
+
+- adapters, elements, and bindings for most used JavaFX properties
+- improved test of commons
+
 ### Version 0.9.5
 
 - split PropertyUtils into two XMLAdapters
