@@ -104,7 +104,7 @@ public class AppPropertiesTest {
 		exception.expect(FileNotFoundException.class);
 
 		String sFilename = "missing.properties";
-		if (System.getProperty("user.language").equalsIgnoreCase(Locale.GERMAN.getLanguage())) {
+		if (System.getProperty("os.name").equalsIgnoreCase("Windows") && System.getProperty("user.language").equalsIgnoreCase(Locale.GERMAN.getLanguage())) {
 			exception.expectMessage(String.format("%s (%s)", sFilename, "Das System kann die angegebene Datei nicht finden"));
 		} else {
 			exception.expectMessage(String.format("%s (%s)", sFilename, "No such file or directory"));
@@ -123,7 +123,7 @@ public class AppPropertiesTest {
 		exception.expect(FileNotFoundException.class);
 
 		String sFilename = "missing.properties";
-		if (System.getProperty("user.language").equalsIgnoreCase(Locale.GERMAN.getLanguage())) {
+		if (System.getProperty("os.name").equalsIgnoreCase("Windows") && System.getProperty("user.language").equalsIgnoreCase(Locale.GERMAN.getLanguage())) {
 			exception.expectMessage(String.format("%s (%s)", sFilename, "Das System kann die angegebene Datei nicht finden"));
 		} else {
 			exception.expectMessage(String.format("%s (%s)", sFilename, "No such file or directory"));
@@ -142,7 +142,7 @@ public class AppPropertiesTest {
 		exception.expect(FileNotFoundException.class);
 
 		String sFilename = "missing.properties";
-		if (System.getProperty("user.language").equalsIgnoreCase(Locale.GERMAN.getLanguage())) {
+		if (System.getProperty("os.name").equalsIgnoreCase("Windows") && System.getProperty("user.language").equalsIgnoreCase(Locale.GERMAN.getLanguage())) {
 			exception.expectMessage(String.format("%s (%s)", sFilename, "Das System kann die angegebene Datei nicht finden"));
 		} else {
 			exception.expectMessage(String.format("%s (%s)", sFilename, "No such file or directory"));
@@ -290,7 +290,7 @@ public class AppPropertiesTest {
 	@SuppressWarnings("static-method")
 	@Test
 	public void testDefaultProperties() {
-		
+
 		Properties prpDefault = new Properties();
 		prpDefault.setProperty("color", "blue");
 		prpDefault.setProperty("person", "me");
