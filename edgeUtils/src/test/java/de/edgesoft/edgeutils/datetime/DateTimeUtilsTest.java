@@ -33,7 +33,7 @@ import org.junit.Test;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author Ekkart Kleinod
- * @version 0.9.2
+ * @version 0.9.7
  * @since 0.9.0
  */
 public class DateTimeUtilsTest {
@@ -61,6 +61,40 @@ public class DateTimeUtilsTest {
 		
 		DateTimeUtils.setDatePattern("MM-yyyy+dd");
 		Assert.assertEquals("05-2016+24", DateTimeUtils.formatDate(dteIn));
+		
+	}
+
+	/**
+	 * Tests formatAsDate.
+	 */
+	@SuppressWarnings("static-method")
+	@Test
+	public void testFormatAsDate() {
+		
+		LocalDateTime dteIn = LocalDateTime.parse("2016-05-24T19:34");
+		
+		Assert.assertEquals("24.05.2016", DateTimeUtils.formatAsDate(dteIn));
+		Assert.assertNull(DateTimeUtils.formatAsDate(null));
+		
+		DateTimeUtils.setDatePattern("MM-yyyy+dd");
+		Assert.assertEquals("05-2016+24", DateTimeUtils.formatAsDate(dteIn));
+		
+	}
+
+	/**
+	 * Tests formatAsTime.
+	 */
+	@SuppressWarnings("static-method")
+	@Test
+	public void testFormatAsTime() {
+		
+		LocalDateTime dteIn = LocalDateTime.parse("2016-05-24T19:34");
+		
+		Assert.assertEquals("19:34", DateTimeUtils.formatAsTime(dteIn));
+		Assert.assertNull(DateTimeUtils.formatAsTime(null));
+		
+		DateTimeUtils.setTimePattern("mm-mm/HH");
+		Assert.assertEquals("34-34/19", DateTimeUtils.formatAsTime(dteIn));
 		
 	}
 

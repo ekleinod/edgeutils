@@ -32,7 +32,7 @@ import java.util.Date;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * @author Ekkart Kleinod
- * @version 0.9.2
+ * @version 0.9.7
  * @since 0.9.0
  */
 public class DateTimeUtils {
@@ -46,12 +46,28 @@ public class DateTimeUtils {
 	public static final String DATE_PATTERN = "dd.MM.yyyy";
 	
 	/**
+	 * Standard pattern for times.
+	 * 
+	 * @version 0.9.7
+	 * @since 0.9.7
+	 */
+	public static final String TIME_PATTERN = "HH:mm";
+	
+	/**
 	 * Date formatter.
 	 * 
 	 * @version 0.9.2
 	 * @since 0.9.2
 	 */
 	public static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_PATTERN);
+	
+	/**
+	 * Time formatter.
+	 * 
+	 * @version 0.9.7
+	 * @since 0.9.7
+	 */
+	public static DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_PATTERN);
 	
 	/**
 	 * Set individual date pattern.
@@ -66,6 +82,18 @@ public class DateTimeUtils {
 	}
 	
 	/**
+	 * Set individual time pattern.
+	 * 
+	 * @param thePattern pattern
+	 * 
+	 * @version 0.9.7
+	 * @since 0.9.7
+	 */
+	public static void setTimePattern(final String thePattern) {
+		TIME_FORMATTER = DateTimeFormatter.ofPattern(thePattern);
+	}
+	
+	/**
 	 * Format date.
 	 * 
 	 * @param theDate date
@@ -76,6 +104,32 @@ public class DateTimeUtils {
 	 */
 	public static String formatDate(final LocalDate theDate) {
 		return (theDate == null) ? null : DATE_FORMATTER.format(theDate);
+	}
+	
+	/**
+	 * Format datetime as date.
+	 * 
+	 * @param theDateTime date
+	 * @return formatted date
+	 * 
+	 * @version 0.9.7
+	 * @since 0.9.7
+	 */
+	public static String formatAsDate(final LocalDateTime theDateTime) {
+		return (theDateTime == null) ? null : DATE_FORMATTER.format(theDateTime);
+	}
+	
+	/**
+	 * Format datetime as time.
+	 * 
+	 * @param theDateTime date
+	 * @return formatted time
+	 * 
+	 * @version 0.9.7
+	 * @since 0.9.7
+	 */
+	public static String formatAsTime(final LocalDateTime theDateTime) {
+		return (theDateTime == null) ? null : TIME_FORMATTER.format(theDateTime);
 	}
 	
 	/**
