@@ -18,7 +18,7 @@ XSD Schema for common xsd structures.
 - IDType
 	- element with an id that can be referenced
 
-v0.9.6
+v0.9.7
 
 ## Legal stuff
 
@@ -90,6 +90,11 @@ Therefore, this declaration is given in the `commons-only.xjb` bindings file.</x
 	<!-- BooleanProperty type -->
 	<xsd:simpleType name="BooleanProperty">
 		<xsd:restriction base="xsd:boolean" />
+	</xsd:simpleType>
+
+	<!-- DoubleProperty type -->
+	<xsd:simpleType name="DoubleProperty">
+		<xsd:restriction base="xsd:double" />
 	</xsd:simpleType>
 
 	<!-- IntegerProperty type -->

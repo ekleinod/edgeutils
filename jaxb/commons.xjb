@@ -6,7 +6,7 @@ Common bindings for xsd types.
 - `dateTime`, `time`, and `date` are mapped to `Calendar` instead of `XMLGregorianCalendar` which is a mess to cope with in code
 - `integer` is mapped to `Integer` instead of `BigInteger`
 
-v0.9.6
+v0.9.7
 
 ## Legal stuff
 
@@ -58,6 +58,11 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 			adapter="de.edgesoft.edgeutils.javafx.SimpleBooleanPropertyAdapter"
 			name="javafx.beans.property.SimpleBooleanProperty"
 			xmlType="BooleanProperty"
+		/>
+		<xjc:javaType
+			adapter="de.edgesoft.edgeutils.javafx.SimpleDoublePropertyAdapter"
+			name="javafx.beans.property.SimpleDoubleProperty"
+			xmlType="DoubleProperty"
 		/>
 		<xjc:javaType
 			adapter="de.edgesoft.edgeutils.javafx.SimpleIntegerPropertyAdapter"
