@@ -3,7 +3,7 @@
 <!--
 Ant script for jaxb creation.
 
-v0.7.0
+v0.9.7
 
 ## Legal stuff
 
@@ -27,7 +27,7 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 
 <project name="edgeUtils" default="help" basedir=".">
 
-	<import file="ant-commons.xml"/>
+	<import file="../ant/ant-jaxb.xml"/>
 
 	<property name="commons:xsd" value="commons.xsd" />
 	<property name="commons:outpath" value="../edgeUtils/src/main/java/" />
