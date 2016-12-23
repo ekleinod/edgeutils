@@ -44,7 +44,7 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 
 	<target name="pdf" description="Run pdfLaTeX.">
 		<exec executable="pdflatex" output="${file:log}" append="true" resultproperty="edgeutils:result">
-			<arg line="-interaction=nonstopmode ${file:targetname}.drv" />
+			<arg line="-interaction=nonstopmode ${file:targetname}.tex" />
 		</exec>
 		<antcall target="checkResult" />
 	</target>
@@ -55,6 +55,21 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 		<antcall target="biber"></antcall>
 		<antcall target="pdf"></antcall>
 		<antcall target="pdf"></antcall>
+	</target>
+
+	<target name="pdf_drv" description="Run pdfLaTeX on .drv file.">
+		<exec executable="pdflatex" output="${file:log}" append="true" resultproperty="edgeutils:result">
+			<arg line="-interaction=nonstopmode ${file:targetname}.drv" />
+		</exec>
+		<antcall target="checkResult" />
+	</target>
+
+	<target name="pdf_drv_complete" description="Complete pdfLaTeX run on .drv file incl. biber.">
+		<antcall target="pdf_drv"></antcall>
+		<antcall target="pdf_drv"></antcall>
+		<antcall target="biber"></antcall>
+		<antcall target="pdf_drv"></antcall>
+		<antcall target="pdf_drv"></antcall>
 	</target>
 
 	<target name="checkResult">
