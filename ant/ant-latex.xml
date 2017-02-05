@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+Ant commons for latex.
+
+v0.9.7
+
+## Legal stuff
+
+Copyright 2014-2016 Ekkart Kleinod <ekleinod@edgesoft.de>
+
+This file is part of edgeUtils.
+
+edgeUtils is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+edgeUtils is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<project name="edgeUtilsCommonsLaTeX" default="help" basedir=".">
+
+	<import file="ant-commons.xml"/>
+
+	<target name="docstrip" description="Run docstrip.">
+		<exec executable="pdflatex" output="build.log" append="true" resultproperty="edgeutils:result">
+			<arg line="-interaction=nonstopmode ${file:targetname}.ins" />
+		</exec>
+		<antcall target="checkResult" />
+	</target>
+
+	<target name="biber" description="Run biber.">
+		<exec executable="biber" output="${file:log}" append="true" resultproperty="edgeutils:result">
+			<arg line="${file:targetname}" />
+		</exec>
+	</target>
+
+	<target name="pdf" description="Run pdfLaTeX.">
+		<exec executable="pdflatex" output="${file:log}" append="true" resultproperty="edgeutils:result">
+			<arg line="-interaction=nonstopmode ${file:targetname}.tex" />
+		</exec>
+		<antcall target="checkResult" />
+	</target>
+
+	<target name="pdf_complete" description="Complete pdfLaTeX run incl. biber.">
+		<antcall target="pdf"></antcall>
+		<antcall target="pdf"></antcall>
+		<antcall target="biber"></antcall>
+		<antcall target="pdf"></antcall>
+		<antcall target="pdf"></antcall>
+	</target>
+
+	<target name="pdf_drv" description="Run pdfLaTeX on .drv file.">
+		<exec executable="pdflatex" output="${file:log}" append="true" resultproperty="edgeutils:result">
+			<arg line="-interaction=nonstopmode ${file:targetname}.drv" />
+		</exec>
+		<antcall target="checkResult" />
+	</target>
+
+	<target name="pdf_drv_complete" description="Complete pdfLaTeX run on .drv file incl. biber.">
+		<antcall target="pdf_drv"></antcall>
+		<antcall target="pdf_drv"></antcall>
+		<antcall target="biber"></antcall>
+		<antcall target="pdf_drv"></antcall>
+		<antcall target="pdf_drv"></antcall>
+	</target>
+
+	<target name="checkResult">
+		<condition property="edgeutils:error">
+			<and>
+				<isset property="edgeutils:result" />
+				<not>
+					<equals arg1="${edgeutils:result}" arg2="0" />
+				</not>
+			</and>
+		</condition>
+		<fail message="Cancelling because of errors during execution. Error log: '${file:log}'" if="edgeutils:error" />
+	</target>
+
+</project>

@@ -2,6 +2,7 @@
 package de.edgesoft.edgeutils.jaxb;
 
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -14,6 +15,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import de.edgesoft.edgeutils.commons.ModelClass;
 import de.edgesoft.edgeutils.commons.RefType;
 import de.edgesoft.edgeutils.javafx.SimpleBooleanPropertyAdapter;
+import de.edgesoft.edgeutils.javafx.SimpleDoublePropertyAdapter;
 import de.edgesoft.edgeutils.javafx.SimpleIntegerPropertyAdapter;
 import de.edgesoft.edgeutils.javafx.SimpleObjectPropertyLocalDateAdapter;
 import de.edgesoft.edgeutils.javafx.SimpleObjectPropertyLocalDateTimeAdapter;
@@ -32,6 +34,7 @@ import de.edgesoft.edgeutils.javafx.SimpleStringPropertyAdapter;
  *     &lt;extension base="{}ModelClass">
  *       &lt;sequence>
  *         &lt;element name="boolprop" type="{}BooleanProperty" minOccurs="0"/>
+ *         &lt;element name="doubleprop" type="{}DoubleProperty" minOccurs="0"/>
  *         &lt;element name="intprop" type="{}IntegerProperty" minOccurs="0"/>
  *         &lt;element name="dateprop" type="{}LocalDateProperty" minOccurs="0"/>
  *         &lt;element name="datetimeprop" type="{}LocalDateTimeProperty" minOccurs="0"/>
@@ -50,6 +53,7 @@ import de.edgesoft.edgeutils.javafx.SimpleStringPropertyAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Content", propOrder = {
     "boolprop",
+    "doubleprop",
     "intprop",
     "dateprop",
     "datetimeprop",
@@ -66,6 +70,10 @@ public class Content
     @XmlJavaTypeAdapter(SimpleBooleanPropertyAdapter.class)
     @XmlSchemaType(name = "boolean")
     protected SimpleBooleanProperty boolprop;
+    @XmlElement(type = String.class)
+    @XmlJavaTypeAdapter(SimpleDoublePropertyAdapter.class)
+    @XmlSchemaType(name = "double")
+    protected SimpleDoubleProperty doubleprop;
     @XmlElement(type = String.class)
     @XmlJavaTypeAdapter(SimpleIntegerPropertyAdapter.class)
     @XmlSchemaType(name = "int")
@@ -110,6 +118,30 @@ public class Content
      */
     public void setBoolprop(SimpleBooleanProperty value) {
         this.boolprop = value;
+    }
+
+    /**
+     * Gets the value of the doubleprop property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public SimpleDoubleProperty getDoubleprop() {
+        return doubleprop;
+    }
+
+    /**
+     * Sets the value of the doubleprop property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setDoubleprop(SimpleDoubleProperty value) {
+        this.doubleprop = value;
     }
 
     /**

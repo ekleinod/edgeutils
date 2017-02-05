@@ -3,7 +3,7 @@
 <!--
 XSD Schema for tests.
 
-v0.9.6
+v0.9.7
 
 ## Legal stuff
 
@@ -53,6 +53,7 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 			<xsd:extension base="ModelClass">
 				<xsd:sequence>
 					<xsd:element name="boolprop" type="BooleanProperty" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="doubleprop" type="DoubleProperty" minOccurs="0" maxOccurs="1" />
 					<xsd:element name="intprop" type="IntegerProperty" minOccurs="0" maxOccurs="1" />
 					<xsd:element name="dateprop" type="LocalDateProperty" minOccurs="0" maxOccurs="1" />
 					<xsd:element name="datetimeprop" type="LocalDateTimeProperty" minOccurs="0" maxOccurs="1" />
