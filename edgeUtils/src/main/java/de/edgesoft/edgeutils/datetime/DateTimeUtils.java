@@ -2,9 +2,11 @@ package de.edgesoft.edgeutils.datetime;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.TemporalAccessor;
 import java.util.Date;
 
 
@@ -14,7 +16,7 @@ import java.util.Date;
  *
  * ## Legal stuff
  *
- * Copyright 2010-2016 Ekkart Kleinod <ekleinod@edgesoft.de>
+ * Copyright 2010-2017 Ekkart Kleinod <ekleinod@edgesoft.de>
  *
  * This file is part of edgeUtils.
  *
@@ -54,43 +56,39 @@ public class DateTimeUtils {
 	public static final String TIME_PATTERN = "HH:mm";
 
 	/**
-	 * Date formatter.
-	 *
-	 * @version 0.9.2
-	 * @since 0.9.2
-	 */
-	public static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_PATTERN);
-
-	/**
-	 * Time formatter.
+	 * Standard pattern for datetimes.
 	 *
 	 * @version 0.9.7
 	 * @since 0.9.7
 	 */
-	public static DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_PATTERN);
+	public static final String DATETIME_PATTERN = String.format("%s, %s", DATE_PATTERN, TIME_PATTERN);
 
 	/**
-	 * Set individual date pattern.
+	 * Format {@link TemporalAccessor} with given pattern.
 	 *
+	 * @param theAccessor accessor
 	 * @param thePattern pattern
+	 * @return formatted accessor
 	 *
-	 * @version 0.9.2
-	 * @since 0.9.2
+	 * @version 0.9.7
+	 * @since 0.9.7
 	 */
-	public static void setDatePattern(final String thePattern) {
-		DATE_FORMATTER = DateTimeFormatter.ofPattern(thePattern);
+	public static String formatTemporalAccessor(final TemporalAccessor theAccessor, final String thePattern) {
+		return ((theAccessor == null) || (thePattern == null)) ? null : DateTimeFormatter.ofPattern(thePattern).format(theAccessor);
 	}
 
 	/**
-	 * Set individual time pattern.
+	 * Format {@link LocalDate} with given pattern.
 	 *
-	 * @param thePattern pattern
+	 * @param theDate date
+	 * @param thePattern pattern (null = standard pattern)
+	 * @return formatted date
 	 *
 	 * @version 0.9.7
 	 * @since 0.9.7
 	 */
-	public static void setTimePattern(final String thePattern) {
-		TIME_FORMATTER = DateTimeFormatter.ofPattern(thePattern);
+	public static String formatDate(final LocalDate theDate, final String thePattern) {
+		return formatTemporalAccessor(theDate, (thePattern == null) ? DATE_PATTERN : thePattern);
 	}
 
 	/**
@@ -99,25 +97,65 @@ public class DateTimeUtils {
 	 * @param theDate date
 	 * @return formatted date
 	 *
-	 * @version 0.9.2
+	 * @version 0.9.7
 	 * @since 0.9.2
 	 */
 	public static String formatDate(final LocalDate theDate) {
-		return (theDate == null) ? null : DATE_FORMATTER.format(theDate);
+		return formatDate(theDate, null);
 	}
 
 	/**
-	 * Format date with given pattern.
+	 * Format {@link LocalDateTime} with given pattern.
 	 *
-	 * @param theDate date
-	 * @param thePattern pattern
-	 * @return formatted date
+	 * @param theDateTime datetime
+	 * @param thePattern pattern (null = standard pattern)
+	 * @return formatted datetime
 	 *
 	 * @version 0.9.7
 	 * @since 0.9.7
 	 */
-	public static String formatDate(final LocalDate theDate, final String thePattern) {
-		return (theDate == null) ? null : DateTimeFormatter.ofPattern(thePattern).format(theDate);
+	public static String formatDateTime(final LocalDateTime theDateTime, final String thePattern) {
+		return formatTemporalAccessor(theDateTime, (thePattern == null) ? DATETIME_PATTERN : thePattern);
+	}
+
+	/**
+	 * Format datetime.
+	 *
+	 * @param theDateTime datetime
+	 * @return formatted datetime
+	 *
+	 * @version 0.9.7
+	 * @since 0.9.7
+	 */
+	public static String formatDateTime(final LocalDateTime theDateTime) {
+		return formatDateTime(theDateTime, null);
+	}
+
+	/**
+	 * Format {@link LocalTime} with given pattern.
+	 *
+	 * @param theTime datetime
+	 * @param thePattern pattern (null = standard pattern)
+	 * @return formatted time
+	 *
+	 * @version 0.9.7
+	 * @since 0.9.7
+	 */
+	public static String formatTime(final LocalTime theTime, final String thePattern) {
+		return formatTemporalAccessor(theTime, (thePattern == null) ? TIME_PATTERN : thePattern);
+	}
+
+	/**
+	 * Format time.
+	 *
+	 * @param theTime time
+	 * @return formatted time
+	 *
+	 * @version 0.9.7
+	 * @since 0.9.7
+	 */
+	public static String formatTime(final LocalTime theTime) {
+		return formatTime(theTime, null);
 	}
 
 	/**
@@ -129,8 +167,8 @@ public class DateTimeUtils {
 	 * @version 0.9.7
 	 * @since 0.9.7
 	 */
-	public static String formatAsDate(final LocalDateTime theDateTime) {
-		return (theDateTime == null) ? null : DATE_FORMATTER.format(theDateTime);
+	public static String formatDateTimeAsDate(final LocalDateTime theDateTime) {
+		return formatDateTime(theDateTime, DATE_PATTERN);
 	}
 
 	/**
@@ -142,9 +180,31 @@ public class DateTimeUtils {
 	 * @version 0.9.7
 	 * @since 0.9.7
 	 */
-	public static String formatAsTime(final LocalDateTime theDateTime) {
-		return (theDateTime == null) ? null : TIME_FORMATTER.format(theDateTime);
+	public static String formatDateTimeAsTime(final LocalDateTime theDateTime) {
+		return formatDateTime(theDateTime, TIME_PATTERN);
 	}
+
+	/**
+	 * Parse date.
+	 *
+	 * @param theString date string
+	 * @param thePattern pattern (null = standard pattern)
+	 * @return date
+	 *
+	 * @version 0.9.7
+	 * @since 0.9.7
+	 */
+	public static LocalDate parseDate(final String theString, final String thePattern) {
+		if (theString == null) {
+			return null;
+		}
+
+        try {
+            return LocalDate.parse(theString, DateTimeFormatter.ofPattern((thePattern == null) ? DATE_PATTERN : thePattern));
+        } catch (DateTimeParseException e) {
+            return null;
+        }
+    }
 
 	/**
 	 * Parse date.
@@ -152,19 +212,25 @@ public class DateTimeUtils {
 	 * @param theString date string
 	 * @return date
 	 *
-	 * @version 0.9.2
+	 * @version 0.9.7
 	 * @since 0.9.2
 	 */
 	public static LocalDate parseDate(final String theString) {
-		if (theString == null) {
-			return null;
-		}
+		return parseDate(theString, null);
+    }
 
-        try {
-            return LocalDate.parse(theString, DATE_FORMATTER);
-        } catch (DateTimeParseException e) {
-            return null;
-        }
+	/**
+	 * Is string valid date?
+	 *
+	 * @param theString date string
+	 * @param thePattern pattern (null = standard pattern)
+	 * @return valid date?
+	 *
+	 * @version 0.9.7
+	 * @since 0.9.7
+	 */
+	public static boolean isValidDate(final String theString, final String thePattern) {
+        return parseDate(theString, thePattern) != null;
     }
 
 	/**
@@ -173,13 +239,78 @@ public class DateTimeUtils {
 	 * @param theString date string
 	 * @return valid date?
 	 *
-	 * @version 0.9.2
+	 * @version 0.9.7
 	 * @since 0.9.2
 	 */
 	public static boolean isValidDate(final String theString) {
-        return DateTimeUtils.parseDate(theString) != null;
+        return isValidDate(theString, null);
     }
 
+	/**
+	 * Convert text to {@link LocalDateTime}.
+	 *
+	 * @todo this is hacked really badly, because I can't grasp formatters fully.
+	 *
+	 * @param theString datetime string
+	 * @param thePattern pattern (null = standard pattern)
+	 * @return datetime
+	 * 	@retval null if conversion was not successful
+	 *
+	 * @version 0.9.7
+	 * @since 0.9.7
+	 */
+	public static LocalDateTime parseDateTime(final String theString, final String thePattern) {
+		if (theString == null) {
+			return null;
+		}
+
+		if (thePattern != null) {
+			try {
+				return LocalDateTime.parse(theString, DateTimeFormatter.ofPattern(thePattern));
+			} catch (DateTimeParseException e) {
+				return null;
+			}
+		}
+
+		try {
+			return LocalDateTime.parse(theString);
+		} catch (DateTimeParseException e) {
+			// ignore
+		}
+
+		try {
+			return LocalDateTime.parse(theString, DateTimeFormatter.ofPattern("d.M.yyyy HH:mm:ss"));
+		} catch (DateTimeParseException e) {
+			// ignore
+		}
+
+		try {
+			return LocalDateTime.parse(theString + " 00:00:00", DateTimeFormatter.ofPattern("d.M.yyyy HH:mm:ss"));
+		} catch (DateTimeParseException e) {
+			// ignore
+		}
+
+		try {
+			return LocalDateTime.parse("1.1.2000 " + theString, DateTimeFormatter.ofPattern("d.M.yyyy HH:mm:ss"));
+		} catch (DateTimeParseException e) {
+			// ignore
+		}
+
+		return null;
+	}
+
+	/**
+	 * Convert text to {@link LocalDateTime}.
+	 *
+	 * @return datetime
+	 * 	@retval null if conversion was not successful
+	 *
+	 * @version 0.9.7
+	 * @since 0.9.1
+	 */
+	public static LocalDateTime parseDateTime(final String theString) {
+		return parseDateTime(theString, null);
+	}
 
 	/**
 	 * Convert {@link LocalDateTime} to {@link Date}.
@@ -193,56 +324,6 @@ public class DateTimeUtils {
 	 */
 	public static Date toDate(final LocalDateTime theDateTime) {
 		return Date.from(theDateTime.atZone(ZoneId.systemDefault()).toInstant());
-	}
-
-	/**
-	 * Convert text to {@link LocalDateTime}.
-	 *
-	 * @todo this is hacked really badly, because I can't grasp formatters fully.
-	 *
-	 * @param theString string representation
-	 *
-	 * @return datetime
-	 * @retval null if conversion was not successful
-	 *
-	 * @version 0.9.1
-	 * @since 0.9.1
-	 */
-	public static LocalDateTime fromString(final String theString) {
-
-		LocalDateTime dtReturn = null;
-
-		try {
-			dtReturn = LocalDateTime.parse(theString);
-		} catch (DateTimeParseException e) {
-			// ignore
-		}
-
-		if (dtReturn == null) {
-			try {
-				dtReturn = LocalDateTime.parse(theString, DateTimeFormatter.ofPattern("d.M.uuuu HH:mm:ss"));
-			} catch (DateTimeParseException e) {
-				// ignore
-			}
-		}
-
-		if (dtReturn == null) {
-			try {
-				dtReturn = LocalDateTime.parse(theString + " 00:00:00", DateTimeFormatter.ofPattern("d.M.uuuu HH:mm:ss"));
-			} catch (DateTimeParseException e) {
-				// ignore
-			}
-		}
-
-		if (dtReturn == null) {
-			try {
-				dtReturn = LocalDateTime.parse("1.1.2000 " + theString, DateTimeFormatter.ofPattern("d.M.uuuu HH:mm:ss"));
-			} catch (DateTimeParseException e) {
-				// ignore
-			}
-		}
-
-		return dtReturn;
 	}
 
 }
