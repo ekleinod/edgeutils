@@ -49,6 +49,14 @@ Additionally, the following branches my occur:
 
 ## Released Versions
 
+### Version 0.9.7
+
+- improved DateTimeUtils
+- started cleaner ant commons
+- new
+	- DoublePropertyAdapter
+	- FileUtils
+
 ### Version 0.9.6
 
 - adapters, elements, and bindings for most used JavaFX properties
