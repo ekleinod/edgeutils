@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project name="edgeUtilsCommonsAnt" default="help" basedir=".">
+
+	<target name="help" description="Shows available targets.">
+		<echo>${ant.project.name}</echo>
+		<echo />
+		<echo>You can use the following targets:</echo>
+
+		<!-- show all available targets -->
+		<java classname="org.apache.tools.ant.Main">
+			<arg value="-projecthelp" />
+			<arg value="-buildfile" />
+			<arg value="${ant.file}" />
+		</java>
+	</target>
+
+	<target name="clear" description="Remove temporary files.">
+		<defaultexcludes remove="**/*~" />
+		<delete>
+			<fileset dir="." includes="**/*.aux, **/*.bak.vthought, **/*.bak, **/*.bbl, **/*.blg, **/*.dvi, **/*.idx, **/*.glo, **/*.ilg, **/*.ind, **/*.lof, **/*.lot, **/*.lop, **/*.nav, **/*.out, **/*.ps, **/*.snm, **/*.toc, **/*.url, **/*.*~"/>
+		</delete>
+		<defaultexcludes default="true" />
+	</target>
+
+	<target name="clearLog" description="Remove log files.">
+		<delete>
+			<fileset dir="." includes="**/*.log" />
+		</delete>
+	</target>
+
+</project>
