@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import de.edgesoft.edgeutils.commons.ext.LocalDateTimeAdapter;
+import de.edgesoft.edgeutils.commons.ext.ModelClassExt;
 
 
 /**
@@ -41,7 +42,7 @@ import de.edgesoft.edgeutils.commons.ext.LocalDateTimeAdapter;
     Info.class
 })
 public class TimestampType
-    extends ModelClass
+    extends ModelClassExt
 {
 
     @XmlElement(required = true, type = String.class)

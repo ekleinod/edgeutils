@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import de.edgesoft.edgeutils.commons.ext.ModelClassExt;
 
 
 /**
@@ -32,7 +33,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "RefType")
 public class RefType
-    extends ModelClass
+    extends ModelClassExt
 {
 
     @XmlAttribute(name = "idref", required = true)
