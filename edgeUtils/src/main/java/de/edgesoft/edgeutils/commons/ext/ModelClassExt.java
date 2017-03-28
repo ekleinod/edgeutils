@@ -3,7 +3,7 @@ package de.edgesoft.edgeutils.commons.ext;
 import de.edgesoft.edgeutils.commons.ModelClass;
 
 /**
- * Helper and convenience methods for {@link VersionType}.
+ * Helper and convenience methods for {@link ModelClass}.
  *
  * ## Legal stuff
  *
@@ -31,14 +31,14 @@ import de.edgesoft.edgeutils.commons.ModelClass;
 public class ModelClassExt extends ModelClass {
 
 	/**
-	 * Default getDisplayTitle method for all model classes.
+	 * Default {@link #getDisplayString()} method for all model classes.
 	 *
-	 * This allows to use this method in all instances of {@link ModelClass}
+	 * This allows to use this method in all instances of {@link ModelClass}.
 	 *
 	 * @version 0.14.0
 	 * @since 0.14.0
 	 */
-	public String getDisplayTitle() {
+	public String getDisplayString() {
 		return toString();
 	}
 
