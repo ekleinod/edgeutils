@@ -2,6 +2,7 @@ package de.edgesoft.edgeutils.commons.ext;
 
 import de.edgesoft.edgeutils.commons.ModelClass;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  * Helper and convenience methods for {@link ModelClass}.
@@ -39,7 +40,7 @@ public class ModelClassExt extends ModelClass {
 	 * @version 0.14.0
 	 * @since 0.14.0
 	 */
-	public SimpleStringProperty getDisplayText() {
+	public StringProperty getDisplayText() {
 		return new SimpleStringProperty(toString());
 	}
 
