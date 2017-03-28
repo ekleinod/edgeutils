@@ -1,6 +1,7 @@
 package de.edgesoft.edgeutils.commons.ext;
 
 import de.edgesoft.edgeutils.commons.ModelClass;
+import javafx.beans.property.SimpleStringProperty;
 
 /**
  * Helper and convenience methods for {@link ModelClass}.
@@ -31,15 +32,15 @@ import de.edgesoft.edgeutils.commons.ModelClass;
 public class ModelClassExt extends ModelClass {
 
 	/**
-	 * Default {@link #getDisplayString()} method for all model classes.
+	 * Default {@link #getDisplayText()} method for all model classes.
 	 *
 	 * This allows to use this method in all instances of {@link ModelClass}.
 	 *
 	 * @version 0.14.0
 	 * @since 0.14.0
 	 */
-	public String getDisplayString() {
-		return toString();
+	public SimpleStringProperty getDisplayText() {
+		return new SimpleStringProperty(toString());
 	}
 
 }
