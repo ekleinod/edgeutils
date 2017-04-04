@@ -120,7 +120,7 @@ public class BaseTheme implements Theme {
 
 	@Override
 	public Font getLegendFont() {
-		return new Font(Font.SANS_SERIF, Font.PLAIN, 11);
+		return new Font(getFontName(), Font.PLAIN, 11);
 	}
 
 	@Override
@@ -167,7 +167,7 @@ public class BaseTheme implements Theme {
 
 	@Override
 	public Font getAxisTitleFont() {
-		return new Font(Font.SANS_SERIF, Font.PLAIN, 12);
+		return new Font(getFontName(), Font.PLAIN, 12);
 	}
 
 	@Override
@@ -182,7 +182,7 @@ public class BaseTheme implements Theme {
 
 	@Override
 	public Font getAxisTickLabelsFont() {
-		return new Font(Font.SANS_SERIF, Font.PLAIN, 12);
+		return new Font(getFontName(), Font.PLAIN, 12);
 	}
 
 	@Override
@@ -320,7 +320,7 @@ public class BaseTheme implements Theme {
 
 	@Override
 	public Font getPieFont() {
-		return new Font(Font.SANS_SERIF, Font.PLAIN, 15);
+		return new Font(getFontName(), Font.PLAIN, 15);
 	}
 
 	@Override
@@ -371,7 +371,7 @@ public class BaseTheme implements Theme {
 
 	@Override
 	public Font getAnnotationFont() {
-		return new Font(Font.SANS_SERIF, Font.PLAIN, 12);
+		return new Font(getFontName(), Font.PLAIN, 12);
 	}
 
 	/**
