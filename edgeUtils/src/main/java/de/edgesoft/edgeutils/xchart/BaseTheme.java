@@ -3,6 +3,7 @@ package de.edgesoft.edgeutils.xchart;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.Stroke;
 
 import org.knowm.xchart.style.Theme;
@@ -45,6 +46,14 @@ import org.knowm.xchart.style.markers.MatlabSeriesMarkers;
  */
 public class BaseTheme implements Theme {
 
+	/**
+	 * Preferred font for charts.
+	 *
+	 * @version 0.14.0
+	 * @since 0.14.0
+	 */
+	private static final String FONTNAME = "Droid Sans";
+
 	@Override
 	public Color getChartBackgroundColor() {
 		return ChartColor.getAWTColor(ChartColor.WHITE);
@@ -79,7 +88,7 @@ public class BaseTheme implements Theme {
 
 	@Override
 	public Font getChartTitleFont() {
-		return new Font(Font.SANS_SERIF, Font.BOLD, 14);
+		return new Font(getFontName(), Font.BOLD, 14);
 	}
 
 	@Override
@@ -363,6 +372,26 @@ public class BaseTheme implements Theme {
 	@Override
 	public Font getAnnotationFont() {
 		return new Font(Font.SANS_SERIF, Font.PLAIN, 12);
+	}
+
+	/**
+	 * Returns font name of available font.
+	 *
+	 * @return font name
+	 *
+	 * @version 0.14.0
+	 * @since 0.14.0
+	 */
+	public static String getFontName() {
+
+		for (Font font : GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts()) {
+			if (FONTNAME.equalsIgnoreCase(font.getFontName())) {
+				return FONTNAME;
+			}
+		}
+
+		return "SansSerif";
+
 	}
 
 }
