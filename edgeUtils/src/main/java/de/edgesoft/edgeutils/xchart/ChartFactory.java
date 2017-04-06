@@ -1,5 +1,6 @@
 package de.edgesoft.edgeutils.xchart;
 
+import java.util.Optional;
 import java.util.OptionalInt;
 
 import org.knowm.xchart.PieChart;
@@ -45,7 +46,7 @@ public class ChartFactory {
 	 * @version 0.14.0
 	 * @since 0.14.0
 	 */
-	public static PieChart createPieChart(final String theTitle, final OptionalInt theHeight, final OptionalInt theWidth) {
+	public static PieChart createPieChart(final String theTitle, final OptionalInt theHeight, final OptionalInt theWidth, final Optional<AnnotationType> theAnnotation) {
 
 	    PieChart chart = new PieChartBuilder()
 	    		.title(theTitle)
@@ -60,7 +61,7 @@ public class ChartFactory {
 
 	    chart.getStyler().setTheme(new BaseTheme());
 	    chart.getStyler().setLegendVisible(false);
-	    chart.getStyler().setAnnotationType(AnnotationType.Label);
+	    chart.getStyler().setAnnotationType(theAnnotation.orElse(AnnotationType.Label));
 	    chart.getStyler().setDefaultSeriesRenderStyle(PieSeriesRenderStyle.Donut);
 
 	    return chart;
