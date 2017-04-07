@@ -329,6 +329,20 @@ public class DateTimeUtils {
 	}
 
 	/**
+	 * Convert {@link LocalDate} to {@link Date}.
+	 *
+	 * @param theDate date
+	 *
+	 * @return date
+	 *
+	 * @version 0.14.0
+	 * @since 0.14.0
+	 */
+	public static Date toDate(final LocalDate theDate) {
+		return Date.from(theDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+	}
+
+	/**
 	 * Returns date converter e.g. for date pickers.
 	 *
 	 * @param thePattern pattern (null = standard pattern)

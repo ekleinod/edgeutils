@@ -8,6 +8,9 @@ import java.util.OptionalInt;
 import org.knowm.xchart.PieChart;
 import org.knowm.xchart.PieChartBuilder;
 import org.knowm.xchart.PieSeries.PieSeriesRenderStyle;
+import org.knowm.xchart.XYChart;
+import org.knowm.xchart.XYChartBuilder;
+import org.knowm.xchart.XYSeries.XYSeriesRenderStyle;
 import org.knowm.xchart.style.PieStyler.AnnotationType;
 
 
@@ -70,6 +73,48 @@ public class ChartFactory {
 	    chart.getStyler().setAnnotationDistance(.75);
 	    chart.getStyler().setAnnotationsFont(chart.getStyler().getAnnotationsFont().deriveFont(Font.BOLD));
 	    chart.getStyler().setChartFontColor(Color.DARK_GRAY);
+
+	    return chart;
+
+	}
+
+	/**
+	 * Returns step chart.
+	 *
+	 * @param theTitle chart title
+	 *
+	 * @version 0.14.0
+	 * @since 0.14.0
+	 */
+	public static XYChart createStepChart(final String theTitle, final OptionalInt theHeight, final OptionalInt theWidth) {
+
+	    XYChart chart = new XYChartBuilder()
+	    		.title(theTitle)
+	    		.build();
+
+	    if (theHeight.isPresent()) {
+	    	chart.setHeight(theHeight.getAsInt());
+	    }
+	    if (theWidth.isPresent()) {
+	    	chart.setWidth(theWidth.getAsInt());
+	    }
+
+	    chart.getStyler().setTheme(new BaseTheme());
+	    chart.getStyler().setLegendVisible(false);
+
+	    chart.getStyler().setChartFontColor(Color.DARK_GRAY);
+
+	    chart.getStyler().setDatePattern("dd.MM.yyyy");
+	    chart.getStyler().setDecimalPattern("#");
+
+	    chart.getStyler().setPlotBorderVisible(false);
+	    chart.getStyler().setPlotGridHorizontalLinesVisible(true);
+	    chart.getStyler().setPlotGridVerticalLinesVisible(false);
+	    chart.getStyler().setPlotTicksMarksVisible(false);
+
+	    chart.getStyler().setXAxisTicksVisible(false);
+
+	    chart.getStyler().setYAxisTickMarkSpacingHint(100);
 
 	    return chart;
 
