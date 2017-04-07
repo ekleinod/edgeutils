@@ -6,12 +6,11 @@ import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.Stroke;
 
-import org.knowm.xchart.style.Theme;
 import org.knowm.xchart.style.MatlabTheme;
 import org.knowm.xchart.style.PieStyler.AnnotationType;
 import org.knowm.xchart.style.Styler.LegendPosition;
+import org.knowm.xchart.style.Theme;
 import org.knowm.xchart.style.colors.ChartColor;
-import org.knowm.xchart.style.colors.MatlabSeriesColors;
 import org.knowm.xchart.style.lines.MatlabSeriesLines;
 import org.knowm.xchart.style.markers.Marker;
 import org.knowm.xchart.style.markers.MatlabSeriesMarkers;
@@ -81,7 +80,7 @@ public class BaseTheme implements Theme {
 
 	@Override
 	public Color[] getSeriesColors() {
-		return new MatlabSeriesColors().getSeriesColors();
+		return new BaseSeriesColors().getSeriesColors();
 	}
 
 	// Chart Title ///////////////////////////////
@@ -135,7 +134,7 @@ public class BaseTheme implements Theme {
 
 	@Override
 	public Color getLegendBorderColor() {
-		return ChartColor.getAWTColor(ChartColor.BLACK);
+		return ChartColor.getAWTColor(ChartColor.WHITE);
 	}
 
 	@Override
@@ -270,7 +269,7 @@ public class BaseTheme implements Theme {
 
 	@Override
 	public boolean isPlotBorderVisible() {
-		return true;
+		return false;
 	}
 
 	@Override

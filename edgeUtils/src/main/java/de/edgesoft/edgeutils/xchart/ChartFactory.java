@@ -1,5 +1,7 @@
 package de.edgesoft.edgeutils.xchart;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.util.Optional;
 import java.util.OptionalInt;
 
@@ -60,9 +62,14 @@ public class ChartFactory {
 	    }
 
 	    chart.getStyler().setTheme(new BaseTheme());
-	    chart.getStyler().setLegendVisible(false);
 	    chart.getStyler().setAnnotationType(theAnnotation.orElse(AnnotationType.Label));
+	    chart.getStyler().setLegendVisible(false);
 	    chart.getStyler().setDefaultSeriesRenderStyle(PieSeriesRenderStyle.Donut);
+	    chart.getStyler().setDonutThickness(.45);
+
+	    chart.getStyler().setAnnotationDistance(.75);
+	    chart.getStyler().setAnnotationsFont(chart.getStyler().getAnnotationsFont().deriveFont(Font.BOLD));
+	    chart.getStyler().setChartFontColor(Color.DARK_GRAY);
 
 	    return chart;
 
