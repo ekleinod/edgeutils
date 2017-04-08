@@ -1,6 +1,8 @@
 package de.edgesoft.edgeutils.xchart;
 
 import java.awt.Color;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.knowm.xchart.style.colors.SeriesColors;
 
@@ -32,27 +34,60 @@ import org.knowm.xchart.style.colors.SeriesColors;
  */
 public class BaseSeriesColors implements SeriesColors {
 
-	private final Color[] seriesColors;
+	/**
+	 * Map of color schemes.
+	 *
+	 * @version 0.14.0
+	 * @since 0.14.0
+	 */
+	private Map<Colorschemes, Color[]> mapColors = null;
 
 	/**
-	* Constructor
-	*/
+	 * Constructor, setting all schemes.
+	 *
+	 * @version 0.14.0
+	 * @since 0.14.0
+	 */
 	public BaseSeriesColors() {
-		seriesColors = new Color[] {
+		mapColors = new HashMap<>();
+
+		mapColors.put(Colorschemes.DIVERGING_2, new Color[] {
 				new Color(145, 207, 96),
 				new Color(252, 141, 89)
-		};
+		});
+
+		mapColors.put(Colorschemes.DIVERGING_9, new Color[] {
+				new Color(178, 24, 43),
+				new Color(214, 96, 77),
+				new Color(244, 165, 130),
+				new Color(253, 219, 199),
+				new Color(247, 247, 247),
+				new Color(209, 229, 240),
+				new Color(146, 197, 222),
+				new Color(67, 147, 195),
+				new Color(33, 102, 172)
+		});
 	}
 
 	/**
-	 * Returns array of used colors.
+	 * Returns default array of colors (.
 	 *
 	 * @version 0.14.0
 	 * @since 0.14.0
 	 */
 	@Override
 	public Color[] getSeriesColors() {
-		return seriesColors;
+		return getSeriesColors(null);
+	}
+
+	/**
+	 * Returns colors for given color scheme.
+	 *
+	 * @version 0.14.0
+	 * @since 0.14.0
+	 */
+	public Color[] getSeriesColors(final Colorschemes theColorscheme) {
+		return mapColors.getOrDefault(theColorscheme, mapColors.get(Colorschemes.DIVERGING_9));
 	}
 
 }

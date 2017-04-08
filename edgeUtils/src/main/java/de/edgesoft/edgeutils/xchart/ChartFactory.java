@@ -10,7 +10,6 @@ import org.knowm.xchart.PieChartBuilder;
 import org.knowm.xchart.PieSeries.PieSeriesRenderStyle;
 import org.knowm.xchart.XYChart;
 import org.knowm.xchart.XYChartBuilder;
-import org.knowm.xchart.XYSeries.XYSeriesRenderStyle;
 import org.knowm.xchart.style.PieStyler.AnnotationType;
 
 
@@ -72,7 +71,9 @@ public class ChartFactory {
 
 	    chart.getStyler().setAnnotationDistance(.75);
 	    chart.getStyler().setAnnotationsFont(chart.getStyler().getAnnotationsFont().deriveFont(Font.BOLD));
+
 	    chart.getStyler().setChartFontColor(Color.DARK_GRAY);
+	    chart.getStyler().setSeriesColors(new BaseSeriesColors().getSeriesColors(Colorschemes.DIVERGING_2));
 
 	    return chart;
 
