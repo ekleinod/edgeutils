@@ -5,6 +5,9 @@ import java.awt.Font;
 import java.util.Optional;
 import java.util.OptionalInt;
 
+import org.knowm.xchart.CategoryChart;
+import org.knowm.xchart.CategoryChartBuilder;
+import org.knowm.xchart.CategorySeries.CategorySeriesRenderStyle;
 import org.knowm.xchart.PieChart;
 import org.knowm.xchart.PieChartBuilder;
 import org.knowm.xchart.PieSeries.PieSeriesRenderStyle;
@@ -104,6 +107,50 @@ public class ChartFactory {
 	    chart.getStyler().setLegendVisible(false);
 
 	    chart.getStyler().setChartFontColor(Color.DARK_GRAY);
+
+	    chart.getStyler().setDatePattern("dd.MM.yyyy");
+	    chart.getStyler().setDecimalPattern("#");
+
+	    chart.getStyler().setPlotBorderVisible(false);
+	    chart.getStyler().setPlotGridHorizontalLinesVisible(true);
+	    chart.getStyler().setPlotGridVerticalLinesVisible(false);
+	    chart.getStyler().setPlotTicksMarksVisible(false);
+
+	    chart.getStyler().setXAxisTicksVisible(false);
+
+	    chart.getStyler().setYAxisTickMarkSpacingHint(100);
+
+	    return chart;
+
+	}
+
+	/**
+	 * Returns step chart.
+	 *
+	 * @param theTitle chart title
+	 *
+	 * @version 0.14.0
+	 * @since 0.14.0
+	 */
+	public static CategoryChart createStepChart2(final String theTitle, final OptionalInt theHeight, final OptionalInt theWidth) {
+
+	    CategoryChart chart = new CategoryChartBuilder()
+	    		.title(theTitle)
+	    		.build();
+
+	    if (theHeight.isPresent()) {
+	    	chart.setHeight(theHeight.getAsInt());
+	    }
+	    if (theWidth.isPresent()) {
+	    	chart.setWidth(theWidth.getAsInt());
+	    }
+
+	    chart.getStyler().setTheme(new BaseTheme());
+	    chart.getStyler().setLegendVisible(false);
+	    chart.getStyler().setChartFontColor(Color.DARK_GRAY);
+
+
+	    chart.getStyler().setDefaultSeriesRenderStyle(CategorySeriesRenderStyle.Area);
 
 	    chart.getStyler().setDatePattern("dd.MM.yyyy");
 	    chart.getStyler().setDecimalPattern("#");
