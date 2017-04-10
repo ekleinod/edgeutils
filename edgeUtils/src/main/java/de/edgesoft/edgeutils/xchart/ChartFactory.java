@@ -49,12 +49,16 @@ public class ChartFactory {
 	 * Returns pie chart.
 	 *
 	 * @param theTitle chart title
+	 * @param theHeight height (optional)
+	 * @param theWidth width (optional)
+	 * @param theAnnotationType annotation type (optional)
+	 * @param theColorscheme color scheme (optional)
 	 *
 	 * @version 0.14.0
 	 * @since 0.14.0
 	 */
 	public static PieChart createPieChart(final String theTitle, final OptionalInt theHeight, final OptionalInt theWidth,
-			final Optional<AnnotationType> theAnnotation, final Optional<Colorschemes> theColorscheme) {
+			final Optional<AnnotationType> theAnnotationType, final Optional<Colorschemes> theColorscheme) {
 
 	    PieChart chart = new PieChartBuilder()
 	    		.title(theTitle)
@@ -68,7 +72,7 @@ public class ChartFactory {
 	    }
 
 	    chart.getStyler().setTheme(new BaseTheme());
-	    chart.getStyler().setAnnotationType(theAnnotation.orElse(AnnotationType.Label));
+	    chart.getStyler().setAnnotationType(theAnnotationType.orElse(AnnotationType.Label));
 	    chart.getStyler().setLegendVisible(false);
 	    chart.getStyler().setDefaultSeriesRenderStyle(PieSeriesRenderStyle.Donut);
 	    chart.getStyler().setDonutThickness(.45);
@@ -84,14 +88,19 @@ public class ChartFactory {
 	}
 
 	/**
-	 * Returns step chart.
+	 * Returns xy chart.
 	 *
 	 * @param theTitle chart title
+	 * @param theHeight height (optional)
+	 * @param theWidth width (optional)
+	 * @param theCategorySeriesRenderStyle render style (optional)
+	 * @param theColorscheme color scheme (optional)
 	 *
 	 * @version 0.14.0
 	 * @since 0.14.0
 	 */
-	public static XYChart createStepChart(final String theTitle, final OptionalInt theHeight, final OptionalInt theWidth) {
+	public static XYChart createXYChart(final String theTitle, final OptionalInt theHeight, final OptionalInt theWidth,
+			final Optional<Colorschemes> theColorscheme) {
 
 	    XYChart chart = new XYChartBuilder()
 	    		.title(theTitle)
@@ -121,6 +130,8 @@ public class ChartFactory {
 
 	    chart.getStyler().setYAxisTickMarkSpacingHint(100);
 
+	    chart.getStyler().setSeriesColors(new BaseSeriesColors().getSeriesColors(theColorscheme.orElse(Colorschemes.DIVERGING_9)));
+
 	    return chart;
 
 	}
@@ -129,11 +140,16 @@ public class ChartFactory {
 	 * Returns step chart.
 	 *
 	 * @param theTitle chart title
+	 * @param theHeight height (optional)
+	 * @param theWidth width (optional)
+	 * @param theCategorySeriesRenderStyle render style (optional)
+	 * @param theColorscheme color scheme (optional)
 	 *
 	 * @version 0.14.0
 	 * @since 0.14.0
 	 */
-	public static CategoryChart createStepChart2(final String theTitle, final OptionalInt theHeight, final OptionalInt theWidth) {
+	public static CategoryChart createCategoryChart(final String theTitle, final OptionalInt theHeight, final OptionalInt theWidth,
+			final Optional<CategorySeriesRenderStyle> theCategorySeriesRenderStyle, final Optional<Colorschemes> theColorscheme) {
 
 	    CategoryChart chart = new CategoryChartBuilder()
 	    		.title(theTitle)
@@ -151,7 +167,7 @@ public class ChartFactory {
 	    chart.getStyler().setChartFontColor(Color.DARK_GRAY);
 
 
-	    chart.getStyler().setDefaultSeriesRenderStyle(CategorySeriesRenderStyle.Scatter);
+	    chart.getStyler().setDefaultSeriesRenderStyle(theCategorySeriesRenderStyle.orElse(CategorySeriesRenderStyle.Line));
 
 	    chart.getStyler().setDatePattern("dd.MM.yyyy");
 	    chart.getStyler().setDecimalPattern("#");
@@ -164,6 +180,8 @@ public class ChartFactory {
 	    chart.getStyler().setXAxisTicksVisible(false);
 
 	    chart.getStyler().setYAxisTickMarkSpacingHint(100);
+
+	    chart.getStyler().setSeriesColors(new BaseSeriesColors().getSeriesColors(theColorscheme.orElse(Colorschemes.DIVERGING_9)));
 
 	    return chart;
 
