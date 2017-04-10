@@ -53,7 +53,8 @@ public class ChartFactory {
 	 * @version 0.14.0
 	 * @since 0.14.0
 	 */
-	public static PieChart createPieChart(final String theTitle, final OptionalInt theHeight, final OptionalInt theWidth, final Optional<AnnotationType> theAnnotation) {
+	public static PieChart createPieChart(final String theTitle, final OptionalInt theHeight, final OptionalInt theWidth,
+			final Optional<AnnotationType> theAnnotation, final Optional<Colorschemes> theColorscheme) {
 
 	    PieChart chart = new PieChartBuilder()
 	    		.title(theTitle)
@@ -76,7 +77,7 @@ public class ChartFactory {
 	    chart.getStyler().setAnnotationsFont(chart.getStyler().getAnnotationsFont().deriveFont(Font.BOLD));
 
 	    chart.getStyler().setChartFontColor(Color.DARK_GRAY);
-	    chart.getStyler().setSeriesColors(new BaseSeriesColors().getSeriesColors(Colorschemes.DIVERGING_2));
+	    chart.getStyler().setSeriesColors(new BaseSeriesColors().getSeriesColors(theColorscheme.orElse(Colorschemes.DIVERGING_9)));
 
 	    return chart;
 
@@ -150,7 +151,7 @@ public class ChartFactory {
 	    chart.getStyler().setChartFontColor(Color.DARK_GRAY);
 
 
-	    chart.getStyler().setDefaultSeriesRenderStyle(CategorySeriesRenderStyle.Area);
+	    chart.getStyler().setDefaultSeriesRenderStyle(CategorySeriesRenderStyle.Scatter);
 
 	    chart.getStyler().setDatePattern("dd.MM.yyyy");
 	    chart.getStyler().setDecimalPattern("#");
