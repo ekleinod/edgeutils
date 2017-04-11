@@ -63,8 +63,8 @@ public class BaseSeriesColors implements SeriesColors {
 		});
 
 		mapColors.put(Colorschemes.PiYG_diverging_2, new Color[] {
-				new Color(233,163,201),
-				new Color(161,215,106)
+				new Color(161,215,106),
+				new Color(233,163,201)
 		});
 
 		mapColors.put(Colorschemes.RdBu_diverging_9, new Color[] {
