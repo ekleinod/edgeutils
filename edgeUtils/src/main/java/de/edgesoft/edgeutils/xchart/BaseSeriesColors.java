@@ -51,12 +51,23 @@ public class BaseSeriesColors implements SeriesColors {
 	public BaseSeriesColors() {
 		mapColors = new HashMap<>();
 
-		mapColors.put(Colorschemes.DIVERGING_2, new Color[] {
-				new Color(145, 207, 96),
-				new Color(252, 141, 89)
+		mapColors.put(Colorschemes.Paired_qualitative_3, new Color[] {
+				new Color(166,206,227),
+				new Color(31,120,180),
+				new Color(178,223,138)
 		});
 
-		mapColors.put(Colorschemes.DIVERGING_9, new Color[] {
+		mapColors.put(Colorschemes.Paired_qualitative_2, new Color[] {
+				new Color(166,206,227),
+				new Color(178,223,138)
+		});
+
+		mapColors.put(Colorschemes.PiYG_diverging_2, new Color[] {
+				new Color(233,163,201),
+				new Color(161,215,106)
+		});
+
+		mapColors.put(Colorschemes.RdBu_diverging_9, new Color[] {
 				new Color(178, 24, 43),
 				new Color(214, 96, 77),
 				new Color(244, 165, 130),
@@ -67,6 +78,12 @@ public class BaseSeriesColors implements SeriesColors {
 				new Color(67, 147, 195),
 				new Color(33, 102, 172)
 		});
+
+		mapColors.put(Colorschemes.RdYlGn_diverging_2, new Color[] {
+				new Color(145, 207, 96),
+				new Color(252, 141, 89)
+		});
+
 	}
 
 	/**
@@ -87,7 +104,7 @@ public class BaseSeriesColors implements SeriesColors {
 	 * @since 0.14.0
 	 */
 	public Color[] getSeriesColors(final Colorschemes theColorscheme) {
-		return mapColors.getOrDefault(theColorscheme, mapColors.get(Colorschemes.DIVERGING_9));
+		return mapColors.getOrDefault(theColorscheme, mapColors.get(Colorschemes.RdBu_diverging_9));
 	}
 
 }

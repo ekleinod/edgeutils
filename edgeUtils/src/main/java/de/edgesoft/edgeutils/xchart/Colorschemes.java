@@ -4,6 +4,8 @@ package de.edgesoft.edgeutils.xchart;
 /**
  * Color schemes based on color brewer schemes (http://colorbrewer2.org/).
  *
+ * Colors from www.ColorBrewer.org by Cynthia A. Brewer, Geography, Pennsylvania State University.
+ *
  * For enums I use the coding style of jaxb, so there will be no inconsistencies.
  *
  * ## Legal stuff
@@ -31,8 +33,15 @@ package de.edgesoft.edgeutils.xchart;
  */
 public enum Colorschemes {
 
-	DIVERGING_2,
-	DIVERGING_9,
+	Paired_qualitative_2,
+	Paired_qualitative_3,
+
+	PiYG_diverging_2,
+
+	RdBu_diverging_9,
+
+	RdYlGn_diverging_2,
+
 	;
 
 	private final String value;

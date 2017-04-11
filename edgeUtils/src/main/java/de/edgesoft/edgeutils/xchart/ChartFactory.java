@@ -81,7 +81,7 @@ public class ChartFactory {
 	    chart.getStyler().setAnnotationsFont(chart.getStyler().getAnnotationsFont().deriveFont(Font.BOLD));
 
 	    chart.getStyler().setChartFontColor(Color.DARK_GRAY);
-	    chart.getStyler().setSeriesColors(new BaseSeriesColors().getSeriesColors(theColorscheme.orElse(Colorschemes.DIVERGING_9)));
+	    chart.getStyler().setSeriesColors(new BaseSeriesColors().getSeriesColors(theColorscheme.orElse(Colorschemes.RdBu_diverging_9)));
 
 	    return chart;
 
@@ -130,7 +130,7 @@ public class ChartFactory {
 
 	    chart.getStyler().setYAxisTickMarkSpacingHint(100);
 
-	    chart.getStyler().setSeriesColors(new BaseSeriesColors().getSeriesColors(theColorscheme.orElse(Colorschemes.DIVERGING_9)));
+	    chart.getStyler().setSeriesColors(new BaseSeriesColors().getSeriesColors(theColorscheme.orElse(Colorschemes.RdBu_diverging_9)));
 
 	    return chart;
 
@@ -181,7 +181,7 @@ public class ChartFactory {
 
 	    chart.getStyler().setYAxisTickMarkSpacingHint(100);
 
-	    chart.getStyler().setSeriesColors(new BaseSeriesColors().getSeriesColors(theColorscheme.orElse(Colorschemes.DIVERGING_9)));
+	    chart.getStyler().setSeriesColors(new BaseSeriesColors().getSeriesColors(theColorscheme.orElse(Colorschemes.RdBu_diverging_9)));
 
 	    return chart;
 
