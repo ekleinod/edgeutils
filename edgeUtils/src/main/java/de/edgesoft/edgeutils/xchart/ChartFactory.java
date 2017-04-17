@@ -72,7 +72,7 @@ public class ChartFactory {
 	    }
 
 	    chart.getStyler().setTheme(new BaseTheme());
-	    chart.getStyler().setAnnotationType(theAnnotationType.orElse(AnnotationType.Label));
+	    chart.getStyler().setAnnotationType(theAnnotationType.orElse(AnnotationType.Value));
 	    chart.getStyler().setLegendVisible(false);
 	    chart.getStyler().setDefaultSeriesRenderStyle(PieSeriesRenderStyle.Donut);
 	    chart.getStyler().setDonutThickness(.45);
@@ -166,8 +166,12 @@ public class ChartFactory {
 	    chart.getStyler().setLegendVisible(false);
 	    chart.getStyler().setChartFontColor(Color.DARK_GRAY);
 
+	    chart.getStyler().setPlotGridVerticalLinesVisible(false);
+	    chart.getStyler().setOverlapped(true);
 
-	    chart.getStyler().setDefaultSeriesRenderStyle(theCategorySeriesRenderStyle.orElse(CategorySeriesRenderStyle.Line));
+	    if (theCategorySeriesRenderStyle.isPresent()) {
+	    	chart.getStyler().setDefaultSeriesRenderStyle(theCategorySeriesRenderStyle.get());
+	    }
 
 	    chart.getStyler().setDatePattern("dd.MM.yyyy");
 	    chart.getStyler().setDecimalPattern("#");
