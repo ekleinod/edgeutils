@@ -9,6 +9,8 @@ import java.time.format.DateTimeParseException;
 import java.time.temporal.TemporalAccessor;
 import java.util.Date;
 
+import javafx.util.StringConverter;
+
 
 
 /**
@@ -34,7 +36,7 @@ import java.util.Date;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author Ekkart Kleinod
- * @version 0.9.7
+ * @version 0.14.0
  * @since 0.9.0
  */
 public class DateTimeUtils {
@@ -324,6 +326,63 @@ public class DateTimeUtils {
 	 */
 	public static Date toDate(final LocalDateTime theDateTime) {
 		return Date.from(theDateTime.atZone(ZoneId.systemDefault()).toInstant());
+	}
+
+	/**
+	 * Convert {@link LocalDate} to {@link Date}.
+	 *
+	 * @param theDate date
+	 *
+	 * @return date
+	 *
+	 * @version 0.14.0
+	 * @since 0.14.0
+	 */
+	public static Date toDate(final LocalDate theDate) {
+		return Date.from(theDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+	}
+
+	/**
+	 * Returns date converter e.g. for date pickers.
+	 *
+	 * @param thePattern pattern (null = standard pattern)
+	 *
+	 * @return date converter
+	 *
+	 * @version 0.14.0
+	 * @since 0.14.0
+	 */
+	public static StringConverter<LocalDate> getDateConverter(final String thePattern) {
+
+		return new StringConverter<LocalDate>() {
+
+			@Override
+			public String toString(LocalDate date) {
+				if (date == null) {
+					return "";
+				}
+				return DateTimeUtils.formatDate(date, thePattern);
+			}
+
+			@Override
+			public LocalDate fromString(String string) {
+				return DateTimeUtils.parseDate(string, thePattern);
+			}
+
+		};
+
+	}
+
+	/**
+	 * Returns date converter e.g. for date pickers.
+	 *
+	 * @return date converter
+	 *
+	 * @version 0.14.0
+	 * @since 0.14.0
+	 */
+	public static StringConverter<LocalDate> getDateConverter() {
+		return getDateConverter(null);
 	}
 
 }
