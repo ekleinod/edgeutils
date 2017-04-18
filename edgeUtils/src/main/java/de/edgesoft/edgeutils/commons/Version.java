@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import de.edgesoft.edgeutils.commons.ext.ModelClassExt;
 
 
 /**
@@ -42,7 +43,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
     "additional"
 })
 public class Version
-    extends ModelClass
+    extends ModelClassExt
 {
 
     @XmlElement(required = true, type = String.class)
