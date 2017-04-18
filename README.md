@@ -49,6 +49,12 @@ Additionally, the following branches my occur:
 
 ## Released Versions
 
+### Version 0.9.8
+
+- XChart helper classes
+- new model class ModelClassExt for standard getDisplayText method
+- improved DateTimeUtils
+
 ### Version 0.9.7
 
 - improved DateTimeUtils
@@ -160,7 +166,7 @@ Classes for easing the use of
 
 ## Copyright
 
-Copyright 2010-2016 Ekkart Kleinod <ekleinod@edgesoft.de>
+Copyright 2010-2017 Ekkart Kleinod <ekleinod@edgesoft.de>
 
 The program is distributed under the terms of the GNU Lesser General Public License.
 
