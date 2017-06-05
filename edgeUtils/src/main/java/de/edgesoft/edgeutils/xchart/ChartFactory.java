@@ -3,7 +3,6 @@ package de.edgesoft.edgeutils.xchart;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.Optional;
-import java.util.OptionalInt;
 
 import org.knowm.xchart.CategoryChart;
 import org.knowm.xchart.CategoryChartBuilder;
@@ -49,27 +48,21 @@ public class ChartFactory {
 	 * Returns pie chart.
 	 *
 	 * @param theTitle chart title
-	 * @param theHeight height (optional)
-	 * @param theWidth width (optional)
+	 * @param theHeight height
+	 * @param theWidth width
 	 * @param theAnnotationType annotation type (optional)
 	 * @param theColorscheme color scheme (optional)
 	 *
 	 * @version 0.14.0
-	 * @since 0.14.0
 	 */
-	public static PieChart createPieChart(final String theTitle, final OptionalInt theHeight, final OptionalInt theWidth,
+	public static PieChart createPieChart(final String theTitle, final int theHeight, final int theWidth,
 			final Optional<AnnotationType> theAnnotationType, final Optional<Colorschemes> theColorscheme) {
 
 	    PieChart chart = new PieChartBuilder()
 	    		.title(theTitle)
+	    		.height(theHeight)
+	    		.width(theWidth)
 	    		.build();
-
-	    if (theHeight.isPresent()) {
-	    	chart.setHeight(theHeight.getAsInt());
-	    }
-	    if (theWidth.isPresent()) {
-	    	chart.setWidth(theWidth.getAsInt());
-	    }
 
 	    chart.getStyler().setTheme(new BaseTheme());
 	    chart.getStyler().setAnnotationType(theAnnotationType.orElse(AnnotationType.Value));
@@ -91,27 +84,21 @@ public class ChartFactory {
 	 * Returns xy chart.
 	 *
 	 * @param theTitle chart title
-	 * @param theHeight height (optional)
-	 * @param theWidth width (optional)
+	 * @param theHeight height
+	 * @param theWidth width
 	 * @param theCategorySeriesRenderStyle render style (optional)
 	 * @param theColorscheme color scheme (optional)
 	 *
 	 * @version 0.14.0
-	 * @since 0.14.0
 	 */
-	public static XYChart createXYChart(final String theTitle, final OptionalInt theHeight, final OptionalInt theWidth,
+	public static XYChart createXYChart(final String theTitle, final int theHeight, final int theWidth,
 			final Optional<Colorschemes> theColorscheme) {
 
 	    XYChart chart = new XYChartBuilder()
 	    		.title(theTitle)
+	    		.height(theHeight)
+	    		.width(theWidth)
 	    		.build();
-
-	    if (theHeight.isPresent()) {
-	    	chart.setHeight(theHeight.getAsInt());
-	    }
-	    if (theWidth.isPresent()) {
-	    	chart.setWidth(theWidth.getAsInt());
-	    }
 
 	    chart.getStyler().setTheme(new BaseTheme());
 	    chart.getStyler().setLegendVisible(false);
@@ -140,27 +127,21 @@ public class ChartFactory {
 	 * Returns step chart.
 	 *
 	 * @param theTitle chart title
-	 * @param theHeight height (optional)
-	 * @param theWidth width (optional)
+	 * @param theHeight height
+	 * @param theWidth width
 	 * @param theCategorySeriesRenderStyle render style (optional)
 	 * @param theColorscheme color scheme (optional)
 	 *
 	 * @version 0.14.0
-	 * @since 0.14.0
 	 */
-	public static CategoryChart createCategoryChart(final String theTitle, final OptionalInt theHeight, final OptionalInt theWidth,
+	public static CategoryChart createCategoryChart(final String theTitle, final int theHeight, final int theWidth,
 			final Optional<CategorySeriesRenderStyle> theCategorySeriesRenderStyle, final Optional<Colorschemes> theColorscheme) {
 
 	    CategoryChart chart = new CategoryChartBuilder()
 	    		.title(theTitle)
+	    		.height(theHeight)
+	    		.width(theWidth)
 	    		.build();
-
-	    if (theHeight.isPresent()) {
-	    	chart.setHeight(theHeight.getAsInt());
-	    }
-	    if (theWidth.isPresent()) {
-	    	chart.setWidth(theWidth.getAsInt());
-	    }
 
 	    chart.getStyler().setTheme(new BaseTheme());
 	    chart.getStyler().setLegendVisible(false);
