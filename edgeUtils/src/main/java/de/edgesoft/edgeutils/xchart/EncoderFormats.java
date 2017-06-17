@@ -38,7 +38,6 @@ public class EncoderFormats {
 	 * Map of bitmap formats.
 	 *
 	 * @version 0.10.0
-	 * @since 0.10.0
 	 */
 	private static Map<String, BitmapFormat> mapBitmapFormats = null;
 
@@ -46,7 +45,6 @@ public class EncoderFormats {
 	 * Map of vector formats.
 	 *
 	 * @version 0.10.0
-	 * @since 0.10.0
 	 */
 	private static Map<String, VectorGraphicsFormat> mapVectorFormats = null;
 
@@ -56,7 +54,6 @@ public class EncoderFormats {
 	 * @return map of bitmap formats
 	 *
 	 * @version 0.10.0
-	 * @since 0.10.0
 	 */
 	public static Map<String, BitmapFormat> BitmapFormats() {
 
@@ -80,7 +77,6 @@ public class EncoderFormats {
 	 * @return map of vector formats
 	 *
 	 * @version 0.10.0
-	 * @since 0.10.0
 	 */
 	public static Map<String, VectorGraphicsFormat> VectorFormats() {
 

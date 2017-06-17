@@ -37,15 +37,15 @@ import org.knowm.xchart.style.colors.ChartColor;
  * along with edgeUtils. If not, see <http://www.gnu.org/licenses/>.
  *
  * @author Ekkart Kleinod
- * @version 0.14.0
- * @since 0.14.0
+ * @version 0.10.0
+ * @since 0.10.0
  */
 public class BaseTheme extends AbstractBaseTheme {
 
 	/**
 	 * Preferred font for charts.
 	 *
-	 * @version 0.14.0
+	 * @version 0.10.0
 	 */
 	private static final String FONTNAME = "Droid Sans";
 
@@ -131,8 +131,7 @@ public class BaseTheme extends AbstractBaseTheme {
 	 *
 	 * @return font name
 	 *
-	 * @version 0.14.0
-	 * @since 0.14.0
+	 * @version 0.10.0
 	 */
 	public static String getFontName() {
 
