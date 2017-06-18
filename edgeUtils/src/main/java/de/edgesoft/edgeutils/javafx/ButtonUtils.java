@@ -3,6 +3,7 @@ package de.edgesoft.edgeutils.javafx;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.ImageView;
 
 
 /**
@@ -48,7 +49,7 @@ public class ButtonUtils {
 	 */
 	public static void adaptButton(Button theButton, final MenuItem theMenuItem) {
 
-		theButton.setGraphic(theMenuItem.getGraphic());
+		theButton.setGraphic(new ImageView(((ImageView) theMenuItem.getGraphic()).getImage()));
 		theButton.setTooltip(new Tooltip(String.format(ACCELERATOR_TOKEN, theMenuItem.getText().replace("_", ""), theMenuItem.getAccelerator().getDisplayText())));
 
 	}
