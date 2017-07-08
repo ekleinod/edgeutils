@@ -84,7 +84,7 @@ InstallDir $EXEDIR\${DIRNAME}
 CRCCheck on
 XPStyle on
 ShowInstDetails show
-VIProductVersion ${VERSION}.0
+VIProductVersion ${VERSION}
 VIAddVersionKey /LANG=${LANG_GERMAN} ProductName "${LONGNAME}"
 VIAddVersionKey /LANG=${LANG_GERMAN} ProductVersion "${VERSION}"
 VIAddVersionKey /LANG=${LANG_GERMAN} CompanyName "${COMPANY}"
