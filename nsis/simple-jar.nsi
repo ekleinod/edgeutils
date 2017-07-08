@@ -25,12 +25,15 @@
 
 # use encoding: ISO-8859-15
 
-Name ${JAR_NAME}
+Name ${PROJECT_NAME}
+
+!define REGKEY "Software\${PROJECT_NAME}"
+!define INSTALLNAME "${DIR_FILES}\${FILENAME}-${FILE_VERSION}.exe"
 
 RequestExecutionLevel user
 
 # MUI Symbol Definitions
-!define MUI_ICON "${RESOURCE_DIR}images\installer_icon.ico"
+!define MUI_ICON "${DIR_RESOURCES}images\installer_icon.ico"
 !define MUI_FINISHPAGE_NOAUTOCLOSE
 !define MUI_STARTMENUPAGE_REGISTRY_ROOT "HKLM" # store in registry under HKEY_LOCAL_MACHINE
 !define MUI_STARTMENUPAGE_REGISTRY_KEY ${REGKEY}
@@ -53,8 +56,8 @@ Sind Sie sicher, dass Sie die Installation abbrechen wollen?"
 
 # Images
 !define MUI_HEADERIMAGE
-!define MUI_HEADERIMAGE_BITMAP "${RESOURCE_DIR}images\installer_header.bmp"
-!define MUI_WELCOMEFINISHPAGE_BITMAP "${RESOURCE_DIR}images\installer_welcomefinish.bmp"
+!define MUI_HEADERIMAGE_BITMAP "${DIR_RESOURCES}images\installer_header.bmp"
+!define MUI_WELCOMEFINISHPAGE_BITMAP "${DIR_RESOURCES}images\installer_welcomefinish.bmp"
 
 # Welcome
 !define MUI_WELCOMEPAGE_TITLE "Installation $\"${LONGNAME}$\" ${LONG_VERSION}"
@@ -84,7 +87,7 @@ InstallDir $EXEDIR\${DIRNAME}
 CRCCheck on
 XPStyle on
 ShowInstDetails show
-VIProductVersion ${VERSION}
+VIProductVersion ${VERSION}.0
 VIAddVersionKey /LANG=${LANG_GERMAN} ProductName "${LONGNAME}"
 VIAddVersionKey /LANG=${LANG_GERMAN} ProductVersion "${VERSION}"
 VIAddVersionKey /LANG=${LANG_GERMAN} CompanyName "${COMPANY}"
@@ -100,8 +103,8 @@ Section "${LONGNAME}" SEC_JAR
 	SectionIn RO # required
 	SetOverwrite on
 	SetOutPath $INSTDIR
-	File "..\..\..\..\${FILENAME}.jar"
-	File "/oname=${FILENAME}.ico" "${RESOURCE_DIR}images\installer_icon.ico"
+	File "${DIR_FILES}\${FILENAME}.jar"
+	File "/oname=${FILENAME}.ico" "${DIR_RESOURCES}images\installer_icon.ico"
 	WriteRegStr HKLM "${REGKEY}\Components" jar 1
 SectionEnd
 
@@ -127,7 +130,7 @@ SectionEnd
 Function .onInit
 	InitPluginsDir
 	Push $R1
-	File /oname=$PLUGINSDIR\spltmp.bmp "${RESOURCE_DIR}images\installer_splash.bmp"
+	File /oname=$PLUGINSDIR\spltmp.bmp "${DIR_RESOURCES}images\installer_splash.bmp"
 	advsplash::show 1500 600 400 -1 $PLUGINSDIR\spltmp
 	Pop $R1
 	Pop $R1
