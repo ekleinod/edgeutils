@@ -1,0 +1,182 @@
+edgeutils (0.9.8) unstable; urgency=low
+
+	* XChart helper classes
+	* new model class ModelClassExt for standard getDisplayText method
+	* improved DateTimeUtils
+
+-- Ekkart Kleinod <ekleinod@edgesoft.de>  Tue, 18 Apr 2017 12:00:00 +0100
+
+
+edgeutils (0.9.7) unstable; urgency=low
+
+	* improved DateTimeUtils
+	* started cleaner ant commons
+	* new
+		* DoublePropertyAdapter
+		* FileUtils
+
+-- Ekkart Kleinod <ekleinod@edgesoft.de>  Tue, 5 Feb 2017 12:00:00 +0100
+
+
+edgeutils (0.9.6) unstable; urgency=low
+
+	* adapters, elements, and bindings for most used JavaFX properties
+	* improved test of commons
+
+-- Ekkart Kleinod <ekleinod@edgesoft.de>  Tue, 13 Oct 2016 12:00:00 +0100
+
+
+edgeutils (0.9.5) unstable; urgency=low
+
+	* split PropertyUtils into two XMLAdapters
+
+-- Ekkart Kleinod <ekleinod@edgesoft.de>  Tue, 21 Sep 2016 12:00:00 +0100
+
+
+edgeutils (0.9.4) unstable; urgency=low
+
+	* new PropertyUtils for marshaling/unmarshaling JavaFX properties
+
+-- Ekkart Kleinod <ekleinod@edgesoft.de>  Tue, 20 Sep 2016 12:00:00 +0100
+
+
+edgeutils (0.9.3) unstable; urgency=low
+
+	* new ColorUtils for formatting colors
+
+-- Ekkart Kleinod <ekleinod@edgesoft.de>  Tue, 16 Sep 2016 12:00:00 +0100
+
+
+edgeutils (0.9.2) unstable; urgency=low
+
+	* extending DateTimeUtils with formatting/parsing dates
+
+-- Ekkart Kleinod <ekleinod@edgesoft.de>  Tue, 15 Sep 2016 12:00:00 +0100
+
+
+edgeutils (0.9.1) unstable; urgency=low
+
+	* method for parsing date and/or time strings
+
+-- Ekkart Kleinod <ekleinod@edgesoft.de>  Tue, 8 Aug 2016 12:00:00 +0100
+
+
+edgeutils (0.9.0) unstable; urgency=low
+
+	* new class for DateTime convenience methods
+
+-- Ekkart Kleinod <ekleinod@edgesoft.de>  Tue, 7 Aug 2016 12:00:00 +0100
+
+
+edgeutils (0.8.0) unstable; urgency=low
+
+	* AppProperties with default properties as Properties object
+
+-- Ekkart Kleinod <ekleinod@edgesoft.de>  Tue, 2 Aug 2016 12:00:00 +0100
+
+
+edgeutils (0.7.3) unstable; urgency=low
+
+	* hotfix: forgot to create model classes
+
+-- Ekkart Kleinod <ekleinod@edgesoft.de>  Tue, 2 Aug 2016 12:00:00 +0100
+
+
+edgeutils (0.7.2) unstable; urgency=low
+
+	* id of IDType may be optional
+
+-- Ekkart Kleinod <ekleinod@edgesoft.de>  Tue, 2 Aug 2016 12:00:00 +0100
+
+
+edgeutils (0.7.1) unstable; urgency=low
+
+	* introduced base class for all model classes, for easier identification of model classes in source code
+
+-- Ekkart Kleinod <ekleinod@edgesoft.de>  Tue, 24 Jul 2016 12:00:00 +0100
+
+
+edgeutils (0.7.0) unstable; urgency=low
+
+	* removed confusing "Test" suffixes
+
+-- Ekkart Kleinod <ekleinod@edgesoft.de>  Tue, 20 Jul 2016 12:00:00 +0100
+
+
+edgeutils (0.6.1) unstable; urgency=low
+
+	* hotfix: tests run under windows now (German windows)
+
+-- Ekkart Kleinod <ekleinod@edgesoft.de>  Tue, 19 Jul 2016 12:00:00 +0100
+
+
+edgeutils (0.6.0) unstable; urgency=low
+
+	* XML bindings of date, time, and datetime to LocalDate, LocalTime, and LocalDateTime
+	* version class with toString
+	* call of xjc always with three bindings
+
+-- Ekkart Kleinod <ekleinod@edgesoft.de>  Tue, 11 Jul 2016 12:00:00 +0100
+
+
+edgeutils (0.5.1) unstable; urgency=low
+
+	* hotfix: filenames are paths now instead of strings
+
+-- Ekkart Kleinod <ekleinod@edgesoft.de>  Tue, 30 Jun 2016 12:00:00 +0100
+
+
+edgeutils (0.5.0) unstable; urgency=low
+
+	* file access based on Java 8
+	* property file class
+	* started with unit tests
+
+-- Ekkart Kleinod <ekleinod@edgesoft.de>  Tue, 30 Jun 2016 12:00:00 +0100
+
+
+edgeutils (0.4.0) unstable; urgency=low
+
+	* using maven
+	* no jars anymore, deployment via maven
+
+-- Ekkart Kleinod <ekleinod@edgesoft.de>  Tue, 16 May 2016 12:00:00 +0100
+
+
+edgeutils (0.3.1) unstable; urgency=low
+
+	* Hotfix: timestamp not abstract
+
+-- Ekkart Kleinod <ekleinod@edgesoft.de>  Tue, 23 Oct 2015 12:00:00 +0100
+
+
+edgeutils (0.3.0) unstable; urgency=low
+
+	* containing package for markup
+	* new `commons.xsd` containing common xml schema structures/types
+	* new `commons.xjb` containing common jaxb bindings
+	* readme for jaxb file usage
+
+-- Ekkart Kleinod <ekleinod@edgesoft.de>  Tue, 10 Dec 2014 12:00:00 +0100
+
+
+edgeutils (0.2.0) unstable; urgency=low
+
+	* binary export to jar (for use of edgeutils in submodules)
+	* reveal markup
+	* bugfixes: license, error printing
+	* jaxb unmarshall with includes
+
+-- Ekkart Kleinod <ekleinod@edgesoft.de>  Tue, 2 Dec 2014 12:00:00 +0100
+
+
+edgeutils (0.1.0) unstable; urgency=low
+
+	* Classes for easing the use of
+
+	* command line parameters
+	* file access
+	* LaTeX output
+	* multimarkdown output
+
+-- Ekkart Kleinod <ekleinod@edgesoft.de>  Tue, 31 Oct 2014 12:00:00 +0100
