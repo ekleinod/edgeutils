@@ -65,9 +65,9 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 				replace="@version ${longversion}"
 				flags="g">
 
-			<fileset dir="../${ant.project.name}/">
+			<multirootfileset basedirs="${paths:setversion}">
 				<include name="**/*" />
-			</fileset>
+			</multirootfileset>
 
 		</replaceregexp>
 
@@ -77,9 +77,9 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 				replace="Copyright ${copyright}"
 				flags="g">
 
-			<fileset dir="../${ant.project.name}/">
+			<multirootfileset basedirs="${paths:setversion}">
 				<include name="**/*" />
-			</fileset>
+			</multirootfileset>
 
 		</replaceregexp>
 
