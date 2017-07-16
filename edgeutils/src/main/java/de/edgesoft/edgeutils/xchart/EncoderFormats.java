@@ -29,7 +29,7 @@ import org.knowm.xchart.VectorGraphicsEncoder.VectorGraphicsFormat;
  * along with edgeUtils. If not, see <http://www.gnu.org/licenses/>.
  *
  * @author Ekkart Kleinod
- * @version 0.10.0
+ * @version 0.10.1
  * @since 0.10.0
  */
 public class EncoderFormats {
@@ -37,14 +37,14 @@ public class EncoderFormats {
 	/**
 	 * Map of bitmap formats.
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 */
 	private static Map<String, BitmapFormat> mapBitmapFormats = null;
 
 	/**
 	 * Map of vector formats.
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 */
 	private static Map<String, VectorGraphicsFormat> mapVectorFormats = null;
 
@@ -53,7 +53,7 @@ public class EncoderFormats {
 	 *
 	 * @return map of bitmap formats
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 */
 	public static Map<String, BitmapFormat> BitmapFormats() {
 
@@ -76,7 +76,7 @@ public class EncoderFormats {
 	 *
 	 * @return map of vector formats
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 */
 	public static Map<String, VectorGraphicsFormat> VectorFormats() {
 

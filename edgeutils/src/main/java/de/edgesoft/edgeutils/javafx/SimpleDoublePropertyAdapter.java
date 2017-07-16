@@ -29,7 +29,7 @@ import javafx.beans.property.SimpleDoubleProperty;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author Ekkart Kleinod
- * @version 0.10.0
+ * @version 0.10.1
  * @since 0.9.7
  */
 public class SimpleDoublePropertyAdapter extends XmlAdapter<String, SimpleDoubleProperty> {
@@ -40,7 +40,7 @@ public class SimpleDoublePropertyAdapter extends XmlAdapter<String, SimpleDouble
 	 * @param theProperty property
 	 * @return marshaled string
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.9.7
 	 */
 	@Override
@@ -54,7 +54,7 @@ public class SimpleDoublePropertyAdapter extends XmlAdapter<String, SimpleDouble
 	 * @param theString string
 	 * @return property
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.9.7
 	 */
 	@Override

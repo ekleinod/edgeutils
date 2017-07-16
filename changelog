@@ -1,3 +1,10 @@
+edgeutils (0.10.1) unstable; urgency=low
+
+	* bugfix NSIS generation
+
+-- Ekkart Kleinod <ekleinod@edgesoft.de>  Sun, 16 Jul 2017 23:30:00 +0200
+
+
 edgeutils (0.10.0) unstable; urgency=low
 
 	* updated XChart helper classes

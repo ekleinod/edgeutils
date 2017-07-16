@@ -23,7 +23,7 @@ package de.edgesoft.edgeutils;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * @author Ekkart Kleinod
- * @version 0.10.0
+ * @version 0.10.1
  * @since 0.1
  */
 public class EdgeUtilsException extends Exception {
@@ -36,7 +36,7 @@ public class EdgeUtilsException extends Exception {
 	 * 
 	 * @param theErrorMessage error message
 	 * 
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.1
 	 */
 	public EdgeUtilsException(String theErrorMessage) {

@@ -36,7 +36,7 @@ import javafx.util.StringConverter;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author Ekkart Kleinod
- * @version 0.10.0
+ * @version 0.10.1
  * @since 0.9.0
  */
 public class DateTimeUtils {
@@ -44,7 +44,7 @@ public class DateTimeUtils {
 	/**
 	 * Standard pattern for dates.
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.9.2
 	 */
 	public static final String DATE_PATTERN = "dd.MM.yyyy";
@@ -52,7 +52,7 @@ public class DateTimeUtils {
 	/**
 	 * Standard pattern for times.
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.9.7
 	 */
 	public static final String TIME_PATTERN = "HH:mm";
@@ -60,7 +60,7 @@ public class DateTimeUtils {
 	/**
 	 * Standard pattern for datetimes.
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.9.7
 	 */
 	public static final String DATETIME_PATTERN = String.format("%s, %s", DATE_PATTERN, TIME_PATTERN);
@@ -72,7 +72,7 @@ public class DateTimeUtils {
 	 * @param thePattern pattern
 	 * @return formatted accessor
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.9.7
 	 */
 	public static String formatTemporalAccessor(final TemporalAccessor theAccessor, final String thePattern) {
@@ -86,7 +86,7 @@ public class DateTimeUtils {
 	 * @param thePattern pattern (null = standard pattern)
 	 * @return formatted date
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.9.7
 	 */
 	public static String formatDate(final LocalDate theDate, final String thePattern) {
@@ -99,7 +99,7 @@ public class DateTimeUtils {
 	 * @param theDate date
 	 * @return formatted date
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.9.2
 	 */
 	public static String formatDate(final LocalDate theDate) {
@@ -113,7 +113,7 @@ public class DateTimeUtils {
 	 * @param thePattern pattern (null = standard pattern)
 	 * @return formatted datetime
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.9.7
 	 */
 	public static String formatDateTime(final LocalDateTime theDateTime, final String thePattern) {
@@ -126,7 +126,7 @@ public class DateTimeUtils {
 	 * @param theDateTime datetime
 	 * @return formatted datetime
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.9.7
 	 */
 	public static String formatDateTime(final LocalDateTime theDateTime) {
@@ -140,7 +140,7 @@ public class DateTimeUtils {
 	 * @param thePattern pattern (null = standard pattern)
 	 * @return formatted time
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.9.7
 	 */
 	public static String formatTime(final LocalTime theTime, final String thePattern) {
@@ -153,7 +153,7 @@ public class DateTimeUtils {
 	 * @param theTime time
 	 * @return formatted time
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.9.7
 	 */
 	public static String formatTime(final LocalTime theTime) {
@@ -166,7 +166,7 @@ public class DateTimeUtils {
 	 * @param theDateTime date
 	 * @return formatted date
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.9.7
 	 */
 	public static String formatDateTimeAsDate(final LocalDateTime theDateTime) {
@@ -179,7 +179,7 @@ public class DateTimeUtils {
 	 * @param theDateTime date
 	 * @return formatted time
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.9.7
 	 */
 	public static String formatDateTimeAsTime(final LocalDateTime theDateTime) {
@@ -193,7 +193,7 @@ public class DateTimeUtils {
 	 * @param thePattern pattern (null = standard pattern)
 	 * @return date
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.9.7
 	 */
 	public static LocalDate parseDate(final String theString, final String thePattern) {
@@ -214,7 +214,7 @@ public class DateTimeUtils {
 	 * @param theString date string
 	 * @return date
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.9.2
 	 */
 	public static LocalDate parseDate(final String theString) {
@@ -228,7 +228,7 @@ public class DateTimeUtils {
 	 * @param thePattern pattern (null = standard pattern)
 	 * @return valid date?
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.9.7
 	 */
 	public static boolean isValidDate(final String theString, final String thePattern) {
@@ -241,7 +241,7 @@ public class DateTimeUtils {
 	 * @param theString date string
 	 * @return valid date?
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.9.2
 	 */
 	public static boolean isValidDate(final String theString) {
@@ -258,7 +258,7 @@ public class DateTimeUtils {
 	 * @return datetime
 	 * 	@retval null if conversion was not successful
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.9.7
 	 */
 	public static LocalDateTime parseDateTime(final String theString, final String thePattern) {
@@ -307,7 +307,7 @@ public class DateTimeUtils {
 	 * @return datetime
 	 * 	@retval null if conversion was not successful
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.9.1
 	 */
 	public static LocalDateTime parseDateTime(final String theString) {
@@ -321,7 +321,7 @@ public class DateTimeUtils {
 	 *
 	 * @return date
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.9.0
 	 */
 	public static Date toDate(final LocalDateTime theDateTime) {
@@ -335,7 +335,7 @@ public class DateTimeUtils {
 	 *
 	 * @return date
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.14.0
 	 */
 	public static Date toDate(final LocalDate theDate) {
@@ -349,7 +349,7 @@ public class DateTimeUtils {
 	 *
 	 * @return date converter
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.14.0
 	 */
 	public static StringConverter<LocalDate> getDateConverter(final String thePattern) {
@@ -378,7 +378,7 @@ public class DateTimeUtils {
 	 *
 	 * @return date converter
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.14.0
 	 */
 	public static StringConverter<LocalDate> getDateConverter() {
