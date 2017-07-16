@@ -47,6 +47,7 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 	2. ant setversion
 	3. &lt;create jar in eclipse or with maven&gt;
 	4. &lt;edit changelog&gt;
+	5. &lt;make install in eclipse or with maven&gt;
 		</echo>
 
 		<antcall target="help" />
