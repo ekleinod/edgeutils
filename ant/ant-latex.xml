@@ -3,8 +3,6 @@
 <!--
 Ant commons for latex.
 
-v0.9.7
-
 ## Legal stuff
 
 Copyright 2014-2016 Ekkart Kleinod <ekleinod@edgesoft.de>
@@ -23,6 +21,11 @@ GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
+
+@author Ekkart Kleinod
+@version 0.9.7
+@since 0.9.7
+
 -->
 
 <project name="edgeUtilsCommonsLaTeX" default="help" basedir=".">

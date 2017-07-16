@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+Ant commons for nsis.
+
+Target "debinstall" has to be run as root in order to change owner and group accordingly.
+
+## Legal stuff
+
+Copyright 2014-2017 Ekkart Kleinod <ekleinod@edgesoft.de>
+
+This file is part of edgeUtils.
+
+edgeUtils is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+edgeUtils is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
+
+@author Ekkart Kleinod
+@version 0.10.0
+@since 0.9.7
+
+-->
+
+<project basedir=".">
+
+	<!-- ant-contrib has to be installed (math task) -->
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+
+	<import file="ant-commons.xml"/>
+
+	<property file="../${ant.project.name}/src/main/resources/project.properties"/>
+
+	<target name="buildhelp" description="Help text for build.">
+
+		<echo>Create complete build:
+
+	1. &lt;set version and copyright in project.properties&gt;
+	2. ant setversion
+	3. &lt;create jar in eclipse or with maven&gt;
+	4. &lt;edit changelog&gt;
+	5. sudo ant debinstall
+	6. ant createdeb
+	7. sudo ant clearTmp
+	8. ant wininstall
+		</echo>
+
+		<antcall target="help" />
+
+	</target>
+
+	<target name="setversion" depends="clearLog" description="Set version annotation in all files.">
+
+		<replaceregexp
+				encoding="utf-8"
+				match="@version .*"
+				replace="@version ${longversion}"
+				flags="g">
+
+			<multirootfileset basedirs="${paths:setversion}">
+				<include name="**/*" />
+			</multirootfileset>
+
+		</replaceregexp>
+
+		<replaceregexp
+				encoding="utf-8"
+				match="Copyright .*"
+				replace="Copyright ${copyright}"
+				flags="g">
+
+			<multirootfileset basedirs="${paths:setversion}">
+				<include name="**/*" />
+			</multirootfileset>
+
+		</replaceregexp>
+
+		<echo message="Ready, now create new jar, edit changelog, then call 'sudo ant debinstall' (as root)." />
+
+	</target>
+
+	<target name="debinstall" depends="clearLog" description="Create debian installer (run as root).">
+
+		<fail message="You need to be root to create the debian installer, call 'sudo ant debinstall'.">
+			<condition>
+				<not>
+					<equals arg1="root" arg2="${user.name}"/>
+				</not>
+			</condition>
+		</fail>
+
+		<!-- copy templates -->
+		<copy toDir="${dir.debiantmp}">
+			<fileset dir="${dir.debian}" />
+		</copy>
+
+		<!-- changelog -->
+		<gzip
+			src="../changelog"
+			destfile="${dir.debiantmp}/usr/share/doc/${ant.project.name}/changelog.gz"
+		/>
+
+		<!-- shell script -->
+		<chmod file="${dir.debiantmp}/bin/${ant.project.name}" perm="ugo+rx"/>
+
+		<!-- control file -->
+		<replace
+			file="${dir.debiantmp}/DEBIAN/control"
+			token="**fileversion**"
+			value="${fileversion}"
+		/>
+
+		<length property="dirsize">
+			<fileset dir="${dir.debiantmp}" />
+		</length>
+
+		<math result="dirsize" operand1="${dirsize}" operation="/" operand2="1024" datatype="int" />
+
+		<replace
+			file="${dir.debiantmp}/DEBIAN/control"
+			token="**size**"
+			value="${dirsize}"
+		/>
+
+		<echo message="Ready, now call 'ant createdeb' (not as root)." />
+
+	</target>
+
+	<target name="createdeb" description="Create deb file.">
+
+		<!-- create deb file -->
+		<exec executable="dpkg" output="${file.log}" append="true" >
+			<arg value="--build" />
+			<arg value="${dir.debiantmp}" />
+		</exec>
+
+		<move file="${dir.debiantmp}.deb" tofile="../files/${ant.project.name}-${fileversion}.deb" />
+
+		<!-- link created installer -->
+		<symlink
+			link="../files/${ant.project.name}.deb"
+			resource="${ant.project.name}-${fileversion}.deb"
+			overwrite="true"
+		/>
+
+		<echo message="Ready, now call 'sudo ant clearTmp' (as root)." />
+
+	</target>
+
+	<target name="clearTmp" description="Delete temporary files.">
+
+		<delete dir="${dir.debiantmp}" />
+
+		<echo message="Ready, now call 'ant wininstall'." />
+
+	</target>
+
+	<target name="wininstall" depends="clearLog" description="Create windows installer.">
+
+		<!-- copy templates -->
+		<copy toDir="${dir.wintmp}">
+			<fileset dir="${dir.win}" />
+		</copy>
+
+		<!-- nsi file -->
+		<replace
+			file="${dir.wintmp}/${ant.project.name}.nsi"
+			token="**version**"
+			value="${version}"
+		/>
+		<replace
+			file="${dir.wintmp}/${ant.project.name}.nsi"
+			token="**longversion**"
+			value="${longversion}"
+		/>
+		<replace
+			file="${dir.wintmp}/${ant.project.name}.nsi"
+			token="**fileversion**"
+			value="${fileversion}"
+		/>
+
+		<!-- call nsis -->
+		<antcall target="installer" />
+
+		<!-- link created installer -->
+		<antcall target="symlink" />
+
+		<!-- remove temp dir -->
+		<delete dir="${dir.wintmp}" />
+
+	</target>
+
+	<target name="symlink" if="isUnix">
+		<symlink
+			link="../files/${ant.project.name}.exe"
+			resource="${ant.project.name}-${fileversion}.exe"
+			overwrite="true"
+		/>
+	</target>
+
+	<condition property="isWindows">
+		<os family="windows" />
+	</condition>
+	<condition property="isUnix">
+		<os family="unix" />
+	</condition>
+
+	<target name="installer">
+
+		<antcall target="nsis:windows" />
+		<antcall target="nsis:unix" />
+
+	</target>
+
+	<target name="nsis:windows" if="isWindows">
+		<antcall target="nsis">
+			<param name="exe:nsis" value="${path:nsis:windows}makensis.exe" />
+		</antcall>
+	</target>
+
+	<target name="nsis:unix" if="isUnix">
+		<antcall target="nsis">
+			<param name="exe:nsis" value="makensis" />
+		</antcall>
+	</target>
+
+	<target name="nsis">
+
+		<exec executable="${exe:nsis}" output="${file.log}" append="true" failonerror="true">
+			<arg line="${file.nsi}" />
+		</exec>
+
+	</target>
+
+</project>
+
+<!-- EOF -->

@@ -27,6 +27,7 @@ import de.edgesoft.edgeutils.commons.ext.VersionExt;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ModelClass")
 @XmlSeeAlso({
+    AbstractModelClass.class,
     IDType.class,
     RefType.class,
     VersionExt.class,

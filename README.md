@@ -1,12 +1,16 @@
-# edgeUtils
+# edgeutils
 
 This project contains utilities for my projects.
 
-- edgeUtils
+- [edgeutils](#java-classes)
 	- java classes
-- jaxb
+- [jaxb](#jaxb)
 	- schemata
 	- bindings
+- [ant](#ant)
+	- script fragments
+- [nsis](#nsis)
+	- script for simple jar files
 
 Every subdirectory contains its own readme file describing main issues such as usage of the given utilities.
 
@@ -28,6 +32,98 @@ I am using other libraries in this project (via maven):
 	- unit testing framework
 	- license: Eclipse Public License, Version 1.0, see https://www.eclipse.org/legal/epl-v10.html
 
+## Java classes
+
+Use them directly per eclipse project or use them via maven.
+The classes are not listed in an official maven repository.
+Just import the edgeutils project in eclipse, call maven install launch and use the classes as follows:
+
+	<dependency>
+		<groupId>de.edgesoft</groupId>
+		<artifactId>edgeutils</artifactId>
+		<version>0.10.0</version>
+	</dependency>
+
+Replace version number with latest version number.
+
+## Jaxb
+
+### commons.xsd
+
+`commons.xsd` contains some common *xsd* types for all my projects.
+To use the file, include it in your *xsd* file and use the structures as if they were written in your *xsd* file.
+
+Example: use `Info` in `yourdoc.xsd`:
+
+	<?xml version="1.0" encoding="UTF-8"?>
+	<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+							xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+							jxb:version="2.1">
+
+		<!-- allow xml:base attribute in order to avoid include errors -->
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2005/08/xml.xsd"/>
+
+		<xsd:include schemaLocation="<path to edgeutils>/edgeutils/jaxb/commons.xsd"/>
+
+		<xsd:element name="rootelement" type="RootElementType"/>
+
+		<xsd:complexType name="RootElementType">
+			<xsd:sequence>
+				<xsd:element name="info" type="Info" minOccurs="1" maxOccurs="1" />
+				<xsd:element name="content" type="ContentType" minOccurs="1" maxOccurs="unbounded" />
+			</xsd:sequence>
+			<xsd:attribute ref="xml:base" />
+		</xsd:complexType>
+
+	</xsd:schema>
+
+The line importing `xml.xsd` is important as it provides the means to include a schema.
+For an example see https://github.com/tt-schiri/refereemanager/blob/master/refereemanager/src/main/jaxb/refereemanager.xsd
+
+### commons.xjb
+
+`commons.xjb` contains some default bindings that should be applied to your xsd schema.
+
+- `dateTime`, `time`, and `date` are mapped to `Calendar` instead of `XMLGregorianCalendar` which is a mess to cope with in code
+- `integer` is mapped to `Integer` instead of `BigInteger`
+
+To use the common bindings, declare them in the call of your jaxb compiler (example: *xjc*):
+
+	xjc -npa -no-header -encoding UTF-8 -d src -p de.yourdoc -b edgeutils/jaxb/commons.xjb yourdoc.xsd
+
+I included useful options as well:
+
+- *npa*
+	- suppress generation of package level annotations (`**/package-info.java`)
+- *no-header*
+	- suppress generation of a file header with timestamp
+- *encoding*
+	- specify character encoding for generated source files
+- *d*
+	- generated files will go into this directory
+- *p*
+	- specifies the target package
+- *b*
+	- specify external bindings files (each file must have its own -b)
+
+It is possible to use several binding files, thus you don't have to merge `commons.xjb`:
+
+	xjc -npa -no-header -encoding UTF-8 -d src -p de.yourdoc -b edgeutils/jaxb/commons.xjb -b yourbindings.xjb yourdoc.xsd
+
+
+## Ant
+
+I collect useful ant script fragments for inclusion in my own build files.
+
+For an example of using `ant-commons.xml` see https://github.com/tt-schiri/refereemanager/blob/master/refereemanager/src/main/jaxb/build.xml
+
+## NSIS
+
+NSIS is rather hard to manage, thus I try to reuse every bit of information and script I have.
+
+All scripts are parameterized for easy use, for an example see https://github.com/tt-schiri/refereemanager/blob/master/build/win/refereemanager.nsi
+
+
 
 
 ## Git repository
@@ -46,123 +142,6 @@ Additionally, the following branches my occur:
 - `feature/*` - writing a special feature
 - `release/*` - synchronizing release versions between `develop` and `master`
 - `hotfix/*` - fast bugfixes
-
-## Released Versions
-
-### Version 0.9.8
-
-- XChart helper classes
-- new model class ModelClassExt for standard getDisplayText method
-- improved DateTimeUtils
-
-### Version 0.9.7
-
-- improved DateTimeUtils
-- started cleaner ant commons
-- new
-	- DoublePropertyAdapter
-	- FileUtils
-
-### Version 0.9.6
-
-- adapters, elements, and bindings for most used JavaFX properties
-- improved test of commons
-
-### Version 0.9.5
-
-- split PropertyUtils into two XMLAdapters
-
-### Version 0.9.4
-
-- new PropertyUtils for marshaling/unmarshaling JavaFX properties
-
-### Version 0.9.3
-
-- new ColorUtils for formatting colors
-
-### Version 0.9.2
-
-- extending DateTimeUtils with formatting/parsing dates
-
-### Version 0.9.1
-
-- method for parsing date and/or time strings
-
-### Version 0.9.0
-
-- new class for DateTime convenience methods
-
-### Version 0.8.0
-
-- AppProperties with default properties as Properties object
-
-### Version 0.7.3
-
-- hotfix: forgot to create model classes
-
-### Version 0.7.2
-
-- id of IDType may be optional
-
-### Version 0.7.1
-
-- introduced base class for all model classes, for easier identification of model classes in source code
-
-### Version 0.7.0
-
-- removed confusing "Test" suffixes
-
-### Version 0.6.1
-
-- hotfix: tests run under windows now (German windows)
-
-### Version 0.6.0
-
-- XML bindings of date, time, and datetime to LocalDate, LocalTime, and LocalDateTime
-- version class with toString
-- call of xjc always with three bindings
-
-### Version 0.5.1
-
-- hotfix: filenames are paths now instead of strings
-
-### Version 0.5.0
-
-- file access based on Java 8
-- property file class
-- started with unit tests
-
-### Version 0.4.0
-
-- using maven
-- no jars anymore, deployment via maven
-
-### Version 0.3.1
-
-- Hotfix: timestamp not abstract
-
-### Version 0.3
-
-- containing package for markup
-- new `commons.xsd` containing common xml schema structures/types
-- new `commons.xjb` containing common jaxb bindings
-- readme for jaxb file usage
-
-### Version 0.2
-
-- binary export to jar (for use of edgeutils in submodules)
-- reveal markup
-- bugfixes: license, error printing
-- jaxb unmarshall with includes
-
-### Version 0.1
-
-Classes for easing the use of
-
-- command line parameters
-- file access
-- LaTeX output
-- multimarkdown output
 
 ## Copyright
 
