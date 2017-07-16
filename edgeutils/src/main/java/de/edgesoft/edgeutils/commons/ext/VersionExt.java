@@ -31,7 +31,7 @@ import de.edgesoft.edgeutils.commons.Version;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * @author Ekkart Kleinod
- * @version 0.10.0
+ * @version 0.10.1
  * @since 0.4
  */
 public class VersionExt extends Version {
@@ -39,7 +39,7 @@ public class VersionExt extends Version {
 	/**
 	 * Default constructor.
 	 * 
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.4
 	 */
 	public VersionExt() {
@@ -58,7 +58,7 @@ public class VersionExt extends Version {
 	 * 
 	 * @param theVersion version
 	 * 
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.4
 	 */
 	public VersionExt(String theVersion) {
@@ -108,7 +108,7 @@ public class VersionExt extends Version {
 	 * 
 	 * @return string representation of version
 	 * 
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.6.0
 	 */
 	@Override

@@ -51,7 +51,7 @@ import javafx.beans.property.SimpleStringProperty;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author Ekkart Kleinod
- * @version 0.10.0
+ * @version 0.10.1
  * @since 0.6.0
  */
 public class JAXBFilesTest {

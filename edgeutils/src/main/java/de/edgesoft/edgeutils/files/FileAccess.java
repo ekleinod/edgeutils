@@ -36,7 +36,7 @@ import java.util.stream.Stream;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * @author Ekkart Kleinod
- * @version 0.10.0
+ * @version 0.10.1
  * @since 0.1
  */
 public class FileAccess {
@@ -55,7 +55,7 @@ public class FileAccess {
 	 * 
 	 * @param newEncoding the file encoding
 	 * 
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.1
 	 */
 	public static void setEncoding(final Charset newEncoding) {
@@ -71,7 +71,7 @@ public class FileAccess {
 	 * 
 	 * @throws Exception if one occurs
 	 *  
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.1
 	 */
 	public static StringBuilder readFile(final Path theFileName) throws Exception {
@@ -98,7 +98,7 @@ public class FileAccess {
 	 * 
 	 * @throws Exception if one occurs
 	 *  
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.5.0
 	 */
 	public static List<String> readFileInList(final Path theFileName) throws Exception {
@@ -124,7 +124,7 @@ public class FileAccess {
 	 *  
 	 * @throws Exception if one occurs
 	 *  
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.1
 	 */
 	public static void writeFile(final Path theFileName, final String theContent) throws IOException {
@@ -145,7 +145,7 @@ public class FileAccess {
 	 *  
 	 * @throws Exception if one occurs
 	 *  
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.5.0
 	 */
 	public static void writeFile(final Path theFileName, final List<String> theContent) throws IOException {

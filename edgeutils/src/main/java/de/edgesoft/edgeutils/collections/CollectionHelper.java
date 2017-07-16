@@ -29,7 +29,7 @@ import java.util.List;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * @author Ekkart Kleinod
- * @version 0.10.0
+ * @version 0.10.1
  * @since 0.2
  */
 public class CollectionHelper {
@@ -42,7 +42,7 @@ public class CollectionHelper {
 	 * @return csv string
 	 * 	@retval empty if collection is empty or any parameter is null
 	 * 
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.2
 	 */
 	public static <T> String toCSVString(Collection<T> theCollection, String theSeparator) {
@@ -79,7 +79,7 @@ public class CollectionHelper {
 	 * @param theSeparator separator between entries
 	 * @return list with splitted, trimmed entries
 	 * 
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.2
 	 */
 	public static List<String> fromCSVString(String theLine, String theSeparator) {
@@ -109,7 +109,7 @@ public class CollectionHelper {
 	 * @param needle character to find
 	 * @return number of occurences of needle in haystack
 	 * 
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.2
 	 */
 	public static int countOccurrences(String haystack, char needle) {
@@ -130,7 +130,7 @@ public class CollectionHelper {
 	 *  @retval true only empty objects
 	 *  @retval false at least one nonempty object
 	 * 
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.2
 	 */
 	public static <T> boolean isEmptyString(Collection<T> theCollection) {
@@ -156,7 +156,7 @@ public class CollectionHelper {
 	 * @param theSize size of the collection
 	 * @return list containing value
 	 * 
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.2
 	 */
 	public static <T> List<T> getFilledList(T theValue, int theSize) {

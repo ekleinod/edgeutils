@@ -31,7 +31,7 @@ import de.edgesoft.edgeutils.markup.latex.LaTeXMarkup;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * @author Ekkart Kleinod
- * @version 0.10.0
+ * @version 0.10.1
  * @since 0.1
  */
 public class MMDMarkup {
@@ -107,7 +107,7 @@ public class MMDMarkup {
 	 * @param iLevel level of heading
 	 * @return heading token
 	 * 
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.1
 	 */
 	public static String getHeadingToken(int iLevel) {
@@ -128,7 +128,7 @@ public class MMDMarkup {
 	 * @param theColor color
 	 * @return color token
 	 * 
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.1
 	 */
 	public static String getRGBColorToken(String theToken, Color theColor) {
@@ -145,7 +145,7 @@ public class MMDMarkup {
 	 * @param theRule rule to print after heading (null = no rule)
 	 * @return table start token
 	 * 
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.1
 	 */
 	public static String getTableStartToken(String theTableName, List<String> theHeadings, List<Double> theColWidths, boolean isHeadingBold, String theRule) {
@@ -166,7 +166,7 @@ public class MMDMarkup {
 	 * @param theRule rule to print after line (null = no rule)
 	 * @return table line token
 	 * 
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.1
 	 */
 	public static String getTableLineToken(List<String> theContent, String theRule) {
@@ -185,7 +185,7 @@ public class MMDMarkup {
 	 * 
 	 * @param theTableName name of the table (null = longtable)
 	 * 
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.1
 	 */
 	public static String getTableEndToken(String theTableName) {

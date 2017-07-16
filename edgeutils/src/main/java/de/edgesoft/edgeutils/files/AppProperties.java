@@ -30,7 +30,7 @@ import java.util.Properties;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * @author Ekkart Kleinod
- * @version 0.10.0
+ * @version 0.10.1
  * @since 0.5.0
  */
 public class AppProperties {
@@ -46,7 +46,7 @@ public class AppProperties {
 	 *  
 	 * @throws IOException if one occurs, just delegates thrown exceptions
 	 *  
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.8.0
 	 */
 	public static Properties getProperties(final Properties theDefaultProperties, final String theAppPropFile, final boolean ignoreExceptions) throws IOException {
@@ -79,7 +79,7 @@ public class AppProperties {
 	 *  
 	 * @throws IOException if one occurs, just delegates thrown exceptions
 	 *  
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.5.0
 	 */
 	public static Properties getProperties(String theDefaultPropFile, String theAppPropFile, final boolean ignoreExceptions) throws IOException {
@@ -123,7 +123,7 @@ public class AppProperties {
 	 * 
 	 * @throws IOException if one occurs, just delegates thrown exceptions
 	 *  
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.5.0
 	 */
 	public static void saveProperties(Properties theProps, String thePropFile, String theComment) throws IOException {
