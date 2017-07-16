@@ -18,11 +18,9 @@ XSD Schema for common xsd structures.
 - IDType
 	- element with an id that can be referenced
 
-v0.9.7
-
 ## Legal stuff
 
-Copyright 2014-2016 Ekkart Kleinod <ekleinod@edgesoft.de>
+Copyright 2010-2017 Ekkart Kleinod <ekleinod@edgesoft.de>
 
 This file is part of edgeUtils.
 
@@ -38,6 +36,11 @@ GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
+
+@author Ekkart Kleinod
+@version 0.10.0
+@since 0.4.0
+
 -->
 
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -170,6 +173,23 @@ Therefore, this connection is made in the `commons-only.xjb` bindings file.</xsd
 	</xsd:complexType>
 
 	<!-- Base class for all model classes - eases the identification of model classes in source code. -->
+	<xsd:complexType name="AbstractModelClass" abstract="true">
+		<xsd:complexContent>
+			<xsd:extension base="ModelClass">
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<!--
+		Base class for all model classes - eases the identification of model classes in source code.
+
+		This class is implemented by ModelClassExt. This is defined in commons-only.xjb, because in commons-reuse.xjb this causes
+		compile errors of jaxb. Thus, there is a second ModelClass - AbstractModelClass which just extends this class. This way,
+		every type that extends AbstractModelClass extends the ModelClassExt class, which is needed for combo boxes etc.
+
+		I did not see another way to implement this, maybe there is one I don't see. In that case, AbstractModelClass should be
+		deleted. Until then, remember to extend AbstractModelClass.
+	-->
 	<xsd:complexType name="ModelClass" abstract="true">
 	</xsd:complexType>
 

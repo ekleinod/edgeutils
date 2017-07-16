@@ -3,11 +3,9 @@
 <!--
 Common bindings for reusing all commons classes.
 
-v0.7.1
-
 ## Legal stuff
 
-Copyright 2014-2016 Ekkart Kleinod <ekleinod@edgesoft.de>
+Copyright 2010-2017 Ekkart Kleinod <ekleinod@edgesoft.de>
 
 This file is part of edgeUtils.
 
@@ -23,6 +21,11 @@ GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
+
+@author Ekkart Kleinod
+@version 0.10.0
+@since 0.4.0
+
 -->
 
 <jxb:bindings xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -31,6 +34,10 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 
 	<!-- bindings for commons -->
 	<jxb:bindings schemaLocation="commons.xsd">
+
+		<jxb:bindings node="//xsd:complexType[@name='AbstractModelClass']">
+			<jxb:class ref="de.edgesoft.edgeutils.commons.AbstractModelClass" />
+		</jxb:bindings>
 
 		<jxb:bindings node="//xsd:complexType[@name='Additional']">
 			<jxb:class ref="de.edgesoft.edgeutils.commons.Additional" />
