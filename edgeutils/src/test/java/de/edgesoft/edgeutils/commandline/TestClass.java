@@ -21,7 +21,7 @@ package de.edgesoft.edgeutils.commandline;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * @author Ekkart Kleinod
- * @version 0.10.0
+ * @version 0.10.1
  * @since 0.4.0
  */
 public class TestClass extends AbstractMainClass {
@@ -31,7 +31,7 @@ public class TestClass extends AbstractMainClass {
 	 * 
 	 * @param args command line arguments
 	 * 
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.4.0
 	 */
 	public static void main(String[] args) {
@@ -46,7 +46,7 @@ public class TestClass extends AbstractMainClass {
 	 * - call init(args);
 	 * - call operation execution with arguments
 	 * 
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.4.0
 	 */
 	@Override
@@ -72,7 +72,7 @@ public class TestClass extends AbstractMainClass {
 	 * @param theR r argument
 	 * @param theT t argument
 	 * 
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.4.0
 	 */
 	public void executeOperation(boolean theN, String theA, boolean theR, String theT) {

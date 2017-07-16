@@ -29,7 +29,7 @@ import org.knowm.xchart.style.colors.SeriesColors;
  * along with edgeUtils. If not, see <http://www.gnu.org/licenses/>.
  *
  * @author Ekkart Kleinod
- * @version 0.10.0
+ * @version 0.10.1
  * @since 0.10.0
  */
 public class BaseSeriesColors implements SeriesColors {
@@ -37,14 +37,14 @@ public class BaseSeriesColors implements SeriesColors {
 	/**
 	 * Map of color schemes.
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 */
 	private Map<Colorschemes, Color[]> mapColors = null;
 
 	/**
 	 * Constructor, setting all schemes.
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 */
 	public BaseSeriesColors() {
 		mapColors = new HashMap<>();
@@ -87,7 +87,7 @@ public class BaseSeriesColors implements SeriesColors {
 	/**
 	 * Returns default array of colors (.
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 */
 	@Override
 	public Color[] getSeriesColors() {
@@ -97,7 +97,7 @@ public class BaseSeriesColors implements SeriesColors {
 	/**
 	 * Returns colors for given color scheme.
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 */
 	public Color[] getSeriesColors(final Colorschemes theColorscheme) {
 		return mapColors.getOrDefault(theColorscheme, mapColors.get(Colorschemes.RdBu_diverging_9));

@@ -32,7 +32,7 @@ import javafx.beans.property.SimpleObjectProperty;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author Ekkart Kleinod
- * @version 0.10.0
+ * @version 0.10.1
  * @since 0.9.6
  */
 public class SimpleObjectPropertyLocalTimeAdapter extends XmlAdapter<String, SimpleObjectProperty<LocalTime>> {
@@ -43,7 +43,7 @@ public class SimpleObjectPropertyLocalTimeAdapter extends XmlAdapter<String, Sim
 	 * @param theProperty property
 	 * @return marshaled string
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.9.6
 	 */
 	@Override
@@ -57,7 +57,7 @@ public class SimpleObjectPropertyLocalTimeAdapter extends XmlAdapter<String, Sim
 	 * @param theString string
 	 * @return property
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.9.6
 	 */
 	@Override

@@ -26,7 +26,7 @@ import org.junit.Test;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author Ekkart Kleinod
- * @version 0.10.0
+ * @version 0.10.1
  * @since 0.9.7
  */
 public class FileUtilsTest {

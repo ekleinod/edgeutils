@@ -29,7 +29,7 @@ import javafx.beans.property.SimpleBooleanProperty;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author Ekkart Kleinod
- * @version 0.10.0
+ * @version 0.10.1
  * @since 0.9.6
  */
 public class SimpleBooleanPropertyAdapter extends XmlAdapter<String, SimpleBooleanProperty> {
@@ -40,7 +40,7 @@ public class SimpleBooleanPropertyAdapter extends XmlAdapter<String, SimpleBoole
 	 * @param theProperty property
 	 * @return marshaled string
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.9.6
 	 */
 	@Override
@@ -54,7 +54,7 @@ public class SimpleBooleanPropertyAdapter extends XmlAdapter<String, SimpleBoole
 	 * @param theString string
 	 * @return property
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.9.6
 	 */
 	@Override

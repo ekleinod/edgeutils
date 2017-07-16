@@ -39,7 +39,7 @@ import org.knowm.xchart.style.PieStyler.AnnotationType;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author Ekkart Kleinod
- * @version 0.10.0
+ * @version 0.10.1
  * @since 0.10.0
  */
 public class ChartFactory {
@@ -53,7 +53,7 @@ public class ChartFactory {
 	 * @param theAnnotationType annotation type (optional)
 	 * @param theColorscheme color scheme (optional)
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 */
 	public static PieChart createPieChart(final String theTitle, final int theHeight, final int theWidth,
 			final Optional<AnnotationType> theAnnotationType, final Optional<Colorschemes> theColorscheme) {
@@ -89,7 +89,7 @@ public class ChartFactory {
 	 * @param theCategorySeriesRenderStyle render style (optional)
 	 * @param theColorscheme color scheme (optional)
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 */
 	public static XYChart createXYChart(final String theTitle, final int theHeight, final int theWidth,
 			final Optional<Colorschemes> theColorscheme) {
@@ -132,7 +132,7 @@ public class ChartFactory {
 	 * @param theCategorySeriesRenderStyle render style (optional)
 	 * @param theColorscheme color scheme (optional)
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 */
 	public static CategoryChart createCategoryChart(final String theTitle, final int theHeight, final int theWidth,
 			final Optional<CategorySeriesRenderStyle> theCategorySeriesRenderStyle, final Optional<Colorschemes> theColorscheme) {
