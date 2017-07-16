@@ -62,12 +62,12 @@ Sind Sie sicher, dass Sie die Installation abbrechen wollen?"
 # Welcome
 !define MUI_WELCOMEPAGE_TITLE "Installation $\"${LONGNAME}$\" ${LONG_VERSION}"
 !define MUI_WELCOMEPAGE_TEXT "Willkommen bei der Installation von $\"${LONGNAME}$\".$\r$\n$\r$\n\
-Dieser Installer fï¿½hrt Sie durch die Installation. \
-Sie kï¿½nnen die Installation jederzeit abbrechen, indem Sie unten rechts auf $\"Abbrechen$\" klicken."
+Dieser Installer führt Sie durch die Installation. \
+Sie können die Installation jederzeit abbrechen, indem Sie unten rechts auf $\"Abbrechen$\" klicken."
 
 !define MUI_FINISHPAGE_TITLE "Installation $\"${LONGNAME}$\" ${LONG_VERSION}"
 !define MUI_FINISHPAGE_TEXT "Die Installation wurde erfolgreich abgeschlossen.$\r$\n$\r$\n\
-Sie kï¿½nnen das Installationsprogramm beenden und danach $\"${LONGNAME}$\" starten."
+Sie können das Installationsprogramm beenden und danach $\"${LONGNAME}$\" starten."
 
 # Installer pages
 !insertmacro MUI_PAGE_WELCOME
@@ -94,7 +94,7 @@ VIAddVersionKey /LANG=${LANG_GERMAN} CompanyName "${COMPANY}"
 VIAddVersionKey /LANG=${LANG_GERMAN} CompanyWebsite "${URL}"
 VIAddVersionKey /LANG=${LANG_GERMAN} FileVersion "${VERSION}"
 VIAddVersionKey /LANG=${LANG_GERMAN} FileDescription ""
-VIAddVersionKey /LANG=${LANG_GERMAN} LegalCopyright 2010-2017 Ekkart Kleinod <ekleinod@edgesoft.de>
+VIAddVersionKey /LANG=${LANG_GERMAN} LegalCopyright ""
 InstallDirRegKey HKLM "${REGKEY}" Path
 ShowUninstDetails show
 
@@ -108,7 +108,7 @@ Section "${LONGNAME}" SEC_JAR
 	WriteRegStr HKLM "${REGKEY}\Components" jar 1
 SectionEnd
 
-Section "Startmenï¿½-Eintrag" SEC_SM
+Section "Startmenü-Eintrag" SEC_SM
 	SetOverwrite on
 	CreateDirectory "$SMPROGRAMS\${LONGNAME}"
 	CreateShortCut "$SMPROGRAMS\${LONGNAME}\${LONGNAME}.lnk" "$INSTDIR\${FILENAME}.jar" "" "$INSTDIR\${FILENAME}.ico"
@@ -122,8 +122,8 @@ SectionEnd
 # Component descriptions
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
 	!insertmacro MUI_DESCRIPTION_TEXT ${SEC_JAR} "Die Programmdateien von $\"${LONGNAME}$\"."
-	!insertmacro MUI_DESCRIPTION_TEXT ${SEC_SM} "Der Eintrag im Startmenï¿½ sorgt dafï¿½r, dass Sie $\"${LONGNAME}$\" bequem von Hand aus dem Startmenï¿½ starten kï¿½nnen."
-	!insertmacro MUI_DESCRIPTION_TEXT ${SEC_AS} "Dieser Eintrag sorgt dafï¿½r, dass $\"${LONGNAME}$\" bei jedem Rechnerstart automatisch ausgefï¿½hrt wird."
+	!insertmacro MUI_DESCRIPTION_TEXT ${SEC_SM} "Der Eintrag im Startmenü sorgt dafür, dass Sie $\"${LONGNAME}$\" bequem von Hand aus dem Startmenü starten können."
+	!insertmacro MUI_DESCRIPTION_TEXT ${SEC_AS} "Dieser Eintrag sorgt dafür, dass $\"${LONGNAME}$\" bei jedem Rechnerstart automatisch ausgeführt wird."
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 # Installer functions
@@ -138,7 +138,7 @@ FunctionEnd
 
 Function CopyExisting
 	IfFileExists "$INSTDIR\${FILENAME}.jar" 0 +4
-		MessageBox MB_OKCANCEL|MB_ICONQUESTION "${LONGNAME} ist bereits im Installationsverzeichnis vorhanden. Soll es ï¿½berschrieben werden?$\r$\n$\r$\nBei $\"Abbrechen$\" kann ein neues Verzeichnis ausgesucht werden." IDOK continue
+		MessageBox MB_OKCANCEL|MB_ICONQUESTION "${LONGNAME} ist bereits im Installationsverzeichnis vorhanden. Soll es überschrieben werden?$\r$\n$\r$\nBei $\"Abbrechen$\" kann ein neues Verzeichnis ausgesucht werden." IDOK continue
 		Abort
 	continue:
 FunctionEnd
