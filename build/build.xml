@@ -2,7 +2,7 @@
 
 <!--
 
-Create edgeutils installer.
+Create edgeutils version.
 
 ## Legal stuff
 
@@ -45,9 +45,10 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 
 	1. &lt;set version and copyright in project.properties&gt;
 	2. ant setversion
-	3. &lt;create jar in eclipse or with maven&gt;
-	4. &lt;edit changelog&gt;
+	3. &lt;set version and copyright information in ant-nsis.xml&gt;
+	4. &lt;set version in pom.xml&gt;
 	5. &lt;make install in eclipse or with maven&gt;
+	6. &lt;edit changelog&gt;
 		</echo>
 
 		<antcall target="help" />

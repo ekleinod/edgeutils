@@ -21,7 +21,7 @@ import org.junit.rules.ExpectedException;
  *
  * ## Legal stuff
  *
- * Copyright 2010-2016 Ekkart Kleinod <ekleinod@edgesoft.de>
+ * Copyright 2010-2017 Ekkart Kleinod <ekleinod@edgesoft.de>
  *
  * This file is part of edgeUtils.
  *
@@ -39,7 +39,7 @@ import org.junit.rules.ExpectedException;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author Ekkart Kleinod
- * @version 0.8.0
+ * @version 0.10.0
  * @since 0.5.0
  */
 public class AppPropertiesTest {

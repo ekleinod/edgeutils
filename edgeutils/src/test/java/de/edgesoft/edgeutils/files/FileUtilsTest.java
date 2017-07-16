@@ -8,7 +8,7 @@ import org.junit.Test;
  *
  * ## Legal stuff
  *
- * Copyright 2010-2016 Ekkart Kleinod <ekleinod@edgesoft.de>
+ * Copyright 2010-2017 Ekkart Kleinod <ekleinod@edgesoft.de>
  *
  * This file is part of edgeUtils.
  *
@@ -26,7 +26,7 @@ import org.junit.Test;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author Ekkart Kleinod
- * @version 0.9.7
+ * @version 0.10.0
  * @since 0.9.7
  */
 public class FileUtilsTest {

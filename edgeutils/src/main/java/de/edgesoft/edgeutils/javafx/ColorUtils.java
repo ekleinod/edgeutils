@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
  *
  * ## Legal stuff
  *
- * Copyright 2010-2016 Ekkart Kleinod <ekleinod@edgesoft.de>
+ * Copyright 2010-2017 Ekkart Kleinod <ekleinod@edgesoft.de>
  *
  * This file is part of edgeUtils.
  *
@@ -26,7 +26,7 @@ import javafx.scene.paint.Color;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author Ekkart Kleinod
- * @version 0.9.3
+ * @version 0.10.0
  * @since 0.9.3
  */
 public class ColorUtils {
@@ -37,7 +37,7 @@ public class ColorUtils {
 	 * @param theColor color
 	 * @return web hex string
 	 *
-	 * @version 0.9.3
+	 * @version 0.10.0
 	 * @since 0.9.3
 	 */
 	public static String formatWebHex(final Color theColor) {

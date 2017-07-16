@@ -8,7 +8,7 @@ package de.edgesoft.edgeutils.markup.reveal;
  * 
  * ## Legal stuff
  * 
- * Copyright 2014-2014 Ekkart Kleinod <ekleinod@edgesoft.de>
+ * Copyright 2010-2017 Ekkart Kleinod <ekleinod@edgesoft.de>
  * 
  * This file is part of edgeUtils.
  * 
@@ -26,7 +26,7 @@ package de.edgesoft.edgeutils.markup.reveal;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * @author Ekkart Kleinod
- * @version 0.3
+ * @version 0.10.0
  * @since 0.2
  */
 public class RevealMarkup {
@@ -67,7 +67,7 @@ public class RevealMarkup {
 	 * @param iLevel level of heading
 	 * @return heading token
 	 * 
-	 * @version 0.2
+	 * @version 0.10.0
 	 * @since 0.2
 	 */
 	public static String getHeadingToken(int iLevel) {
