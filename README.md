@@ -2,14 +2,14 @@
 
 This project contains utilities for my projects.
 
-- edgeutils
+- [edgeutils](#java-classes)
 	- java classes
-- jaxb
+- [jaxb](#jaxb)
 	- schemata
 	- bindings
-- ant
+- [ant](#ant)
 	- script fragments
-- nsis
+- [nsis](#nsis)
 	- script for simple jar files
 
 Every subdirectory contains its own readme file describing main issues such as usage of the given utilities.
