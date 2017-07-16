@@ -36,7 +36,7 @@ I am using other libraries in this project (via maven):
 
 Use them directly per eclipse project or use them via maven.
 The classes are not listed in an official maven repository.
-Just import them in eclipse, call maven install launch and use the classes as follows:
+Just import the edgeutils project in eclipse, call maven install launch and use the classes as follows:
 
 	<dependency>
 		<groupId>de.edgesoft</groupId>
@@ -53,7 +53,7 @@ Replace version number with latest version number.
 `commons.xsd` contains some common *xsd* types for all my projects.
 To use the file, include it in your *xsd* file and use the structures as if they were written in your *xsd* file.
 
-Example: use `InfoType` in `yourdoc.xsd`:
+Example: use `Info` in `yourdoc.xsd`:
 
 	<?xml version="1.0" encoding="UTF-8"?>
 	<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
