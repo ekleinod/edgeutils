@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.edgesoft</groupId>
   <artifactId>edgeutils</artifactId>
-  <version>0.10.0</version>
+  <version>0.10.1</version>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -47,4 +47,8 @@
   	<url>https://github.com/ekleinod/edgeutils</url>
   	<developerConnection>ekleinod</developerConnection>
   </scm>
+  <issueManagement>
+  	<url>https://github.com/ekleinod/edgeutils/issues</url>
+  	<system>GitHub</system>
+  </issueManagement>
 </project>

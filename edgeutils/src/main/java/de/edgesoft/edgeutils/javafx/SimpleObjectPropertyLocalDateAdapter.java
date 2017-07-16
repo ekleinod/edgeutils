@@ -32,7 +32,7 @@ import javafx.beans.property.SimpleObjectProperty;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * @author Ekkart Kleinod
- * @version 0.10.0
+ * @version 0.10.1
  * @since 0.9.4
  */
 public class SimpleObjectPropertyLocalDateAdapter extends XmlAdapter<String, SimpleObjectProperty<LocalDate>> {
@@ -43,7 +43,7 @@ public class SimpleObjectPropertyLocalDateAdapter extends XmlAdapter<String, Sim
 	 * @param theProperty local date property
 	 * @return marshaled string
 	 * 
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.9.4
 	 */
 	@Override
@@ -57,7 +57,7 @@ public class SimpleObjectPropertyLocalDateAdapter extends XmlAdapter<String, Sim
 	 * @param theString string
 	 * @return local date property
 	 * 
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.9.4
 	 */
 	@Override

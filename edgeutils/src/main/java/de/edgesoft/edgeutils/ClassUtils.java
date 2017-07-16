@@ -30,7 +30,7 @@ import java.util.Objects;
  * along with edgeUtils. If not, see <http://www.gnu.org/licenses/>.
  *
  * @author Ekkart Kleinod
- * @version 0.10.0
+ * @version 0.10.1
  * @since 0.104.0
  */
 public class ClassUtils {
@@ -41,7 +41,7 @@ public class ClassUtils {
 	 * @param theClass the class to get the fields for
 	 * @return list of declared fields
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 */
 	public static List<Field> getDeclaredFieldsFirstAbstraction(final Class<?> theClass) {
 
@@ -68,7 +68,7 @@ public class ClassUtils {
 	 * @param theClass the class to get the fields for
 	 * @return list of declared fields
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 */
 	public static List<Field> getDeclaredFieldsInheritance(final Class<?> theClass) {
 

@@ -32,7 +32,7 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 <project name="edgeutils" default="buildhelp" basedir=".">
 
 	<!-- directories with files to set version in, comma separated -->
-	<property name="paths:setversion" value="../${ant.project.name}/,../ant/,../jaxb/,../nsis/" />
+	<property name="paths:setversion" value="../${ant.project.name}/,../ant/,../jaxb/" />
 
 	<!-- your local path to nsis here without exe, empty if exe is in system path -->
 	<property name="path:nsis:windows" value="C:\localapps\NSIS\" />
@@ -45,10 +45,11 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 
 	1. &lt;set version and copyright in project.properties&gt;
 	2. ant setversion
-	3. &lt;set version and copyright information in ant-nsis.xml&gt;
-	4. &lt;set version in pom.xml&gt;
-	5. &lt;make install in eclipse or with maven&gt;
-	6. &lt;edit changelog&gt;
+	3. &lt;set version and copyright information in ant-nsis.xml (version and copyright problems)&gt;
+	4. &lt;set version and copyright information in simple-jar.nsi (UTF-8 and copyright problems)&gt;
+	5. &lt;set version in pom.xml&gt;
+	6. &lt;make install in eclipse or with maven&gt;
+	7. &lt;edit changelog&gt;
 		</echo>
 
 		<antcall target="help" />

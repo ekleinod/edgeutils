@@ -38,7 +38,7 @@ import de.edgesoft.edgeutils.Messages;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * @author Ekkart Kleinod
- * @version 0.10.0
+ * @version 0.10.1
  * @since 0.1
  */
 public abstract class AbstractMainClass {
@@ -62,7 +62,7 @@ public abstract class AbstractMainClass {
 	 * 
 	 * @param args command line arguments
 	 * 
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.4.0
 	 */
 	public abstract void executeOperation(String[] args);
@@ -75,7 +75,7 @@ public abstract class AbstractMainClass {
 	 * 
 	 * @param args command line arguments
 	 * 
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.1
 	 */
 	public void init(String[] args) {
@@ -97,7 +97,7 @@ public abstract class AbstractMainClass {
 	 * @param hasArgument does option have an argument?
 	 * @param isRequired is option required?
 	 *  
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.1
 	 */
 	public void addOption(String theShortName, String theLongName, String theDescription, boolean hasArgument, boolean isRequired) {
@@ -109,7 +109,7 @@ public abstract class AbstractMainClass {
 	 * 
 	 * @return options
 	 *  
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.1
 	 */
 	public Options getOptions() {
@@ -125,7 +125,7 @@ public abstract class AbstractMainClass {
 	 * @param theShortName option
 	 * @return value
 	 *  
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.1
 	 */
 	public String getOptionValue(String theShortName) {
@@ -138,7 +138,7 @@ public abstract class AbstractMainClass {
 	 * @param theShortName option
 	 * @return if option in command line?
 	 *  
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.1
 	 */
 	public boolean hasOption(String theShortName) {
@@ -150,7 +150,7 @@ public abstract class AbstractMainClass {
 	 * 
 	 * @return the description (empty if not set)
 	 * 
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.4.0
 	 */
 	public String getDescription() {
@@ -162,7 +162,7 @@ public abstract class AbstractMainClass {
 	 * 
 	 * @param theDescription the description to set
 	 * 
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.4.0
 	 */
 	public void setDescription(String theDescription) {
@@ -174,7 +174,7 @@ public abstract class AbstractMainClass {
 	 * 
 	 * @return usage message
 	 * 
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.1
 	 */
 	public String getUsage() {
@@ -195,7 +195,7 @@ public abstract class AbstractMainClass {
 	 * 
 	 * @return usage message
 	 * 
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.4.0
 	 */
 	public String getUsage(Exception e) {

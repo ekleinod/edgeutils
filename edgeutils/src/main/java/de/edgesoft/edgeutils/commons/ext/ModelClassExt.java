@@ -27,7 +27,7 @@ import javafx.beans.property.StringProperty;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author Ekkart Kleinod
- * @version 0.10.0
+ * @version 0.10.1
  * @since 0.14.0
  */
 public class ModelClassExt extends ModelClass {
@@ -37,7 +37,7 @@ public class ModelClassExt extends ModelClass {
 	 *
 	 * This allows to use this method in all instances of {@link ModelClass}.
 	 *
-	 * @version 0.10.0
+	 * @version 0.10.1
 	 * @since 0.14.0
 	 */
 	public StringProperty getDisplayText() {
