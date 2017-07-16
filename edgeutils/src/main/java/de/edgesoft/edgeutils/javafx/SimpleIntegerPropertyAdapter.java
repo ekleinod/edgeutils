@@ -11,7 +11,7 @@ import javafx.beans.property.SimpleIntegerProperty;
  *
  * ## Legal stuff
  *
- * Copyright 2010-2016 Ekkart Kleinod <ekleinod@edgesoft.de>
+ * Copyright 2010-2017 Ekkart Kleinod <ekleinod@edgesoft.de>
  *
  * This file is part of edgeUtils.
  *
@@ -29,7 +29,7 @@ import javafx.beans.property.SimpleIntegerProperty;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author Ekkart Kleinod
- * @version 0.9.6
+ * @version 0.10.0
  * @since 0.9.6
  */
 public class SimpleIntegerPropertyAdapter extends XmlAdapter<String, SimpleIntegerProperty> {
@@ -40,7 +40,7 @@ public class SimpleIntegerPropertyAdapter extends XmlAdapter<String, SimpleInteg
 	 * @param theProperty property
 	 * @return marshaled string
 	 *
-	 * @version 0.9.6
+	 * @version 0.10.0
 	 * @since 0.9.6
 	 */
 	@Override
@@ -54,7 +54,7 @@ public class SimpleIntegerPropertyAdapter extends XmlAdapter<String, SimpleInteg
 	 * @param theString string
 	 * @return property
 	 *
-	 * @version 0.9.6
+	 * @version 0.10.0
 	 * @since 0.9.6
 	 */
 	@Override

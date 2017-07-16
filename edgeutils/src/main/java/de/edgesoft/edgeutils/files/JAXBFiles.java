@@ -32,7 +32,7 @@ import de.edgesoft.edgeutils.EdgeUtilsException;
  *
  * ## Legal stuff
  *
- * Copyright 2010-2016 Ekkart Kleinod <ekleinod@edgesoft.de>
+ * Copyright 2010-2017 Ekkart Kleinod <ekleinod@edgesoft.de>
  *
  * This file is part of edgeUtils.
  *
@@ -50,7 +50,7 @@ import de.edgesoft.edgeutils.EdgeUtilsException;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author Ekkart Kleinod
- * @version 0.6.1
+ * @version 0.10.0
  * @since 0.1
  */
 public class JAXBFiles {
@@ -69,7 +69,7 @@ public class JAXBFiles {
 	 *
 	 * @param newEncoding the file encoding
 	 *
-	 * @version 0.6.0
+	 * @version 0.10.0
 	 * @since 0.1
 	 */
 	public static void setEncoding(final Charset newEncoding) {
@@ -87,7 +87,7 @@ public class JAXBFiles {
 	 *
 	 * @throws EdgeUtilsException if some JAXB-error happened
 	 *
-	 * @version 0.6.1
+	 * @version 0.10.0
 	 * @since 0.1
 	 */
 	public static <T> T unmarshal(String theFileName, Class<T> theClass) throws EdgeUtilsException {
@@ -122,7 +122,7 @@ public class JAXBFiles {
 	 *
 	 * @throws EdgeUtilsException if some JAXB-error happened
 	 *
-	 * @version 0.6.0
+	 * @version 0.10.0
 	 * @since 0.2
 	 */
 	public static <T> T unmarshalInclude(String theFileName, Class<T> theClass) throws EdgeUtilsException {
@@ -163,7 +163,7 @@ public class JAXBFiles {
 	 *
 	 * @throws EdgeUtilsException if some JAXB-error happened
 	 *
-	 * @version 0.6.0
+	 * @version 0.10.0
 	 * @since 0.1
 	 */
 	public static <T> T unmarshal(Reader theReader, Class<T> theClass) throws EdgeUtilsException {
@@ -199,7 +199,7 @@ public class JAXBFiles {
 	 *
 	 * @throws EdgeUtilsException if some JAXB-error happened
 	 *
-	 * @version 0.6.1
+	 * @version 0.10.0
 	 * @since 0.1
 	 */
 	public static <T> void marshal(JAXBElement<T> theDataElement, String theFileName, String theSchema) throws EdgeUtilsException {
@@ -240,7 +240,7 @@ public class JAXBFiles {
 	 *
 	 * @throws EdgeUtilsException if some JAXB-error happened
 	 *
-	 * @version 0.6.0
+	 * @version 0.10.0
 	 * @since 0.1
 	 */
 	public static <T> String marshalToString(JAXBElement<T> theDataElement, String theSchema) throws EdgeUtilsException {

@@ -11,7 +11,7 @@ import javafx.beans.property.SimpleStringProperty;
  * 
  * ## Legal stuff
  * 
- * Copyright 2010-2016 Ekkart Kleinod <ekleinod@edgesoft.de>
+ * Copyright 2010-2017 Ekkart Kleinod <ekleinod@edgesoft.de>
  * 
  * This file is part of edgeUtils.
  * 
@@ -29,7 +29,7 @@ import javafx.beans.property.SimpleStringProperty;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * @author Ekkart Kleinod
- * @version 0.9.5
+ * @version 0.10.0
  * @since 0.9.4
  */
 public class SimpleStringPropertyAdapter extends XmlAdapter<String, SimpleStringProperty> {
@@ -40,7 +40,7 @@ public class SimpleStringPropertyAdapter extends XmlAdapter<String, SimpleString
 	 * @param theProperty string property
 	 * @return marshaled string
 	 * 
-	 * @version 0.9.5
+	 * @version 0.10.0
 	 * @since 0.9.4
 	 */
 	@Override
@@ -54,7 +54,7 @@ public class SimpleStringPropertyAdapter extends XmlAdapter<String, SimpleString
 	 * @param theString string
 	 * @return string property
 	 * 
-	 * @version 0.9.5
+	 * @version 0.10.0
 	 * @since 0.9.4
 	 */
 	@Override
