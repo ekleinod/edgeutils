@@ -18,8 +18,6 @@ XSD Schema for common xsd structures.
 - IDType
 	- element with an id that can be referenced
 
-@version 0.10.0
-
 ## Legal stuff
 
 Copyright 2014-2017 Ekkart Kleinod <ekleinod@edgesoft.de>
@@ -38,6 +36,11 @@ GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
+
+@author Ekkart Kleinod
+@version 0.9.8
+@since 0.4.0
+
 -->
 
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
