@@ -32,7 +32,7 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 <project name="edgeutils" default="buildhelp" basedir=".">
 
 	<!-- directories with files to set version in, comma separated -->
-	<property name="paths:setversion" value="../${ant.project.name}/" />
+	<property name="paths:setversion" value="../${ant.project.name}/,../ant/,../jaxb/,../nsis/" />
 
 	<!-- your local path to nsis here without exe, empty if exe is in system path -->
 	<property name="path:nsis:windows" value="C:\localapps\NSIS\" />
