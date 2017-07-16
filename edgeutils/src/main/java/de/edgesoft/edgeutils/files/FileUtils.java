@@ -5,7 +5,7 @@ package de.edgesoft.edgeutils.files;
  *
  * ## Legal stuff
  *
- * Copyright 2010-2016 Ekkart Kleinod <ekleinod@edgesoft.de>
+ * Copyright 2010-2017 Ekkart Kleinod <ekleinod@edgesoft.de>
  *
  * This file is part of edgeUtils.
  *
@@ -23,7 +23,7 @@ package de.edgesoft.edgeutils.files;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author Ekkart Kleinod
- * @version 0.9.7
+ * @version 0.10.0
  * @since 0.9.7
  */
 public class FileUtils {
@@ -34,7 +34,7 @@ public class FileUtils {
 	 * @param theFilename the file name
 	 * @return cleaned filename
 	 *
-	 * @version 0.9.7
+	 * @version 0.10.0
 	 * @since 0.9.7
 	 */
 	public static String cleanFilename(final String theFilename) {

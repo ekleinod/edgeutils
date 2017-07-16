@@ -11,7 +11,7 @@ import java.util.Locale;
  * 
  * ## Legal stuff
  * 
- * Copyright 2010-2014 Ekkart Kleinod <ekleinod@edgesoft.de>
+ * Copyright 2010-2017 Ekkart Kleinod <ekleinod@edgesoft.de>
  * 
  * This file is part of edgeUtils.
  * 
@@ -29,7 +29,7 @@ import java.util.Locale;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * @author Ekkart Kleinod
- * @version 0.3
+ * @version 0.10.0
  * @since 0.1
  */
 public class LaTeXMarkup {
@@ -83,7 +83,7 @@ public class LaTeXMarkup {
 	 * @param theColor color
 	 * @return color token
 	 * 
-	 * @version 0.1
+	 * @version 0.10.0
 	 * @since 0.1
 	 */
 	public static String getRGBColorToken(String theToken, Color theColor) {
@@ -100,7 +100,7 @@ public class LaTeXMarkup {
 	 * @param theRule rule to print after heading (null = no rule)
 	 * @return table start token
 	 * 
-	 * @version 0.1
+	 * @version 0.10.0
 	 * @since 0.1
 	 */
 	public static String getTableStartToken(String theTableName, List<String> theHeadings, List<Double> theColWidths, boolean isHeadingBold, String theRule) {
@@ -139,7 +139,7 @@ public class LaTeXMarkup {
 	 * @param theRule rule to print after line (null = no rule)
 	 * @return table line token
 	 * 
-	 * @version 0.1
+	 * @version 0.10.0
 	 * @since 0.1
 	 */
 	public static String getTableLineToken(List<String> theContent, String theRule) {
@@ -172,7 +172,7 @@ public class LaTeXMarkup {
 	 * 
 	 * @param theTableName name of the table (null = longtable)
 	 * 
-	 * @version 0.1
+	 * @version 0.10.0
 	 * @since 0.1
 	 */
 	public static String getTableEndToken(String theTableName) {

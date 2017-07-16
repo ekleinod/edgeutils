@@ -7,7 +7,7 @@ Target "debinstall" has to be run as root in order to change owner and group acc
 
 ## Legal stuff
 
-Copyright 2014-2017 Ekkart Kleinod <ekleinod@edgesoft.de>
+Copyright 2010-2017 Ekkart Kleinod <ekleinod@edgesoft.de>
 
 This file is part of edgeUtils.
 
@@ -45,12 +45,14 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 
 	1. &lt;set version and copyright in project.properties&gt;
 	2. ant setversion
-	3. &lt;create jar in eclipse or with maven&gt;
-	4. &lt;edit changelog&gt;
-	5. sudo ant debinstall
-	6. ant createdeb
-	7. sudo ant clearTmp
-	8. ant wininstall
+	3. &lt;set version in pom.xml&gt;
+	4. &lt;create jar in eclipse or with maven&gt;
+	5. &lt;copy jar to files folder, update link&gt;
+	6. &lt;edit changelog&gt;
+	7. sudo ant debinstall
+	8. ant createdeb
+	9. sudo ant clearTmp
+	10. ant wininstall
 		</echo>
 
 		<antcall target="help" />
@@ -67,6 +69,7 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 
 			<multirootfileset basedirs="${paths:setversion}">
 				<include name="**/*" />
+				<exclude name="ant-nsis.xml" />
 			</multirootfileset>
 
 		</replaceregexp>
@@ -79,6 +82,7 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 
 			<multirootfileset basedirs="${paths:setversion}">
 				<include name="**/*" />
+				<exclude name="ant-nsis.xml" />
 			</multirootfileset>
 
 		</replaceregexp>
