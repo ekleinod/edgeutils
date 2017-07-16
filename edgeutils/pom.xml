@@ -47,4 +47,8 @@
   	<url>https://github.com/ekleinod/edgeutils</url>
   	<developerConnection>ekleinod</developerConnection>
   </scm>
+  <issueManagement>
+  	<url>https://github.com/ekleinod/edgeutils/issues</url>
+  	<system>GitHub</system>
+  </issueManagement>
 </project>
