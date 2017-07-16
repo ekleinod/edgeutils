@@ -6,7 +6,7 @@ edgeutils (0.10.0) unstable; urgency=low
 	* NSIS ant build and simple jar script
 	* build scripts
 
--- Ekkart Kleinod <ekleinod@edgesoft.de>  Tue, 18 Apr 2017 12:00:00 +0100
+-- Ekkart Kleinod <ekleinod@edgesoft.de>  Sun, 16 Jul 2017 20:00:00 +0200
 
 
 edgeutils (0.9.8) unstable; urgency=low
