@@ -1,5 +1,9 @@
 package de.edgesoft.edgeutils.files;
 
+import java.nio.file.Paths;
+
+import javafx.beans.property.StringProperty;
+
 /**
  * Class file utilities.
  *
@@ -51,6 +55,44 @@ public class FileUtils {
 				.replace("/", "_")
 				.replace("\\", "_")
 				;
+	}
+
+	/**
+	 * Returns if file given by path and filename exists.
+	 *
+	 * @param thePath path
+	 * @param theFilename filename
+	 * @return does file exist?
+	 *
+	 * @since 0.11.0
+	 */
+	public static boolean existsFile(final String thePath, final StringProperty theFilename) {
+
+		if (theFilename == null) {
+			return false;
+		}
+
+		return existsFile(thePath, theFilename.getValueSafe());
+
+	}
+
+	/**
+	 * Returns if file given by path and filename exists.
+	 *
+	 * @param thePath path
+	 * @param theFilename filename
+	 * @return does file exist?
+	 *
+	 * @since 0.11.0
+	 */
+	public static boolean existsFile(final String thePath, final String theFilename) {
+
+		if ((theFilename == null) || theFilename.isEmpty()) {
+			return false;
+		}
+
+		return Paths.get((thePath == null) ? "" : thePath, theFilename).toFile().exists();
+
 	}
 
 }
