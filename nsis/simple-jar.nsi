@@ -44,9 +44,6 @@ RequestExecutionLevel user
 !include Sections.nsh
 !include MUI2.nsh
 
-# Reserved Files
-ReserveFile "${NSISDIR}\Plugins\AdvSplash.dll"
-
 # Variables
 
 # show warning when abort
@@ -99,7 +96,7 @@ InstallDirRegKey HKLM "${REGKEY}" Path
 ShowUninstDetails show
 
 # Installer sections
-Section "${LONGNAME}" SEC_JAR
+Section "!${LONGNAME}" SEC_JAR
 	SectionIn RO # required
 	SetOverwrite on
 	SetOutPath $INSTDIR
@@ -114,7 +111,7 @@ Section "Startmenü-Eintrag" SEC_SM
 	CreateShortCut "$SMPROGRAMS\${LONGNAME}\${LONGNAME}.lnk" "$INSTDIR\${FILENAME}.jar" "" "$INSTDIR\${FILENAME}.ico"
 SectionEnd
 
-Section "Autostart-Eintrag" SEC_AS
+Section /o "Autostart-Eintrag" SEC_AS
 	SetOverwrite on
 	CreateShortCut "$SMSTARTUP\${LONGNAME}.lnk" "$INSTDIR\${FILENAME}.jar" "" "$INSTDIR\${FILENAME}.ico"
 SectionEnd
