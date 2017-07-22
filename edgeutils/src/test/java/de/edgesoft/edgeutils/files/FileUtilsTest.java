@@ -42,8 +42,8 @@ public class FileUtilsTest {
 		Assert.assertEquals("abc", FileUtils.cleanFilename("abc"));
 		Assert.assertEquals("aeoeue", FileUtils.cleanFilename("äöü"));
 		Assert.assertEquals("ss_lou", FileUtils.cleanFilename("ß lou"));
-		Assert.assertEquals("_l____", FileUtils.cleanFilename("_l;.._"));
-		Assert.assertEquals("_____", FileUtils.cleanFilename("?:;.,"));
+		Assert.assertEquals("_l_.._", FileUtils.cleanFilename("_l;.._"));
+		Assert.assertEquals("___._", FileUtils.cleanFilename("?:;.,"));
 		Assert.assertEquals("__", FileUtils.cleanFilename("/\\"));
 
 	}

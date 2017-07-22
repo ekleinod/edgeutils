@@ -51,7 +51,6 @@ public class FileUtils {
 				.replace(":", "_")
 				.replace(";", "_")
 				.replace(",", "_")
-				.replace(".", "_")
 				.replace("/", "_")
 				.replace("\\", "_")
 				;
