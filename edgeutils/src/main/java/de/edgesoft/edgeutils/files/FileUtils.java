@@ -33,9 +33,6 @@ public class FileUtils {
 	 *
 	 * @param theFilename the file name
 	 * @return cleaned filename
-	 *
-	 * @version 0.10.1
-	 * @since 0.9.7
 	 */
 	public static String cleanFilename(final String theFilename) {
 		return theFilename
