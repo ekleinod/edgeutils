@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.knowm.xchart.XYSeries;
 import org.knowm.xchart.internal.series.Series;
-import org.knowm.xchart.internal.series.Series.DataType;
 
 /**
  * Convenience methods for {@link XYSeries}.
@@ -44,23 +43,19 @@ public class XYSeriesUtils {
 	 * @param errorBars
 	 * @param axisType
 	 */
-	public static XYSeries getXYSeries(String name, List<?> xData, List<? extends Number> yData, List<? extends Number> errorBars, Series.DataType axisType) {
+	public static XYSeries getXYSeries(String name, List<? extends Date> xData, List<? extends Integer> yData, List<? extends Integer> errorBars, Series.DataType axisType) {
 
-		double[] arrXData = (xData == null)
-				? null
-				: (axisType == DataType.Date)
-						? xData.stream().mapToDouble(d -> ((Date) d).getTime()).toArray()
-						: xData.stream().mapToDouble(d -> (Double) d).toArray();
-
-		double[] arrYData = (yData == null)
-				? null
-				: yData.stream().mapToDouble(d -> (Integer) d).toArray();
-
-		double[] arrErrorBars = (errorBars == null)
-				? null
-				: errorBars.stream().mapToDouble(d -> (Integer) d).toArray();
-
-		return new XYSeries(name, arrXData, arrYData, arrErrorBars, axisType);
+		return new XYSeries(name,
+				(xData == null)
+						? null
+						: xData.stream().mapToDouble(d -> d.getTime()).toArray(),
+				(yData == null)
+						? null
+						: yData.stream().mapToDouble(d -> d).toArray(),
+				(errorBars == null)
+						? null
+						: errorBars.stream().mapToDouble(d -> d).toArray(),
+				axisType);
 
 	}
 
