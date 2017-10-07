@@ -1,5 +1,9 @@
 package de.edgesoft.edgeutils.javafx;
 
+import java.time.LocalDate;
+
+import de.edgesoft.edgeutils.datetime.DateTimeUtils;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.Label;
 
@@ -44,6 +48,22 @@ public class LabelUtils {
 				(theText == null) ?
 						null :
 						theText.getValue());
+
+	}
+
+	/**
+	 * Sets text from {@link ObjectProperty} with a date.
+	 *
+	 * @param theLabel label to set text
+	 * @param theDate date to set
+	 * @param thePattern date pattern
+	 */
+	public static void setText(Label theLabel, final ObjectProperty<LocalDate> theDate, final String thePattern) {
+
+		theLabel.setText(
+				(theDate == null) ?
+						null :
+						DateTimeUtils.formatDate(theDate.getValue(), thePattern));
 
 	}
 
