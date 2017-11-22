@@ -1,6 +1,7 @@
 package de.edgesoft.edgeutils.javafx;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tooltip;
@@ -70,6 +71,22 @@ public class ButtonUtils {
 
 		theButton.disableProperty().bind(
 				theListView.getSelectionModel().selectedItemProperty().isNull()
+		);
+
+	}
+
+	/**
+	 * Binds button disable property to selection of combo box.
+	 *
+	 * @param theButton button to disable
+	 * @param theComboBox combo box with items
+	 *
+	 * @since 0.10.1
+	 */
+	public static void bindDisable(Button theButton, final ComboBox<?> theComboBox) {
+
+		theButton.disableProperty().bind(
+				theComboBox.getSelectionModel().selectedItemProperty().isNull()
 		);
 
 	}
