@@ -1,6 +1,7 @@
 package de.edgesoft.edgeutils.javafx;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
@@ -8,6 +9,9 @@ import javafx.scene.image.ImageView;
 
 /**
  * Utilities for {@link Button}.
+ *
+ * When trying Kotlin, all static methods are candidates for
+ * extending the button class.
  *
  * ## Legal stuff
  *
@@ -51,6 +55,22 @@ public class ButtonUtils {
 
 		theButton.setGraphic(new ImageView(((ImageView) theMenuItem.getGraphic()).getImage()));
 		theButton.setTooltip(new Tooltip(String.format(ACCELERATOR_TOKEN, theMenuItem.getText().replace("_", ""), theMenuItem.getAccelerator().getDisplayText())));
+
+	}
+
+	/**
+	 * Binds button disable property to selection of list view.
+	 *
+	 * @param theButton button to disable
+	 * @param theListView list view with items
+	 *
+	 * @since 0.10.1
+	 */
+	public static void bindDisable(Button theButton, final ListView<?> theListView) {
+
+		theButton.disableProperty().bind(
+				theListView.getSelectionModel().selectedItemProperty().isNull()
+		);
 
 	}
 
