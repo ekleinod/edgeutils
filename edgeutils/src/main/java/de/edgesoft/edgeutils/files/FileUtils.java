@@ -48,6 +48,8 @@ public class FileUtils {
 	 * @param theFilename the file name
 	 * @param convertUmlauts convert umlauts too?
 	 * @return cleaned filename
+	 *
+	 * @since 0.11.0
 	 */
 	public static String cleanFilename(final String theFilename, final boolean convertUmlauts) {
 
