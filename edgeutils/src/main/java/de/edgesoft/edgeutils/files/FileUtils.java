@@ -39,14 +39,21 @@ public class FileUtils {
 	 * @return cleaned filename
 	 */
 	public static String cleanFilename(final String theFilename) {
-		return theFilename
-				.replace("ä", "ae")
-				.replace("Ä", "Ae")
-				.replace("ö", "oe")
-				.replace("Ö", "Oe")
-				.replace("ü", "ue")
-				.replace("Ü", "Ue")
-				.replace("ß", "ss")
+		return cleanFilename(theFilename, true);
+	}
+
+	/**
+	 * Returns a clean filename, i.e. free of special characters.
+	 *
+	 * @param theFilename the file name
+	 * @param convertUmlauts convert umlauts too?
+	 * @return cleaned filename
+	 */
+	public static String cleanFilename(final String theFilename, final boolean convertUmlauts) {
+
+		String sConverted = theFilename;
+
+		sConverted = sConverted
 				.replace(" ", "_")
 				.replace("?", "_")
 				.replace(":", "_")
@@ -55,6 +62,21 @@ public class FileUtils {
 				.replace("/", "_")
 				.replace("\\", "_")
 				;
+
+		if (convertUmlauts) {
+			sConverted = sConverted
+					.replace("ä", "ae")
+					.replace("Ä", "Ae")
+					.replace("ö", "oe")
+					.replace("Ö", "Oe")
+					.replace("ü", "ue")
+					.replace("Ü", "Ue")
+					.replace("ß", "ss")
+					;
+		}
+
+		return sConverted;
+
 	}
 
 	/**
