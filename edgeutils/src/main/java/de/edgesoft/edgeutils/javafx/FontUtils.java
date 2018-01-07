@@ -1,6 +1,7 @@
 package de.edgesoft.edgeutils.javafx;
 
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 
 
@@ -54,7 +55,46 @@ public class FontUtils {
 	 * @return derived font
 	 */
 	public static Font getDerived(final Font theFont, final FontWeight theWeight, final int theSize) {
-		return Font.font(theFont.getFamily(), theWeight, theFont.getSize() + theSize);
+		return getDerived(theFont, theWeight, null, theSize);
+	}
+
+	/**
+	 * Returns derived font with given posture.
+	 *
+	 * @param theFont font
+	 * @param thePosture font posture
+	 *
+	 * @return derived font
+	 */
+	public static Font getDerived(final Font theFont, final FontPosture thePosture) {
+		return getDerived(theFont, thePosture, 0);
+	}
+
+	/**
+	 * Returns derived font with given posture and relative size.
+	 *
+	 * @param theFont font
+	 * @param thePosture font posture
+	 * @param theSize relative font size (+/- int)
+	 *
+	 * @return derived font
+	 */
+	public static Font getDerived(final Font theFont, final FontPosture thePosture, final int theSize) {
+		return getDerived(theFont, null, thePosture, theSize);
+	}
+
+	/**
+	 * Returns derived font with given weight, posture and relative size.
+	 *
+	 * @param theFont font
+	 * @param theWeight font weight
+	 * @param thePosture font posture
+	 * @param theSize relative font size (+/- int)
+	 *
+	 * @return derived font
+	 */
+	public static Font getDerived(final Font theFont, final FontWeight theWeight, final FontPosture thePosture, final int theSize) {
+		return Font.font(theFont.getFamily(), theWeight, thePosture, theFont.getSize() + theSize);
 	}
 
 }
