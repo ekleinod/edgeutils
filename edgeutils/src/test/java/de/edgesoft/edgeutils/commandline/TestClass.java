@@ -75,8 +75,9 @@ public class TestClass extends AbstractMainClass {
 	 * @version 0.10.1
 	 * @since 0.4.0
 	 */
+	@SuppressWarnings("unused")
 	public void executeOperation(boolean theN, String theA, boolean theR, String theT) {
-		// do something
+		// not important for tests
 	}
 		
 }

@@ -1,8 +1,12 @@
 package de.edgesoft.edgeutils.commandline;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit test for AbstractMainClass.
@@ -30,6 +34,7 @@ import org.junit.Test;
  * @version 0.10.1
  * @since 0.4.0
  */
+@SuppressWarnings("static-method")
 public class AbstractMainClassTest {
 	
 	/** Test class instance. */
@@ -38,8 +43,8 @@ public class AbstractMainClassTest {
 	/**
 	 * Create instance of {@link MainClass}.
 	 */
-	@BeforeClass
-	public static void initTest() {
+	@BeforeAll
+	public static void setUpBeforeClass() {
 		clsTest = new TestClass();
 		clsTest.executeOperation(new String[]{"-r", "--true", "argument"});
 	}
@@ -51,16 +56,16 @@ public class AbstractMainClassTest {
 	public void testDescription() {
 		
 		String sTest = "JUnit test class.";
-		Assert.assertEquals(sTest, clsTest.getDescription());
+		assertEquals(sTest, clsTest.getDescription());
 		
 		clsTest.setDescription(null);
-		Assert.assertEquals("", clsTest.getDescription());
+		assertEquals("", clsTest.getDescription());
 		
 		clsTest.setDescription("");
-		Assert.assertEquals("", clsTest.getDescription());
+		assertEquals("", clsTest.getDescription());
 		
 		clsTest.setDescription("äöü");
-		Assert.assertEquals("äöü", clsTest.getDescription());
+		assertEquals("äöü", clsTest.getDescription());
 		
 		clsTest.setDescription(sTest);
 		
@@ -72,19 +77,19 @@ public class AbstractMainClassTest {
 	@Test
 	public void testOptions() {
 		
-		Assert.assertFalse(clsTest.hasOption("n"));
-		Assert.assertFalse(clsTest.hasOption("a"));
-		Assert.assertTrue(clsTest.hasOption("r"));
-		Assert.assertTrue(clsTest.hasOption("t"));
+		assertFalse(clsTest.hasOption("n"));
+		assertFalse(clsTest.hasOption("a"));
+		assertTrue(clsTest.hasOption("r"));
+		assertTrue(clsTest.hasOption("t"));
 
-		Assert.assertFalse(clsTest.hasOption("x"));
+		assertFalse(clsTest.hasOption("x"));
 
-		Assert.assertNull(clsTest.getOptionValue("n"));
-		Assert.assertNull(clsTest.getOptionValue("a"));
-		Assert.assertNull(clsTest.getOptionValue("r"));
-		Assert.assertEquals("argument", clsTest.getOptionValue("t"));
+		assertNull(clsTest.getOptionValue("n"));
+		assertNull(clsTest.getOptionValue("a"));
+		assertNull(clsTest.getOptionValue("r"));
+		assertEquals("argument", clsTest.getOptionValue("t"));
 
-		Assert.assertNull(clsTest.getOptionValue("x"));
+		assertNull(clsTest.getOptionValue("x"));
 		
 	}
 	
@@ -108,11 +113,11 @@ public class AbstractMainClassTest {
 		sbTest.append(" -t,--true <arg>       required parameter with argument");
 		sbTest.append(System.lineSeparator());
 		
-		Assert.assertEquals(sbTest.toString(), clsTest.getUsage());
+		assertEquals(sbTest.toString(), clsTest.getUsage());
 
 		sbTest.append("null test");
 		sbTest.append(System.lineSeparator());
-		Assert.assertEquals(sbTest.toString(), clsTest.getUsage(new NullPointerException("null test")));
+		assertEquals(sbTest.toString(), clsTest.getUsage(new NullPointerException("null test")));
 
 	}
 	
