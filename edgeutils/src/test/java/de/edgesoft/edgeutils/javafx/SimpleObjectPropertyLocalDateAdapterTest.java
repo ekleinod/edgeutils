@@ -1,9 +1,12 @@
 package de.edgesoft.edgeutils.javafx;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.time.LocalDate;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javafx.beans.property.SimpleObjectProperty;
 
@@ -33,24 +36,24 @@ import javafx.beans.property.SimpleObjectProperty;
  * @version 0.10.1
  * @since 0.9.4
  */
+@SuppressWarnings("static-method")
 public class SimpleObjectPropertyLocalDateAdapterTest {
 
 	/**
 	 * Tests marshalLocalDate.
 	 */
-	@SuppressWarnings("static-method")
 	@Test
 	public void testMarshalLocalDate() {
 		
 		try {
 			
-			Assert.assertNull(new SimpleObjectPropertyLocalDateAdapter().marshal(null));
+			assertNull(new SimpleObjectPropertyLocalDateAdapter().marshal(null));
 	
-			Assert.assertEquals("2016-05-24", new SimpleObjectPropertyLocalDateAdapter().marshal(new SimpleObjectProperty<>(LocalDate.parse("2016-05-24"))));
+			assertEquals("2016-05-24", new SimpleObjectPropertyLocalDateAdapter().marshal(new SimpleObjectProperty<>(LocalDate.parse("2016-05-24"))));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			Assert.fail();
+			fail(e.getMessage());
 		}
 		
 	}
@@ -58,19 +61,18 @@ public class SimpleObjectPropertyLocalDateAdapterTest {
 	/**
 	 * Tests unmarshalLocalDate.
 	 */
-	@SuppressWarnings("static-method")
 	@Test
 	public void testUnmarshalLocalDate() {
 		
 		try {
 			
-			Assert.assertNull(new SimpleObjectPropertyLocalDateAdapter().unmarshal(null));
+			assertNull(new SimpleObjectPropertyLocalDateAdapter().unmarshal(null));
 	
-			Assert.assertEquals(LocalDate.parse("2016-05-24"), new SimpleObjectPropertyLocalDateAdapter().unmarshal("2016-05-24").getValue());
+			assertEquals(LocalDate.parse("2016-05-24"), new SimpleObjectPropertyLocalDateAdapter().unmarshal("2016-05-24").getValue());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			Assert.fail();
+			fail(e.getMessage());
 		}
 		
 	}

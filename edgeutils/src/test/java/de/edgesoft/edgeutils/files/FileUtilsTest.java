@@ -1,7 +1,8 @@
 package de.edgesoft.edgeutils.files;
 
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit test for {@link FileUtils}.
@@ -29,22 +30,22 @@ import org.junit.Test;
  * @version 0.10.1
  * @since 0.9.7
  */
+@SuppressWarnings("static-method")
 public class FileUtilsTest {
 
 	/**
 	 * Tests {@link FileUtils#cleanFilename(String)}.
 	 *
 	 */
-	@SuppressWarnings("static-method")
 	@Test
 	public void testCleanFilename() {
 
-		Assert.assertEquals("abc", FileUtils.cleanFilename("abc"));
-		Assert.assertEquals("aeoeue", FileUtils.cleanFilename("äöü"));
-		Assert.assertEquals("ss_lou", FileUtils.cleanFilename("ß lou"));
-		Assert.assertEquals("_l_.._", FileUtils.cleanFilename("_l;.._"));
-		Assert.assertEquals("___._", FileUtils.cleanFilename("?:;.,"));
-		Assert.assertEquals("__", FileUtils.cleanFilename("/\\"));
+		assertEquals("abc", FileUtils.cleanFilename("abc"));
+		assertEquals("aeoeue", FileUtils.cleanFilename("äöü"));
+		assertEquals("ss_lou", FileUtils.cleanFilename("ß lou"));
+		assertEquals("_l_.._", FileUtils.cleanFilename("_l;.._"));
+		assertEquals("___._", FileUtils.cleanFilename("?:;.,"));
+		assertEquals("__", FileUtils.cleanFilename("/\\"));
 
 	}
 

@@ -1,7 +1,7 @@
 package de.edgesoft.edgeutils.javafx;
 
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 import javafx.scene.paint.Color;
 
@@ -31,19 +31,19 @@ import javafx.scene.paint.Color;
  * @version 0.10.1
  * @since 0.9.3
  */
+@SuppressWarnings("static-method")
 public class ColorUtilsTest {
 
 	/**
 	 * Tests formatWebHex.
 	 */
-	@SuppressWarnings("static-method")
 	@Test
 	public void testFormatWebHex() {
 
-		Assert.assertEquals("#F0FFFF", ColorUtils.formatWebHex(Color.AZURE));
-		Assert.assertEquals("#000000", ColorUtils.formatWebHex(Color.BLACK));
-		Assert.assertEquals("#FDF5E6", ColorUtils.formatWebHex(Color.OLDLACE));
-		Assert.assertEquals("#FFFFFF", ColorUtils.formatWebHex(Color.WHITE));
+		assertEquals("#F0FFFF", ColorUtils.formatWebHex(Color.AZURE));
+		assertEquals("#000000", ColorUtils.formatWebHex(Color.BLACK));
+		assertEquals("#FDF5E6", ColorUtils.formatWebHex(Color.OLDLACE));
+		assertEquals("#FFFFFF", ColorUtils.formatWebHex(Color.WHITE));
 
 	}
 	
