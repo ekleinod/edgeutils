@@ -38,14 +38,14 @@ import org.junit.jupiter.api.Test;
 public class AbstractMainClassTest {
 	
 	/** Test class instance. */
-	private static TestClass clsTest = null;
+	private static TestMainClass clsTest = null;
 	
 	/**
 	 * Create instance of {@link MainClass}.
 	 */
 	@BeforeAll
 	public static void setUpBeforeClass() {
-		clsTest = new TestClass();
+		clsTest = new TestMainClass();
 		clsTest.executeOperation(new String[]{"-r", "--true", "argument"});
 	}
 	

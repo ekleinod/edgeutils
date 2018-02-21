@@ -16,7 +16,7 @@ import de.edgesoft.edgeutils.Messages;
 /**
  * Basic abstract class for classes with command line interface and a `main` method.
  * 
- * For a sample implementation see {@link TestClass}.
+ * For a sample implementation see {@link TestMainClass}.
  * 
  * ## Legal stuff
  * 
