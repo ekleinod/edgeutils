@@ -100,7 +100,7 @@ public class AbstractMainClassTest {
 	public void testUsage() {
 		
 		StringBuilder sbTest = new StringBuilder();
-		sbTest.append("usage: TestClass [-a <arg>] [-n] -r -t <arg>");
+		sbTest.append("usage: TestMainClass [-a <arg>] [-n] -r -t <arg>");
 		sbTest.append(System.lineSeparator());
 		sbTest.append("JUnit test class.");
 		sbTest.append(System.lineSeparator());
