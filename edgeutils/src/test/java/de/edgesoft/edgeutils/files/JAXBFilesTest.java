@@ -13,11 +13,13 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Locale;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import de.edgesoft.edgeutils.EdgeUtilsException;
 import de.edgesoft.edgeutils.commons.Info;
@@ -125,19 +127,31 @@ public class JAXBFilesTest {
 	 * Tests read file not found.
 	 */
 	@Test
-	public void testErrorUnmarshalFileNotFound() throws Exception {
+	@EnabledOnOs(OS.WINDOWS)
+	public void testErrorUnmarshalFileNotFoundWin() throws Exception {
 
 		Throwable exception = assertThrows(EdgeUtilsException.class, 
 				() -> {
 					JAXBFiles.unmarshal(FILENAME, Info.class);
 				});
 
-		// windows and linux create different exceptions :(
-		if (System.getProperty("os.name").startsWith("Windows") && System.getProperty("user.language").equalsIgnoreCase(Locale.GERMAN.getLanguage())) {
-			assertEquals(String.format("Error reading data: %s (Das System kann die angegebene Datei nicht finden)", FILENAME), exception.getMessage());
-		} else {
-			assertEquals(String.format("Error reading data: %s (No such file or directory)", FILENAME), exception.getMessage());
-		}
+		assertEquals(String.format("Error reading data: %s (Das System kann die angegebene Datei nicht finden)", FILENAME), exception.getMessage());
+
+	}
+
+	/**
+	 * Tests read file not found.
+	 */
+	@Test
+	@DisabledOnOs(OS.WINDOWS)
+	public void testErrorUnmarshalFileNotFoundNotWin() throws Exception {
+
+		Throwable exception = assertThrows(EdgeUtilsException.class, 
+				() -> {
+					JAXBFiles.unmarshal(FILENAME, Info.class);
+				});
+
+		assertEquals(String.format("Error reading data: %s (No such file or directory)", FILENAME), exception.getMessage());
 
 	}
 
@@ -145,7 +159,8 @@ public class JAXBFilesTest {
 	 * Tests read file exists but is dir.
 	 */
 	@Test
-	public void testErrorUnmarshalFileIsDir() throws Exception {
+	@EnabledOnOs(OS.WINDOWS)
+	public void testErrorUnmarshalFileIsDirWin() throws Exception {
 
 		Files.createDirectory(Paths.get(FILENAME));
 
@@ -154,12 +169,25 @@ public class JAXBFilesTest {
 					JAXBFiles.unmarshal(FILENAME, Info.class);
 				});
 
-		// windows and linux create different exceptions :(
-		if (System.getProperty("os.name").startsWith("Windows") && System.getProperty("user.language").equalsIgnoreCase(Locale.GERMAN.getLanguage())) {
-			assertEquals(String.format("Error reading data: %s (Zugriff verweigert)", FILENAME), exception.getMessage());
-		} else {
-			assertEquals(String.format("Error reading data: %s (Is a directory)", FILENAME), exception.getMessage());
-		}
+		assertEquals(String.format("Error reading data: %s (Zugriff verweigert)", FILENAME), exception.getMessage());
+		
+	}
+
+	/**
+	 * Tests read file exists but is dir.
+	 */
+	@Test
+	@DisabledOnOs(OS.WINDOWS)
+	public void testErrorUnmarshalFileIsDirNotWin() throws Exception {
+
+		Files.createDirectory(Paths.get(FILENAME));
+
+		Throwable exception = assertThrows(EdgeUtilsException.class, 
+				() -> {
+					JAXBFiles.unmarshal(FILENAME, Info.class);
+				});
+
+		assertEquals(String.format("Error reading data: %s (Is a directory)", FILENAME), exception.getMessage());
 		
 	}
 

@@ -13,12 +13,14 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collections;
-import java.util.Locale;
 import java.util.Properties;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 /**
  * Unit test for AppProperties.
@@ -97,7 +99,8 @@ public class AppPropertiesTest {
 	 * Tests missing null.
 	 */
 	@Test
-	public void testErrorMissingNull() {
+	@EnabledOnOs(OS.WINDOWS)
+	public void testErrorMissingNullWin() {
 
 		String sFilename = "missing.properties";
 		
@@ -106,11 +109,25 @@ public class AppPropertiesTest {
 					AppProperties.getProperties(sFilename, null, false);
 				});
 
-		if (System.getProperty("os.name").startsWith("Windows") && System.getProperty("user.language").equalsIgnoreCase(Locale.GERMAN.getLanguage())) {
-			assertEquals(String.format("%s (%s)", sFilename, "Das System kann die angegebene Datei nicht finden"), exception.getMessage());
-		} else {
-			assertEquals(String.format("%s (%s)", sFilename, "No such file or directory"), exception.getMessage());
-		}
+		assertEquals(String.format("%s (%s)", sFilename, "Das System kann die angegebene Datei nicht finden"), exception.getMessage());
+
+	}
+
+	/**
+	 * Tests missing null.
+	 */
+	@Test
+	@DisabledOnOs(OS.WINDOWS)
+	public void testErrorMissingNullNotWin() {
+
+		String sFilename = "missing.properties";
+		
+		Throwable exception = assertThrows(FileNotFoundException.class, 
+				() -> {
+					AppProperties.getProperties(sFilename, null, false);
+				});
+
+		assertEquals(String.format("%s (%s)", sFilename, "No such file or directory"), exception.getMessage());
 
 	}
 
@@ -118,7 +135,8 @@ public class AppPropertiesTest {
 	 * Tests null missing.
 	 */
 	@Test
-	public void testErrorNullMissing() {
+	@EnabledOnOs(OS.WINDOWS)
+	public void testErrorNullMissingWin() {
 
 		String sFilename = "missing.properties";
 		
@@ -127,11 +145,25 @@ public class AppPropertiesTest {
 					AppProperties.getProperties((String) null, sFilename, false);
 				});
 
-		if (System.getProperty("os.name").startsWith("Windows") && System.getProperty("user.language").equalsIgnoreCase(Locale.GERMAN.getLanguage())) {
-			assertEquals(String.format("%s (%s)", sFilename, "Das System kann die angegebene Datei nicht finden"), exception.getMessage());
-		} else {
-			assertEquals(String.format("%s (%s)", sFilename, "No such file or directory"), exception.getMessage());
-		}
+		assertEquals(String.format("%s (%s)", sFilename, "Das System kann die angegebene Datei nicht finden"), exception.getMessage());
+
+	}
+
+	/**
+	 * Tests null missing.
+	 */
+	@Test
+	@DisabledOnOs(OS.WINDOWS)
+	public void testErrorNullMissingNotWin() {
+
+		String sFilename = "missing.properties";
+		
+		Throwable exception = assertThrows(FileNotFoundException.class, 
+				() -> {
+					AppProperties.getProperties((String) null, sFilename, false);
+				});
+
+		assertEquals(String.format("%s (%s)", sFilename, "No such file or directory"), exception.getMessage());
 
 	}
 
@@ -139,7 +171,8 @@ public class AppPropertiesTest {
 	 * Tests missing missing.
 	 */
 	@Test
-	public void testErrorMissingMissing() {
+	@EnabledOnOs(OS.WINDOWS)
+	public void testErrorMissingMissingWin() {
 
 		String sFilename = "missing.properties";
 		
@@ -148,11 +181,25 @@ public class AppPropertiesTest {
 					AppProperties.getProperties(sFilename, sFilename, false);
 				});
 
-		if (System.getProperty("os.name").startsWith("Windows") && System.getProperty("user.language").equalsIgnoreCase(Locale.GERMAN.getLanguage())) {
-			assertEquals(String.format("%s (%s)", sFilename, "Das System kann die angegebene Datei nicht finden"), exception.getMessage());
-		} else {
-			assertEquals(String.format("%s (%s)", sFilename, "No such file or directory"), exception.getMessage());
-		}
+		assertEquals(String.format("%s (%s)", sFilename, "Das System kann die angegebene Datei nicht finden"), exception.getMessage());
+
+	}
+
+	/**
+	 * Tests missing missing.
+	 */
+	@Test
+	@DisabledOnOs(OS.WINDOWS)
+	public void testErrorMissingMissingNotWin() {
+
+		String sFilename = "missing.properties";
+		
+		Throwable exception = assertThrows(FileNotFoundException.class, 
+				() -> {
+					AppProperties.getProperties(sFilename, sFilename, false);
+				});
+
+		assertEquals(String.format("%s (%s)", sFilename, "No such file or directory"), exception.getMessage());
 
 	}
 

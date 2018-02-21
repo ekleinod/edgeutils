@@ -171,7 +171,7 @@ public class FileAccessTest {
 	 */
 	@Test
 	@DisabledOnOs(OS.WINDOWS)
-	public void testErrorWriteFileIsProtected() throws IOException {
+	public void testErrorWriteFileIsProtectedNotWin() throws IOException {
 
 		Files.createFile(Paths.get(FILENAME), PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("r--r--r--")));
 
