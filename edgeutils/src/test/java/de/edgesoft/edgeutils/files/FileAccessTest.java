@@ -321,8 +321,8 @@ public class FileAccessTest {
 			assertFalse(Files.isDirectory(Paths.get(FILENAME)), String.format("File '%s' is a directory.", Paths.get(FILENAME)));
 			assertTrue(Files.isReadable(Paths.get(FILENAME)), String.format("File '%s' is not readable.", Paths.get(FILENAME)));
 			assertTrue(Files.isWritable(Paths.get(FILENAME)), String.format("File '%s' is not writeable.", Paths.get(FILENAME)));
-
-			assertEquals(4, Files.readAllLines(Paths.get(FILENAME)).size());
+			
+			assertEquals(4, Files.readAllLines(Paths.get(FILENAME), FileAccess.getEncoding()).size());
 
 			StringBuilder sbTest = FileAccess.readFile(Paths.get(FILENAME));
 
