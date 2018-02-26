@@ -1,7 +1,9 @@
 package de.edgesoft.edgeutils.javafx;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,10 +43,10 @@ import javafx.scene.input.KeyCombination;
 public class KeyCodeCombinationUtilsTest {
 
 	/**
-	 * Tests getKeyCodeCombinations.
+	 * Tests {@link KeyCodeCombinationUtils#getKeyCodeCombinations(String)} correct case.
 	 */
 	@Test
-	public void testGetKeyCodeCombinations() {
+	public void testGetKeyCodeCombinationsOK() {
 
 		List<KeyCodeCombination> expected = Arrays.asList(new KeyCodeCombination[] {
 						new KeyCodeCombination(KeyCode.A),
@@ -52,14 +54,46 @@ public class KeyCodeCombinationUtilsTest {
 						new KeyCodeCombination(KeyCode.PERIOD),
 						new KeyCodeCombination(KeyCode.O),
 						new KeyCodeCombination(KeyCode.UNDERSCORE),
+						new KeyCodeCombination(KeyCode.SPACE),
+						new KeyCodeCombination(KeyCode.MINUS),
 				});
-		
-		List<KeyCodeCombination> actual = KeyCodeCombinationUtils.getKeyCodeCombinations("aB.o_");
-		
+
+		List<KeyCodeCombination> actual = KeyCodeCombinationUtils.getKeyCodeCombinations("aB.o_ -");
+
 		assertIterableEquals(expected, actual);
 
 	}
-	
+
+	/**
+	 * Tests {@link KeyCodeCombinationUtils#getKeyCodeCombinations(String)} null case.
+	 */
+	@Test
+	public void testGetKeyCodeCombinationsNull() {
+
+		List<KeyCodeCombination> expected = new ArrayList<>();
+
+		List<KeyCodeCombination> actual = KeyCodeCombinationUtils.getKeyCodeCombinations(null);
+
+		assertIterableEquals(expected, actual);
+
+	}
+
+	/**
+	 * Tests {@link KeyCodeCombinationUtils#getKeyCodeCombination(char)} correct case.
+	 */
+	@Test
+	public void testGetKeyCodeCombinationOK() {
+
+		assertEquals(new KeyCodeCombination(KeyCode.A), KeyCodeCombinationUtils.getKeyCodeCombination('a'));
+		assertEquals(new KeyCodeCombination(KeyCode.P), KeyCodeCombinationUtils.getKeyCodeCombination('p'));
+		assertEquals(new KeyCodeCombination(KeyCode.P, KeyCombination.SHIFT_DOWN), KeyCodeCombinationUtils.getKeyCodeCombination('P'));
+		assertEquals(new KeyCodeCombination(KeyCode.MINUS), KeyCodeCombinationUtils.getKeyCodeCombination('-'));
+		assertEquals(new KeyCodeCombination(KeyCode.PERIOD), KeyCodeCombinationUtils.getKeyCodeCombination('.'));
+		assertEquals(new KeyCodeCombination(KeyCode.SPACE), KeyCodeCombinationUtils.getKeyCodeCombination(' '));
+		assertEquals(new KeyCodeCombination(KeyCode.UNDERSCORE), KeyCodeCombinationUtils.getKeyCodeCombination('_'));
+
+	}
+
 }
 
 /* EOF */

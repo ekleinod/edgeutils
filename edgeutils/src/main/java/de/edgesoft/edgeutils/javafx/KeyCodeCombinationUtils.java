@@ -47,39 +47,61 @@ public class KeyCodeCombinationUtils {
 	public static List<KeyCodeCombination> getKeyCodeCombinations(
 			final String theText
 			) {
-		
-		
+
+
 		if (theText == null) {
 			return Collections.emptyList();
 		}
-		
+
 		List<KeyCodeCombination> lstReturn = new ArrayList<>();
-		
+
 		for (char theChar : theText.toCharArray()) {
-			
-			String theCode = Character.toString(theChar).toUpperCase();
-			
-			switch (theChar) {
-				case '.':
-					theCode = "Period";
-					break;
-				case '_':
-					theCode = "Underscore";
-					break;
-			}
-			
-			KeyCode theKeyCode = KeyCode.getKeyCode(theCode);
-			
-			if (Character.isAlphabetic(theChar) && Character.isUpperCase(theChar)) {
-				lstReturn.add(new KeyCodeCombination(theKeyCode, KeyCombination.SHIFT_DOWN));
-			} else {
-				lstReturn.add(new KeyCodeCombination(theKeyCode));
-			}
-			
+			lstReturn.add(getKeyCodeCombination(theChar));
 		}
-		
+
 		return lstReturn;
-		
+
+	}
+
+	/**
+	 * Returns {@link KeyCodeCombination} for given character.
+	 *
+	 * @param theChar text to convert to {@link KeyCodeCombination}
+	 *
+	 * @return {@link KeyCodeCombination}
+	 */
+	public static KeyCodeCombination getKeyCodeCombination(
+			final char theChar
+			) {
+
+		KeyCode theKeyCode = null;
+
+		switch (theChar) {
+
+			case '-':
+				theKeyCode = KeyCode.MINUS;
+				break;
+			case '.':
+				theKeyCode = KeyCode.PERIOD;
+				break;
+			case ' ':
+				theKeyCode = KeyCode.SPACE;
+				break;
+			case '_':
+				theKeyCode = KeyCode.UNDERSCORE;
+				break;
+
+			default:
+				theKeyCode = KeyCode.getKeyCode(Character.toString(theChar).toUpperCase());
+				break;
+		}
+
+		if (Character.isAlphabetic(theChar) && Character.isUpperCase(theChar)) {
+			return new KeyCodeCombination(theKeyCode, KeyCombination.SHIFT_DOWN);
+		}
+
+		return new KeyCodeCombination(theKeyCode);
+
 	}
 
 }
