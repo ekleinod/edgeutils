@@ -90,6 +90,9 @@ public class KeyCodeCombinationUtils {
 			case '_':
 				theKeyCode = KeyCode.UNDERSCORE;
 				break;
+			case '@':
+				theKeyCode = KeyCode.A;
+				break;
 
 			default:
 				theKeyCode = KeyCode.getKeyCode(Character.toString(theChar).toUpperCase());
