@@ -5,13 +5,13 @@ import static org.testfx.matcher.base.GeneralMatchers.typeSafeMatcher;
 import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
 
-import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextInputControl;
 
 
 /**
- * Matcher for {@link CheckBox}es.
+ * Matcher for {@link TextInputControl}s.
  *
- * This class is needed until testfx contains an according matcher.
+ * This class is needed until testfx provides the missing methods of this matcher.
  *
  * ## Legal stuff
  *
@@ -36,31 +36,18 @@ import javafx.scene.control.CheckBox;
  * @version 0.11.0
  * @since 0.11.0
  */
-public class CheckBoxMatcher {
+public class TextInputControlMatcher {
 
     /**
-     * Creates a matcher that matches all {@link CheckBox}es that are selected (checked).
+     * Creates a matcher that matches all {@link TextInputControl}s that are empty.
      */
     @Factory
-    public static Matcher<CheckBox> isSelected() {
+    public static Matcher<TextInputControl> isEmpty() {
         return typeSafeMatcher(
-        		CheckBox.class,
-        		"is selected",
-        		checkBox -> String.format("CheckBox '%s' is selected: %b.", checkBox.getText(), checkBox.isSelected()),
-        		checkBox -> checkBox.isSelected()
-        		);
-    }
-
-    /**
-     * Creates a matcher that matches all {@link CheckBox}es that are not selected (checked).
-     */
-    @Factory
-    public static Matcher<CheckBox> isNotSelected() {
-        return typeSafeMatcher(
-        		CheckBox.class,
-        		"is not selected",
-        		checkBox -> String.format("CheckBox '%s' is selected: %b.", checkBox.getText(), checkBox.isSelected()),
-        		checkBox -> !checkBox.isSelected()
+        		TextInputControl.class,
+        		"is empty",
+        		textControl -> String.format("TextInputControl's content: %s.", textControl.getText()),
+        		textControl -> ((textControl.getText() == null) || textControl.getText().isEmpty())
         		);
     }
 

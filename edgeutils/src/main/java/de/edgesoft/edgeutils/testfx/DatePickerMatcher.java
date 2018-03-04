@@ -2,16 +2,18 @@ package de.edgesoft.edgeutils.testfx;
 
 import static org.testfx.matcher.base.GeneralMatchers.typeSafeMatcher;
 
+import java.time.LocalDate;
+
 import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
 
-import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
 
 
 /**
- * Matcher for {@link CheckBox}es.
+ * Matcher for {@link DatePicker}s.
  *
- * This class is needed until testfx contains an according matcher.
+ * This class is needed until testfx provides the missing matcher.
  *
  * ## Legal stuff
  *
@@ -36,31 +38,33 @@ import javafx.scene.control.CheckBox;
  * @version 0.11.0
  * @since 0.11.0
  */
-public class CheckBoxMatcher {
+public class DatePickerMatcher {
 
     /**
-     * Creates a matcher that matches all {@link CheckBox}es that are selected (checked).
+     * Creates a matcher that matches all {@link DatePicker}s that are empty.
      */
     @Factory
-    public static Matcher<CheckBox> isSelected() {
+    public static Matcher<DatePicker> isEmpty() {
         return typeSafeMatcher(
-        		CheckBox.class,
-        		"is selected",
-        		checkBox -> String.format("CheckBox '%s' is selected: %b.", checkBox.getText(), checkBox.isSelected()),
-        		checkBox -> checkBox.isSelected()
+        		DatePicker.class,
+        		"is empty",
+        		datePicker -> String.format("DatePicker's content: %s.", datePicker.getValue()),
+        		datePicker -> (datePicker.getValue() == null)
         		);
     }
 
     /**
-     * Creates a matcher that matches all {@link CheckBox}es that are not selected (checked).
+     * Creates a matcher that matches all {@link DatePicker}s that contain the given date.
+     *
+     * @param theDate date to check
      */
     @Factory
-    public static Matcher<CheckBox> isNotSelected() {
+    public static Matcher<DatePicker> hasDate(final LocalDate theDate) {
         return typeSafeMatcher(
-        		CheckBox.class,
-        		"is not selected",
-        		checkBox -> String.format("CheckBox '%s' is selected: %b.", checkBox.getText(), checkBox.isSelected()),
-        		checkBox -> !checkBox.isSelected()
+        		DatePicker.class,
+        		String.format("has date %s", theDate),
+        		datePicker -> String.format("DatePicker's content: %s.", datePicker.getValue()),
+        		datePicker -> ((datePicker.getValue() != null) && (datePicker.getValue().equals(theDate)))
         		);
     }
 
