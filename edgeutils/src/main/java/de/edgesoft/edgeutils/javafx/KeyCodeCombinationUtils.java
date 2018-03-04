@@ -66,8 +66,9 @@ public class KeyCodeCombinationUtils {
 	/**
 	 * Returns {@link KeyCodeCombination} for given character.
 	 *
-	 * @param theChar text to convert to {@link KeyCodeCombination}
+	 * @todo correctly handle at-character
 	 *
+	 * @param theChar text to convert to {@link KeyCodeCombination}
 	 * @return {@link KeyCodeCombination}
 	 */
 	public static KeyCodeCombination getKeyCodeCombination(
@@ -91,7 +92,7 @@ public class KeyCodeCombinationUtils {
 				theKeyCode = KeyCode.UNDERSCORE;
 				break;
 			case '@':
-				theKeyCode = KeyCode.A;
+				theKeyCode = KeyCode.AT;
 				break;
 
 			default:
@@ -101,6 +102,12 @@ public class KeyCodeCombinationUtils {
 
 		if (Character.isAlphabetic(theChar) && Character.isUpperCase(theChar)) {
 			return new KeyCodeCombination(theKeyCode, KeyCombination.SHIFT_DOWN);
+		}
+
+		if (theKeyCode == KeyCode.AT) {
+			return new KeyCodeCombination(KeyCode.A);
+			// German keyboard: this does not work on Linux, I cannot press AltGr; not tested on non-german keyboards and windows
+//			return new KeyCodeCombination(theKeyCode, KeyCombination.ALT_DOWN, KeyCombination.SHORTCUT_DOWN);
 		}
 
 		return new KeyCodeCombination(theKeyCode);
