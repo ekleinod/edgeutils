@@ -2,6 +2,7 @@ package de.edgesoft.edgeutils.javafx;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tooltip;
@@ -40,9 +41,14 @@ import javafx.scene.image.ImageView;
 public class ButtonUtils {
 
 	/**
+	 * Tooltip token.
+	 */
+	public static final String TOOLTIP_TOKEN = "%s%s";
+
+	/**
 	 * Accelerator token.
 	 */
-	public static final String ACCELERATOR_TOKEN = "%s (%s)";
+	public static final String ACCELERATOR_TOKEN = " (%s)";
 
 	/**
 	 * Adapts button to match menu item.
@@ -52,10 +58,19 @@ public class ButtonUtils {
 	 * @param theButton button to adapt
 	 * @param theMenuItem menu item to adapt from
 	 */
-	public static void adaptButton(Button theButton, final MenuItem theMenuItem) {
+	public static void adaptButton(
+			Button theButton,
+			final MenuItem theMenuItem
+			) {
 
-		theButton.setGraphic(new ImageView(((ImageView) theMenuItem.getGraphic()).getImage()));
-		theButton.setTooltip(new Tooltip(String.format(ACCELERATOR_TOKEN, theMenuItem.getText().replace("_", ""), theMenuItem.getAccelerator().getDisplayText())));
+		if (theMenuItem.getGraphic() != null) {
+			theButton.setGraphic(new ImageView(((ImageView) theMenuItem.getGraphic()).getImage()));
+		}
+
+		theButton.setTooltip(new Tooltip(String.format(TOOLTIP_TOKEN,
+				theMenuItem.getText().replace("_", ""),
+				(theMenuItem.getAccelerator() == null) ? "" : String.format(ACCELERATOR_TOKEN, theMenuItem.getAccelerator().getDisplayText())
+				)));
 
 	}
 
@@ -87,6 +102,25 @@ public class ButtonUtils {
 
 		theButton.disableProperty().bind(
 				theComboBox.getSelectionModel().selectedItemProperty().isNull()
+		);
+
+	}
+
+	/**
+	 * Binds button disable property to emptyness of labeled item.
+	 *
+	 * @param theButton button to disable
+	 * @param theLabeled labeled item
+	 *
+	 * @since 0.15.0
+	 */
+	public static void bindDisable(
+			Button theButton,
+			final Labeled theComboBox
+			) {
+
+		theButton.disableProperty().bind(
+				theComboBox.textProperty().isEmpty()
 		);
 
 	}
