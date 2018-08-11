@@ -61,26 +61,42 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 
 	<target name="setversion" depends="clearLog" description="Set version annotation in all files.">
 
+		<echo message="@version" />
 		<replaceregexp
 				encoding="utf-8"
 				match="@version .*"
 				replace="@version ${longversion}"
 				flags="g">
 
-			<multirootfileset basedirs="${paths:setversion}">
+			<multirootfileset basedirs="${paths:versiontag}">
 				<include name="**/*" />
 				<exclude name="ant-nsis.xml" />
 			</multirootfileset>
 
 		</replaceregexp>
 
+		<echo message="docversion" />
+		<replaceregexp
+				encoding="utf-8"
+				match="(.*)( docversion=&quot;).*(&quot; )(.*)$"
+				replace="\1\2${longversion}\3\4"
+				flags="m">
+
+			<multirootfileset basedirs="${paths:docversion}">
+				<include name="**/*" />
+				<exclude name="ant-nsis.xml" />
+			</multirootfileset>
+
+		</replaceregexp>
+
+		<echo message="copyright" />
 		<replaceregexp
 				encoding="utf-8"
 				match="Copyright .*"
 				replace="Copyright ${copyright}"
 				flags="g">
 
-			<multirootfileset basedirs="${paths:setversion}">
+			<multirootfileset basedirs="${paths:copyright}">
 				<include name="**/*" />
 				<exclude name="ant-nsis.xml" />
 			</multirootfileset>
