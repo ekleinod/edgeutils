@@ -162,14 +162,7 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 			<arg value="${dir.debiantmp}" />
 		</exec>
 
-		<move file="${dir.debiantmp}.deb" tofile="../files/${ant.project.name}-${fileversion}.deb" />
-
-		<!-- link created installer -->
-		<symlink
-			link="../files/${ant.project.name}.deb"
-			resource="${ant.project.name}-${fileversion}.deb"
-			overwrite="true"
-		/>
+		<move file="${dir.debiantmp}.deb" tofile="../files/${ant.project.name}.deb" />
 
 		<echo message="Ready, now call 'sudo ant clearTmp' (as root)." />
 
