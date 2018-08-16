@@ -68,7 +68,7 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 				replace="@version ${longversion}"
 				flags="g">
 
-			<multirootfileset basedirs="${paths:versiontag}">
+			<multirootfileset basedirs="${paths:versiontag}" followsymlinks="false">
 				<include name="**/*" />
 				<exclude name="ant-nsis.xml" />
 			</multirootfileset>
@@ -82,7 +82,7 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 				replace="\1\2${longversion}\3\4"
 				flags="m">
 
-			<multirootfileset basedirs="${paths:docversion}">
+			<multirootfileset basedirs="${paths:docversion}" followsymlinks="false">
 				<include name="**/*" />
 				<exclude name="ant-nsis.xml" />
 			</multirootfileset>
@@ -96,7 +96,7 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 				replace="Copyright ${copyright}"
 				flags="g">
 
-			<multirootfileset basedirs="${paths:copyright}">
+			<multirootfileset basedirs="${paths:copyright}" followsymlinks="false">
 				<include name="**/*" />
 				<exclude name="ant-nsis.xml" />
 			</multirootfileset>
@@ -203,20 +203,12 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 		<!-- call nsis -->
 		<antcall target="installer" />
 
-		<!-- link created installer -->
-		<antcall target="symlink" />
+		<!-- remove version from filename -->
+		<move file="../files/${ant.project.name}-${fileversion}.exe" tofile="../files/${ant.project.name}.exe" />
 
 		<!-- remove temp dir -->
 		<delete dir="${dir.wintmp}" />
 
-	</target>
-
-	<target name="symlink" if="isUnix">
-		<symlink
-			link="../files/${ant.project.name}.exe"
-			resource="${ant.project.name}-${fileversion}.exe"
-			overwrite="true"
-		/>
 	</target>
 
 	<condition property="isWindows">
