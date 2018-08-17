@@ -1,5 +1,11 @@
 package de.edgesoft.edgeutils.files;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -7,14 +13,13 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Locale;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import de.edgesoft.edgeutils.EdgeUtilsException;
 import de.edgesoft.edgeutils.commons.Info;
@@ -54,6 +59,7 @@ import javafx.beans.property.SimpleStringProperty;
  * @version 0.10.1
  * @since 0.6.0
  */
+@SuppressWarnings("static-method")
 public class JAXBFilesTest {
 
 	/** File name. */
@@ -107,39 +113,45 @@ public class JAXBFilesTest {
 	 * Delete files.
 	 * @throws Exception
 	 */
-	@SuppressWarnings("static-method")
-	@Before
-	@After
+	@BeforeEach
+	@AfterEach
 	public void deleteFiles() {
 		try {
 			Files.deleteIfExists(Paths.get(FILENAME));
 		} catch (Exception e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
-
-	/**
-	 * Rule for expected exception
-	 */
-	@Rule
-	public ExpectedException exception = ExpectedException.none();
 
 	/**
 	 * Tests read file not found.
 	 */
 	@Test
-	public void testErrorUnmarshalFileNotFound() throws Exception {
+	@EnabledOnOs(OS.WINDOWS)
+	public void testErrorUnmarshalFileNotFoundWin() throws Exception {
 
-		exception.expect(EdgeUtilsException.class);
+		Throwable exception = assertThrows(EdgeUtilsException.class, 
+				() -> {
+					JAXBFiles.unmarshal(FILENAME, Info.class);
+				});
 
-		// windows and linux create different exceptions :(
-		if (System.getProperty("os.name").startsWith("Windows") && System.getProperty("user.language").equalsIgnoreCase(Locale.GERMAN.getLanguage())) {
-			exception.expectMessage(String.format("Error reading data: %s (Das System kann die angegebene Datei nicht finden)", FILENAME));
-		} else {
-			exception.expectMessage(String.format("Error reading data: %s (No such file or directory)", FILENAME));
-		}
+		assertEquals(String.format("Error reading data: %s (Das System kann die angegebene Datei nicht finden)", FILENAME), exception.getMessage());
 
-		JAXBFiles.unmarshal(FILENAME, Info.class);
+	}
+
+	/**
+	 * Tests read file not found.
+	 */
+	@Test
+	@DisabledOnOs(OS.WINDOWS)
+	public void testErrorUnmarshalFileNotFoundNotWin() throws Exception {
+
+		Throwable exception = assertThrows(EdgeUtilsException.class, 
+				() -> {
+					JAXBFiles.unmarshal(FILENAME, Info.class);
+				});
+
+		assertEquals(String.format("Error reading data: %s (No such file or directory)", FILENAME), exception.getMessage());
 
 	}
 
@@ -147,27 +159,41 @@ public class JAXBFilesTest {
 	 * Tests read file exists but is dir.
 	 */
 	@Test
-	public void testErrorUnmarshalFileIsDir() throws Exception {
+	@EnabledOnOs(OS.WINDOWS)
+	public void testErrorUnmarshalFileIsDirWin() throws Exception {
 
 		Files.createDirectory(Paths.get(FILENAME));
 
-		exception.expect(EdgeUtilsException.class);
+		Throwable exception = assertThrows(EdgeUtilsException.class, 
+				() -> {
+					JAXBFiles.unmarshal(FILENAME, Info.class);
+				});
 
-		// windows and linux create different exceptions :(
-		if (System.getProperty("os.name").startsWith("Windows") && System.getProperty("user.language").equalsIgnoreCase(Locale.GERMAN.getLanguage())) {
-			exception.expectMessage(String.format("Error reading data: %s (Zugriff verweigert)", FILENAME));
-		} else {
-			exception.expectMessage(String.format("Error reading data: %s (Is a directory)", FILENAME));
-		}
+		assertEquals(String.format("Error reading data: %s (Zugriff verweigert)", FILENAME), exception.getMessage());
+		
+	}
 
-		JAXBFiles.unmarshal(FILENAME, Info.class);
+	/**
+	 * Tests read file exists but is dir.
+	 */
+	@Test
+	@DisabledOnOs(OS.WINDOWS)
+	public void testErrorUnmarshalFileIsDirNotWin() throws Exception {
 
+		Files.createDirectory(Paths.get(FILENAME));
+
+		Throwable exception = assertThrows(EdgeUtilsException.class, 
+				() -> {
+					JAXBFiles.unmarshal(FILENAME, Info.class);
+				});
+
+		assertEquals(String.format("Error reading data: %s (Is a directory)", FILENAME), exception.getMessage());
+		
 	}
 
 	/**
 	 * Tests write - read cycle.
 	 */
-	@SuppressWarnings("static-method")
 	@Test
 	public void testWriteReadUTF8() {
 		executeTestWriteRead(StandardCharsets.UTF_8);
@@ -176,7 +202,6 @@ public class JAXBFilesTest {
 	/**
 	 * Tests write - read cycle.
 	 */
-	@SuppressWarnings("static-method")
 	@Test
 	public void testWriteReadISO88951() {
 		executeTestWriteRead(StandardCharsets.ISO_8859_1);
@@ -194,36 +219,36 @@ public class JAXBFilesTest {
 			JAXBFiles.setEncoding(theCharSet);
 			JAXBFiles.marshal(new ObjectFactory().createTest(jxbTest), FILENAME, null);
 
-			Assert.assertTrue(String.format("File '%s' does not exist.", Paths.get(FILENAME)), Files.exists(Paths.get(FILENAME)));
-			Assert.assertTrue(String.format("File '%s' is no regular file.", Paths.get(FILENAME)), Files.isRegularFile(Paths.get(FILENAME)));
-			Assert.assertFalse(String.format("File '%s' is a directory.", Paths.get(FILENAME)), Files.isDirectory(Paths.get(FILENAME)));
-			Assert.assertTrue(String.format("File '%s' is not readable.", Paths.get(FILENAME)), Files.isReadable(Paths.get(FILENAME)));
-			Assert.assertTrue(String.format("File '%s' is not writeable.", Paths.get(FILENAME)), Files.isWritable(Paths.get(FILENAME)));
+			assertTrue(Files.exists(Paths.get(FILENAME)), String.format("File '%s' does not exist.", Paths.get(FILENAME)));
+			assertTrue(Files.isRegularFile(Paths.get(FILENAME)), String.format("File '%s' is no regular file.", Paths.get(FILENAME)));
+			assertFalse(Files.isDirectory(Paths.get(FILENAME)), String.format("File '%s' is a directory.", Paths.get(FILENAME)));
+			assertTrue(Files.isReadable(Paths.get(FILENAME)), String.format("File '%s' is not readable.", Paths.get(FILENAME)));
+			assertTrue(Files.isWritable(Paths.get(FILENAME)), String.format("File '%s' is not writeable.", Paths.get(FILENAME)));
 
 			de.edgesoft.edgeutils.jaxb.Test readTest = JAXBFiles.unmarshal(FILENAME, de.edgesoft.edgeutils.jaxb.Test.class);
 
-			Assert.assertEquals(jxbTest.getInfo().getCreated(), readTest.getInfo().getCreated());
-			Assert.assertEquals(jxbTest.getInfo().getModified(), readTest.getInfo().getModified());
-			Assert.assertEquals(jxbTest.getInfo().getAppversion().toString(), readTest.getInfo().getAppversion().toString());
-			Assert.assertEquals(jxbTest.getInfo().getDocversion().toString(), readTest.getInfo().getDocversion().toString());
-			Assert.assertEquals(jxbTest.getInfo().getCreator(), readTest.getInfo().getCreator());
+			assertEquals(jxbTest.getInfo().getCreated(), readTest.getInfo().getCreated());
+			assertEquals(jxbTest.getInfo().getModified(), readTest.getInfo().getModified());
+			assertEquals(jxbTest.getInfo().getAppversion().toString(), readTest.getInfo().getAppversion().toString());
+			assertEquals(jxbTest.getInfo().getDocversion().toString(), readTest.getInfo().getDocversion().toString());
+			assertEquals(jxbTest.getInfo().getCreator(), readTest.getInfo().getCreator());
 
-			Assert.assertEquals(jxbTest.getContent().getBoolprop().get(), readTest.getContent().getBoolprop().get());
-			Assert.assertEquals(jxbTest.getContent().getIntprop().get(), readTest.getContent().getIntprop().get());
-			Assert.assertEquals(jxbTest.getContent().getDateprop().get(), readTest.getContent().getDateprop().get());
-			Assert.assertEquals(jxbTest.getContent().getDatetimeprop().get(), readTest.getContent().getDatetimeprop().get());
-			Assert.assertEquals(jxbTest.getContent().getTimeprop().get(), readTest.getContent().getTimeprop().get());
-			Assert.assertEquals(jxbTest.getContent().getStringprop().get(), readTest.getContent().getStringprop().get());
+			assertEquals(jxbTest.getContent().getBoolprop().get(), readTest.getContent().getBoolprop().get());
+			assertEquals(jxbTest.getContent().getIntprop().get(), readTest.getContent().getIntprop().get());
+			assertEquals(jxbTest.getContent().getDateprop().get(), readTest.getContent().getDateprop().get());
+			assertEquals(jxbTest.getContent().getDatetimeprop().get(), readTest.getContent().getDatetimeprop().get());
+			assertEquals(jxbTest.getContent().getTimeprop().get(), readTest.getContent().getTimeprop().get());
+			assertEquals(jxbTest.getContent().getStringprop().get(), readTest.getContent().getStringprop().get());
 
-			Assert.assertEquals(jxbTest.getContent().getIdelement().getId(), readTest.getContent().getIdelement().getId());
-			Assert.assertEquals(jxbTest.getContent().getIdelement().getTitle(), readTest.getContent().getIdelement().getTitle());
+			assertEquals(jxbTest.getContent().getIdelement().getId(), readTest.getContent().getIdelement().getId());
+			assertEquals(jxbTest.getContent().getIdelement().getTitle(), readTest.getContent().getIdelement().getTitle());
 
-			Assert.assertEquals(jxbTest.getContent().getIdelement().getId(), readTest.getContent().getIdrefelement().getIdref().getId());
-			Assert.assertEquals(jxbTest.getContent().getIdelement().getTitle(), ((IDElement) readTest.getContent().getIdrefelement().getIdref()).getTitle());
+			assertEquals(jxbTest.getContent().getIdelement().getId(), readTest.getContent().getIdrefelement().getIdref().getId());
+			assertEquals(jxbTest.getContent().getIdelement().getTitle(), ((IDElement) readTest.getContent().getIdrefelement().getIdref()).getTitle());
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 
 	}

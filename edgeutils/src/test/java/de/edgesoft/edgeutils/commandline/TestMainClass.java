@@ -24,7 +24,17 @@ package de.edgesoft.edgeutils.commandline;
  * @version 0.10.1
  * @since 0.4.0
  */
-public class TestClass extends AbstractMainClass {
+public class TestMainClass extends AbstractMainClass {
+	
+	/**
+	 * Dummy public field for field getting test.
+	 */
+	public String sDummy1 = null;
+	
+	/**
+	 * Dummy public field for field getting test.
+	 */
+	public String sDummy2 = null;
 	
 	/**
 	 * Command line entry point.
@@ -35,7 +45,7 @@ public class TestClass extends AbstractMainClass {
 	 * @since 0.4.0
 	 */
 	public static void main(String[] args) {
-		new TestClass().executeOperation(args);
+		new TestMainClass().executeOperation(args);
 	}
 
 	/**
@@ -75,8 +85,9 @@ public class TestClass extends AbstractMainClass {
 	 * @version 0.10.1
 	 * @since 0.4.0
 	 */
+	@SuppressWarnings("unused")
 	public void executeOperation(boolean theN, String theA, boolean theR, String theT) {
-		// do something
+		// not important for tests
 	}
 		
 }

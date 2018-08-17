@@ -1,7 +1,10 @@
 package de.edgesoft.edgeutils.javafx;
 
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
 
 import javafx.beans.property.SimpleStringProperty;
 
@@ -31,27 +34,27 @@ import javafx.beans.property.SimpleStringProperty;
  * @version 0.10.1
  * @since 0.9.4
  */
+@SuppressWarnings("static-method")
 public class SimpleStringPropertyAdapterTest {
 
 	/**
 	 * Tests marshal.
 	 */
-	@SuppressWarnings("static-method")
 	@Test
 	public void testMarshal() {
 		
 		try {
 			
-			Assert.assertNull(new SimpleStringPropertyAdapter().marshal(null));
-			Assert.assertNull(new SimpleStringPropertyAdapter().marshal(new SimpleStringProperty()));
+			assertNull(new SimpleStringPropertyAdapter().marshal(null));
+			assertNull(new SimpleStringPropertyAdapter().marshal(new SimpleStringProperty()));
 			
-			Assert.assertEquals("", new SimpleStringPropertyAdapter().marshal(new SimpleStringProperty("")));
-			Assert.assertEquals("äöü", new SimpleStringPropertyAdapter().marshal(new SimpleStringProperty("äöü")));
-			Assert.assertEquals("foo", new SimpleStringPropertyAdapter().marshal(new SimpleStringProperty("foo")));
+			assertEquals("", new SimpleStringPropertyAdapter().marshal(new SimpleStringProperty("")));
+			assertEquals("äöü", new SimpleStringPropertyAdapter().marshal(new SimpleStringProperty("äöü")));
+			assertEquals("foo", new SimpleStringPropertyAdapter().marshal(new SimpleStringProperty("foo")));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			Assert.fail();
+			fail(e.getMessage());
 		}
 		
 	}
@@ -59,21 +62,20 @@ public class SimpleStringPropertyAdapterTest {
 	/**
 	 * Tests unmarshal.
 	 */
-	@SuppressWarnings("static-method")
 	@Test
 	public void testUnmarshal() {
 		
 		try {
 			
-			Assert.assertNull(new SimpleStringPropertyAdapter().unmarshal(null));
+			assertNull(new SimpleStringPropertyAdapter().unmarshal(null));
 			
-			Assert.assertEquals("", new SimpleStringPropertyAdapter().unmarshal("").getValue());
-			Assert.assertEquals("äöü", new SimpleStringPropertyAdapter().unmarshal("äöü").getValue());
-			Assert.assertEquals("foo", new SimpleStringPropertyAdapter().unmarshal("foo").getValue());
+			assertEquals("", new SimpleStringPropertyAdapter().unmarshal("").getValue());
+			assertEquals("äöü", new SimpleStringPropertyAdapter().unmarshal("äöü").getValue());
+			assertEquals("foo", new SimpleStringPropertyAdapter().unmarshal("foo").getValue());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			Assert.fail();
+			fail(e.getMessage());
 		}
 		
 	}

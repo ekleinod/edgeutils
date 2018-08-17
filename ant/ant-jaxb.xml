@@ -75,7 +75,7 @@ along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
 	<target name="deletemodel">
 
 		<delete>
-			<fileset dir="${del:path}" includes="*.java" />
+			<fileset dir="${del:path}" includes="*.java" excludes="package-info.java" />
 		</delete>
 
 	</target>

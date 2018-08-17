@@ -1,11 +1,10 @@
-package de.edgesoft.edgeutils.files;
+package de.edgesoft.edgeutils.javafx;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import javafx.scene.control.ComboBox;
 
-import org.junit.jupiter.api.Test;
 
 /**
- * Unit test for {@link FileUtils}.
+ * Class providing {@link ComboBox} operations.
  *
  * ## Legal stuff
  *
@@ -27,26 +26,19 @@ import org.junit.jupiter.api.Test;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author Ekkart Kleinod
- * @version 0.10.1
- * @since 0.9.7
+ * @version 0.11.0
+ * @since 0.11.0
  */
-@SuppressWarnings("static-method")
-public class FileUtilsTest {
+public class ComboBoxUtils {
 
 	/**
-	 * Tests {@link FileUtils#cleanFilename(String)}.
+	 * Clears combo box selection.
 	 *
+	 * @param theComboBox combo box
 	 */
-	@Test
-	public void testCleanFilename() {
-
-		assertEquals("abc", FileUtils.cleanFilename("abc"));
-		assertEquals("aeoeue", FileUtils.cleanFilename("äöü"));
-		assertEquals("ss_lou", FileUtils.cleanFilename("ß lou"));
-		assertEquals("_l_.._", FileUtils.cleanFilename("_l;.._"));
-		assertEquals("___._", FileUtils.cleanFilename("?:;.,"));
-		assertEquals("__", FileUtils.cleanFilename("/\\"));
-
+	public static void clearSelection(final ComboBox<?> theComboBox) {
+		theComboBox.getSelectionModel().clearSelection();
+		theComboBox.setValue(null);
 	}
 
 }

@@ -31,31 +31,37 @@ import java.util.Objects;
  *
  * @author Ekkart Kleinod
  * @version 0.10.1
- * @since 0.104.0
+ * @since 0.10.0
  */
 public class ClassUtils {
 
 	/**
-	 * Returns declared fields including class inheritance up to the last abstract class.
+	 * Returns declared non private fields including class inheritance up to the last abstract class.
 	 *
 	 * @param theClass the class to get the fields for
-	 * @return list of declared fields
-	 *
-	 * @version 0.10.1
+	 * @return list of declared fields (non-private)
 	 */
 	public static List<Field> getDeclaredFieldsFirstAbstraction(final Class<?> theClass) {
 
 		Objects.requireNonNull(theClass);
 
-		List<Field> lstReturn = new ArrayList<>();
+		List<Field> lstAllFields = new ArrayList<>();
 
         Class<?> clsTemp = theClass;
-    	lstReturn.addAll(Arrays.asList(clsTemp.getDeclaredFields()));
+    	lstAllFields.addAll(Arrays.asList(clsTemp.getDeclaredFields()));
 
         while (Modifier.isAbstract(clsTemp.getSuperclass().getModifiers())) {
         	clsTemp = clsTemp.getSuperclass();
-        	lstReturn.addAll(Arrays.asList(clsTemp.getDeclaredFields()));
+        	lstAllFields.addAll(Arrays.asList(clsTemp.getDeclaredFields()));
         }
+
+		List<Field> lstReturn = new ArrayList<>();
+
+		for (Field theField : lstAllFields) {
+			if (!Modifier.isPrivate(theField.getModifiers())) {
+				lstReturn.add(theField);
+			}
+		}
 
         return lstReturn;
 
@@ -67,8 +73,6 @@ public class ClassUtils {
 	 *
 	 * @param theClass the class to get the fields for
 	 * @return list of declared fields
-	 *
-	 * @version 0.10.1
 	 */
 	public static List<Field> getDeclaredFieldsInheritance(final Class<?> theClass) {
 

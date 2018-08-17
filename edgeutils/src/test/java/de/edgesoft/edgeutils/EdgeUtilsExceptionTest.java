@@ -1,11 +1,12 @@
-package de.edgesoft.edgeutils.files;
+package de.edgesoft.edgeutils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit test for {@link FileUtils}.
+ * Unit test for {@link EdgeUtilsException}.
  *
  * ## Legal stuff
  *
@@ -27,25 +28,31 @@ import org.junit.jupiter.api.Test;
  * along with edgeUtils.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author Ekkart Kleinod
- * @version 0.10.1
- * @since 0.9.7
+ * @version 0.11.0
+ * @since 0.11.0
  */
 @SuppressWarnings("static-method")
-public class FileUtilsTest {
+public class EdgeUtilsExceptionTest {
 
 	/**
-	 * Tests {@link FileUtils#cleanFilename(String)}.
-	 *
+	 * Tests constructor.
 	 */
 	@Test
-	public void testCleanFilename() {
+	public void testConstructor() {
+		
+		EdgeUtilsException eNull = new EdgeUtilsException(null);
 
-		assertEquals("abc", FileUtils.cleanFilename("abc"));
-		assertEquals("aeoeue", FileUtils.cleanFilename("äöü"));
-		assertEquals("ss_lou", FileUtils.cleanFilename("ß lou"));
-		assertEquals("_l_.._", FileUtils.cleanFilename("_l;.._"));
-		assertEquals("___._", FileUtils.cleanFilename("?:;.,"));
-		assertEquals("__", FileUtils.cleanFilename("/\\"));
+		assertNull(eNull.getMessage());
+
+		
+		EdgeUtilsException eEmpty = new EdgeUtilsException("");
+
+		assertEquals("", eEmpty.getMessage());
+
+		
+		EdgeUtilsException eFilled = new EdgeUtilsException("Some text äöüß.");
+
+		assertEquals("Some text äöüß.", eFilled.getMessage());
 
 	}
 
