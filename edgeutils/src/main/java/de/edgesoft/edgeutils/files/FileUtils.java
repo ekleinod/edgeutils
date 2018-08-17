@@ -1,5 +1,9 @@
 package de.edgesoft.edgeutils.files;
 
+import java.nio.file.Paths;
+
+import javafx.beans.property.StringProperty;
+
 /**
  * Class file utilities.
  *
@@ -33,28 +37,86 @@ public class FileUtils {
 	 *
 	 * @param theFilename the file name
 	 * @return cleaned filename
-	 *
-	 * @version 0.10.1
-	 * @since 0.9.7
 	 */
 	public static String cleanFilename(final String theFilename) {
-		return theFilename
-				.replace("ä", "ae")
-				.replace("Ä", "Ae")
-				.replace("ö", "oe")
-				.replace("Ö", "Oe")
-				.replace("ü", "ue")
-				.replace("Ü", "Ue")
-				.replace("ß", "ss")
+		return cleanFilename(theFilename, true);
+	}
+
+	/**
+	 * Returns a clean filename, i.e. free of special characters.
+	 *
+	 * @param theFilename the file name
+	 * @param convertUmlauts convert umlauts too?
+	 * @return cleaned filename
+	 *
+	 * @since 0.11.0
+	 */
+	public static String cleanFilename(final String theFilename, final boolean convertUmlauts) {
+
+		String sConverted = theFilename;
+
+		sConverted = sConverted
 				.replace(" ", "_")
 				.replace("?", "_")
 				.replace(":", "_")
 				.replace(";", "_")
 				.replace(",", "_")
-				.replace(".", "_")
 				.replace("/", "_")
 				.replace("\\", "_")
 				;
+
+		if (convertUmlauts) {
+			sConverted = sConverted
+					.replace("ä", "ae")
+					.replace("Ä", "Ae")
+					.replace("ö", "oe")
+					.replace("Ö", "Oe")
+					.replace("ü", "ue")
+					.replace("Ü", "Ue")
+					.replace("ß", "ss")
+					;
+		}
+
+		return sConverted;
+
+	}
+
+	/**
+	 * Returns if file given by path and filename exists.
+	 *
+	 * @param thePath path
+	 * @param theFilename filename
+	 * @return does file exist?
+	 *
+	 * @since 0.11.0
+	 */
+	public static boolean existsFile(final String thePath, final StringProperty theFilename) {
+
+		if (theFilename == null) {
+			return false;
+		}
+
+		return existsFile(thePath, theFilename.getValueSafe());
+
+	}
+
+	/**
+	 * Returns if file given by path and filename exists.
+	 *
+	 * @param thePath path
+	 * @param theFilename filename
+	 * @return does file exist?
+	 *
+	 * @since 0.11.0
+	 */
+	public static boolean existsFile(final String thePath, final String theFilename) {
+
+		if ((theFilename == null) || theFilename.isEmpty()) {
+			return false;
+		}
+
+		return Paths.get((thePath == null) ? "" : thePath, theFilename).toFile().exists();
+
 	}
 
 }

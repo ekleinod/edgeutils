@@ -1,20 +1,26 @@
 package de.edgesoft.edgeutils.files;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collections;
-import java.util.Locale;
 import java.util.Properties;
 
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 /**
  * Unit test for AppProperties.
@@ -42,6 +48,7 @@ import org.junit.rules.ExpectedException;
  * @version 0.10.1
  * @since 0.5.0
  */
+@SuppressWarnings("static-method")
 public class AppPropertiesTest {
 
 	/** File name default property file: */
@@ -54,8 +61,8 @@ public class AppPropertiesTest {
 	 * Initialize property files.
 	 * @throws Exception
 	 */
-	@BeforeClass
-	public static void savePropfiles() throws Exception {
+	@BeforeAll
+	public static void setUpBeforeClass() throws Exception {
 		FileAccess.setEncoding(StandardCharsets.ISO_8859_1);
 		FileAccess.writeFile(Paths.get(DEFAULT), "color=blue\nperson=me\nname=täter");
 		FileAccess.writeFile(Paths.get(APP), "color=red");
@@ -65,32 +72,25 @@ public class AppPropertiesTest {
 	 * Delete property files.
 	 * @throws Exception
 	 */
-	@AfterClass
-	public static void deletePropfiles() throws Exception {
+	@AfterAll
+	public static void tearDownAfterClass() throws Exception {
 		Files.deleteIfExists(Paths.get(DEFAULT));
 		Files.deleteIfExists(Paths.get(APP));
 	}
 
 	/**
-	 * Rule for expected exception
-	 */
-	@Rule
-	public ExpectedException exception = ExpectedException.none();
-
-	/**
 	 * Tests null null.
 	 */
-	@SuppressWarnings("static-method")
 	@Test
 	public void testErrorNullNull() {
 
 		try {
 			Properties prpTest = AppProperties.getProperties((String) null, null, false);
 
-			Assert.assertNotNull(prpTest);
-			Assert.assertEquals(new Properties(), prpTest);
+			assertNotNull(prpTest);
+			assertEquals(new Properties(), prpTest);
 		} catch (IOException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 
 	}
@@ -99,18 +99,35 @@ public class AppPropertiesTest {
 	 * Tests missing null.
 	 */
 	@Test
-	public void testErrorMissingNull() throws IOException {
-
-		exception.expect(FileNotFoundException.class);
+	@EnabledOnOs(OS.WINDOWS)
+	public void testErrorMissingNullWin() {
 
 		String sFilename = "missing.properties";
-		if (System.getProperty("os.name").startsWith("Windows") && System.getProperty("user.language").equalsIgnoreCase(Locale.GERMAN.getLanguage())) {
-			exception.expectMessage(String.format("%s (%s)", sFilename, "Das System kann die angegebene Datei nicht finden"));
-		} else {
-			exception.expectMessage(String.format("%s (%s)", sFilename, "No such file or directory"));
-		}
+		
+		Throwable exception = assertThrows(FileNotFoundException.class, 
+				() -> {
+					AppProperties.getProperties(sFilename, null, false);
+				});
 
-		AppProperties.getProperties(sFilename, null, false);
+		assertEquals(String.format("%s (%s)", sFilename, "Das System kann die angegebene Datei nicht finden"), exception.getMessage());
+
+	}
+
+	/**
+	 * Tests missing null.
+	 */
+	@Test
+	@DisabledOnOs(OS.WINDOWS)
+	public void testErrorMissingNullNotWin() {
+
+		String sFilename = "missing.properties";
+		
+		Throwable exception = assertThrows(FileNotFoundException.class, 
+				() -> {
+					AppProperties.getProperties(sFilename, null, false);
+				});
+
+		assertEquals(String.format("%s (%s)", sFilename, "No such file or directory"), exception.getMessage());
 
 	}
 
@@ -118,18 +135,35 @@ public class AppPropertiesTest {
 	 * Tests null missing.
 	 */
 	@Test
-	public void testErrorNullMissing() throws IOException {
-
-		exception.expect(FileNotFoundException.class);
+	@EnabledOnOs(OS.WINDOWS)
+	public void testErrorNullMissingWin() {
 
 		String sFilename = "missing.properties";
-		if (System.getProperty("os.name").startsWith("Windows") && System.getProperty("user.language").equalsIgnoreCase(Locale.GERMAN.getLanguage())) {
-			exception.expectMessage(String.format("%s (%s)", sFilename, "Das System kann die angegebene Datei nicht finden"));
-		} else {
-			exception.expectMessage(String.format("%s (%s)", sFilename, "No such file or directory"));
-		}
+		
+		Throwable exception = assertThrows(FileNotFoundException.class, 
+				() -> {
+					AppProperties.getProperties((String) null, sFilename, false);
+				});
 
-		AppProperties.getProperties((String) null, sFilename, false);
+		assertEquals(String.format("%s (%s)", sFilename, "Das System kann die angegebene Datei nicht finden"), exception.getMessage());
+
+	}
+
+	/**
+	 * Tests null missing.
+	 */
+	@Test
+	@DisabledOnOs(OS.WINDOWS)
+	public void testErrorNullMissingNotWin() {
+
+		String sFilename = "missing.properties";
+		
+		Throwable exception = assertThrows(FileNotFoundException.class, 
+				() -> {
+					AppProperties.getProperties((String) null, sFilename, false);
+				});
+
+		assertEquals(String.format("%s (%s)", sFilename, "No such file or directory"), exception.getMessage());
 
 	}
 
@@ -137,25 +171,41 @@ public class AppPropertiesTest {
 	 * Tests missing missing.
 	 */
 	@Test
-	public void testErrorMissingMissing() throws IOException {
-
-		exception.expect(FileNotFoundException.class);
+	@EnabledOnOs(OS.WINDOWS)
+	public void testErrorMissingMissingWin() {
 
 		String sFilename = "missing.properties";
-		if (System.getProperty("os.name").startsWith("Windows") && System.getProperty("user.language").equalsIgnoreCase(Locale.GERMAN.getLanguage())) {
-			exception.expectMessage(String.format("%s (%s)", sFilename, "Das System kann die angegebene Datei nicht finden"));
-		} else {
-			exception.expectMessage(String.format("%s (%s)", sFilename, "No such file or directory"));
-		}
+		
+		Throwable exception = assertThrows(FileNotFoundException.class, 
+				() -> {
+					AppProperties.getProperties(sFilename, sFilename, false);
+				});
 
-		AppProperties.getProperties(sFilename, sFilename, false);
+		assertEquals(String.format("%s (%s)", sFilename, "Das System kann die angegebene Datei nicht finden"), exception.getMessage());
+
+	}
+
+	/**
+	 * Tests missing missing.
+	 */
+	@Test
+	@DisabledOnOs(OS.WINDOWS)
+	public void testErrorMissingMissingNotWin() {
+
+		String sFilename = "missing.properties";
+		
+		Throwable exception = assertThrows(FileNotFoundException.class, 
+				() -> {
+					AppProperties.getProperties(sFilename, sFilename, false);
+				});
+
+		assertEquals(String.format("%s (%s)", sFilename, "No such file or directory"), exception.getMessage());
 
 	}
 
 	/**
 	 * Tests default.
 	 */
-	@SuppressWarnings("static-method")
 	@Test
 	public void testDefault() {
 
@@ -164,26 +214,25 @@ public class AppPropertiesTest {
 		try {
 			prpTest = AppProperties.getProperties(DEFAULT, null, false);
 
-			Assert.assertNotNull(prpTest);
-			Assert.assertEquals(0, prpTest.size());
-			Assert.assertArrayEquals(new String[]{"color", "person", "name"}, Collections.list(prpTest.propertyNames()).toArray());
+			assertNotNull(prpTest);
+			assertEquals(0, prpTest.size());
+			assertArrayEquals(new String[]{"color", "person", "name"}, Collections.list(prpTest.propertyNames()).toArray());
 
-			Assert.assertEquals("blue", prpTest.getProperty("color"));
-			Assert.assertEquals("me", prpTest.getProperty("person"));
-			Assert.assertEquals("täter", prpTest.getProperty("name"));
+			assertEquals("blue", prpTest.getProperty("color"));
+			assertEquals("me", prpTest.getProperty("person"));
+			assertEquals("täter", prpTest.getProperty("name"));
 
-			Assert.assertNull(prpTest.getProperty("missing"));
-			Assert.assertNull(prpTest.getProperty(""));
+			assertNull(prpTest.getProperty("missing"));
+			assertNull(prpTest.getProperty(""));
 
 		} catch (IOException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 
 	/**
 	 * Tests app.
 	 */
-	@SuppressWarnings("static-method")
 	@Test
 	public void testApp() {
 
@@ -192,26 +241,25 @@ public class AppPropertiesTest {
 		try {
 			prpTest = AppProperties.getProperties((String) null, APP, false);
 
-			Assert.assertNotNull(prpTest);
-			Assert.assertEquals(1, prpTest.size());
-			Assert.assertArrayEquals(new String[]{"color"}, Collections.list(prpTest.propertyNames()).toArray());
+			assertNotNull(prpTest);
+			assertEquals(1, prpTest.size());
+			assertArrayEquals(new String[]{"color"}, Collections.list(prpTest.propertyNames()).toArray());
 
-			Assert.assertEquals("red", prpTest.getProperty("color"));
-			Assert.assertNull(prpTest.getProperty("person"));
-			Assert.assertNull(prpTest.getProperty("name"));
+			assertEquals("red", prpTest.getProperty("color"));
+			assertNull(prpTest.getProperty("person"));
+			assertNull(prpTest.getProperty("name"));
 
-			Assert.assertNull(prpTest.getProperty("missing"));
-			Assert.assertNull(prpTest.getProperty(""));
+			assertNull(prpTest.getProperty("missing"));
+			assertNull(prpTest.getProperty(""));
 
 		} catch (IOException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 
 	/**
 	 * Tests both.
 	 */
-	@SuppressWarnings("static-method")
 	@Test
 	public void testBoth() {
 
@@ -220,26 +268,25 @@ public class AppPropertiesTest {
 		try {
 			prpTest = AppProperties.getProperties(DEFAULT, APP, false);
 
-			Assert.assertNotNull(prpTest);
-			Assert.assertEquals(1, prpTest.size());
-			Assert.assertArrayEquals(new String[]{"color", "person", "name"}, Collections.list(prpTest.propertyNames()).toArray());
+			assertNotNull(prpTest);
+			assertEquals(1, prpTest.size());
+			assertArrayEquals(new String[]{"color", "person", "name"}, Collections.list(prpTest.propertyNames()).toArray());
 
-			Assert.assertEquals("red", prpTest.getProperty("color"));
-			Assert.assertEquals("me", prpTest.getProperty("person"));
-			Assert.assertEquals("täter", prpTest.getProperty("name"));
+			assertEquals("red", prpTest.getProperty("color"));
+			assertEquals("me", prpTest.getProperty("person"));
+			assertEquals("täter", prpTest.getProperty("name"));
 
-			Assert.assertNull(prpTest.getProperty("missing"));
-			Assert.assertNull(prpTest.getProperty(""));
+			assertNull(prpTest.getProperty("missing"));
+			assertNull(prpTest.getProperty(""));
 
 		} catch (IOException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 
 	/**
 	 * Tests change.
 	 */
-	@SuppressWarnings("static-method")
 	@Test
 	public void testChange() {
 
@@ -248,16 +295,16 @@ public class AppPropertiesTest {
 		try {
 			prpTest = AppProperties.getProperties(DEFAULT, APP, false);
 
-			Assert.assertNotNull(prpTest);
-			Assert.assertEquals(1, prpTest.size());
-			Assert.assertArrayEquals(new String[]{"color", "person", "name"}, Collections.list(prpTest.propertyNames()).toArray());
+			assertNotNull(prpTest);
+			assertEquals(1, prpTest.size());
+			assertArrayEquals(new String[]{"color", "person", "name"}, Collections.list(prpTest.propertyNames()).toArray());
 
-			Assert.assertEquals("red", prpTest.getProperty("color"));
-			Assert.assertEquals("me", prpTest.getProperty("person"));
-			Assert.assertEquals("täter", prpTest.getProperty("name"));
+			assertEquals("red", prpTest.getProperty("color"));
+			assertEquals("me", prpTest.getProperty("person"));
+			assertEquals("täter", prpTest.getProperty("name"));
 
-			Assert.assertNull(prpTest.getProperty("missing"));
-			Assert.assertNull(prpTest.getProperty(""));
+			assertNull(prpTest.getProperty("missing"));
+			assertNull(prpTest.getProperty(""));
 
 			prpTest.setProperty("color", "grün");
 			prpTest.setProperty("person", "Bär");
@@ -267,27 +314,26 @@ public class AppPropertiesTest {
 
 			prpTest = AppProperties.getProperties(DEFAULT, APP, false);
 
-			Assert.assertNotNull(prpTest);
-			Assert.assertEquals(3, prpTest.size());
-			Assert.assertArrayEquals(new String[]{"color", "person", "name", "foo"}, Collections.list(prpTest.propertyNames()).toArray());
+			assertNotNull(prpTest);
+			assertEquals(3, prpTest.size());
+			assertArrayEquals(new String[]{"color", "person", "name", "foo"}, Collections.list(prpTest.propertyNames()).toArray());
 
-			Assert.assertEquals("grün", prpTest.getProperty("color"));
-			Assert.assertEquals("Bär", prpTest.getProperty("person"));
-			Assert.assertEquals("täter", prpTest.getProperty("name"));
-			Assert.assertEquals("foo", prpTest.getProperty("foo"));
+			assertEquals("grün", prpTest.getProperty("color"));
+			assertEquals("Bär", prpTest.getProperty("person"));
+			assertEquals("täter", prpTest.getProperty("name"));
+			assertEquals("foo", prpTest.getProperty("foo"));
 
-			Assert.assertNull(prpTest.getProperty("missing"));
-			Assert.assertNull(prpTest.getProperty(""));
+			assertNull(prpTest.getProperty("missing"));
+			assertNull(prpTest.getProperty(""));
 
 		} catch (IOException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 
 	/**
 	 * Tests default (Properties).
 	 */
-	@SuppressWarnings("static-method")
 	@Test
 	public void testDefaultProperties() {
 
@@ -299,19 +345,19 @@ public class AppPropertiesTest {
 		try {
 			Properties prpTest = AppProperties.getProperties(prpDefault, null, false);
 
-			Assert.assertNotNull(prpTest);
-			Assert.assertEquals(0, prpTest.size());
-			Assert.assertArrayEquals(new String[]{"color", "person", "name"}, Collections.list(prpTest.propertyNames()).toArray());
+			assertNotNull(prpTest);
+			assertEquals(0, prpTest.size());
+			assertArrayEquals(new String[]{"color", "person", "name"}, Collections.list(prpTest.propertyNames()).toArray());
 
-			Assert.assertEquals("blue", prpTest.getProperty("color"));
-			Assert.assertEquals("me", prpTest.getProperty("person"));
-			Assert.assertEquals("täter", prpTest.getProperty("name"));
+			assertEquals("blue", prpTest.getProperty("color"));
+			assertEquals("me", prpTest.getProperty("person"));
+			assertEquals("täter", prpTest.getProperty("name"));
 
-			Assert.assertNull(prpTest.getProperty("missing"));
-			Assert.assertNull(prpTest.getProperty(""));
+			assertNull(prpTest.getProperty("missing"));
+			assertNull(prpTest.getProperty(""));
 
 		} catch (IOException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 

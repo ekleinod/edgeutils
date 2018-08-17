@@ -1,16 +1,10 @@
 package de.edgesoft.edgeutils;
 
-
+import de.edgesoft.edgeutils.commandline.TestMainClass;
 
 /**
- * Print messages for the user.
- * 
- * This class prints messages for the user, I just wrap system out/err here.
- * Maybe later I can switch output to log or files if I want to.
- * Change of style is possible too.
- * 
- * ## Legal stuff
- * 
+ * Test class for TestMainClass.
+ *
  * Copyright 2010-2017 Ekkart Kleinod <ekleinod@edgesoft.de>
  * 
  * This file is part of edgeUtils.
@@ -30,45 +24,19 @@ package de.edgesoft.edgeutils;
  * 
  * @author Ekkart Kleinod
  * @version 0.10.1
- * @since 0.1
+ * @since 0.4.0
  */
-public class Messages {
+public class TestClassUtilsClass extends TestMainClass {
 	
 	/**
-	 * Prints a message.
-	 * 
-	 * @param theMessage the message
-	 *  
-	 * @version 0.10.1
-	 * @since 0.1
+	 * Dummy public field for field getting test.
 	 */
-	public static void printMessage(String theMessage) {
-		System.out.println(theMessage);
-	}
+	public String sDummy3 = null;
 	
 	/**
-	 * Prints an error message.
-	 * 
-	 * @param theError the error message
-	 *  
-	 * @version 0.10.1
-	 * @since 0.1
+	 * Dummy public field for field getting test.
 	 */
-	public static void printError(String theError) {
-		System.err.println(theError);
-	}
-	
-	/**
-	 * Prints an exception.
-	 * 
-	 * @param theException the exception
-	 *  
-	 * @version 0.10.1
-	 * @since 0.1
-	 */
-	public static void printError(Exception theException) {
-		theException.printStackTrace();
-	}
+	public String sDummy4 = null;
 	
 }
 

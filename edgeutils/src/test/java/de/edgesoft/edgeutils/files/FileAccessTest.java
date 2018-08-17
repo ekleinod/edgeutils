@@ -1,5 +1,12 @@
 package de.edgesoft.edgeutils.files;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.AccessDeniedException;
@@ -9,12 +16,12 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.nio.file.attribute.PosixFilePermissions;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 /**
  * Unit test for FileAccess.
@@ -42,6 +49,7 @@ import org.junit.rules.ExpectedException;
  * @version 0.10.1
  * @since 0.5.0
  */
+@SuppressWarnings("static-method")
 public class FileAccessTest {
 
 	/** File name. */
@@ -54,91 +62,125 @@ public class FileAccessTest {
 	 * Delete files.
 	 * @throws Exception
 	 */
-	@SuppressWarnings("static-method")
-	@Before
-	@After
+	@BeforeEach
+	@AfterEach
 	public void deleteFiles() {
 		try {
 			Files.deleteIfExists(Paths.get(FILENAME));
 		} catch (Exception e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
-
-	/**
-	 * Rule for expected exception
-	 */
-	@Rule
-	public ExpectedException exception = ExpectedException.none();
 
 	/**
 	 * Tests read file not found.
 	 */
 	@Test
-	public void testErrorReadFileNotFound() throws Exception {
+	public void testErrorReadFileNotFound() {
 
-		exception.expect(NoSuchFileException.class);
-		exception.expectMessage(FILENAME);
-		FileAccess.readFile(Paths.get(FILENAME));
+		Throwable exception = assertThrows(NoSuchFileException.class, 
+				() -> {
+					FileAccess.readFile(Paths.get(FILENAME));
+				});
+
+		assertEquals(FILENAME, exception.getMessage());
 
 	}
 
 	/**
 	 * Tests read file exists but is dir.
+	 * @throws IOException 
 	 */
 	@Test
-	public void testErrorReadFileIsDir() throws Exception {
+	@EnabledOnOs(OS.WINDOWS)
+	public void testErrorReadFileIsDirWin() throws IOException {
 
 		Files.createDirectory(Paths.get(FILENAME));
 
-		// windows and linux create different exceptions :(
-		if (System.getProperty("os.name").toLowerCase().startsWith("windows")) {
-			exception.expect(AccessDeniedException.class);
-			exception.expectMessage(FILENAME);
-		} else {
-			exception.expect(UncheckedIOException.class);
-			exception.expectMessage(String.format("%s: Is a directory", IOException.class.getCanonicalName()));
-		}
+		Throwable exception = assertThrows(AccessDeniedException.class, 
+				() -> {
+					FileAccess.readFile(Paths.get(FILENAME));
+				});
 
-		FileAccess.readFile(Paths.get(FILENAME));
+		assertEquals(FILENAME, exception.getMessage());
+
+	}
+
+	/**
+	 * Tests read file exists but is dir.
+	 * @throws IOException 
+	 */
+	@Test
+	@DisabledOnOs(OS.WINDOWS)
+	public void testErrorReadFileIsDirNotWin() throws IOException {
+
+		Files.createDirectory(Paths.get(FILENAME));
+
+		Throwable exception = assertThrows(UncheckedIOException.class, 
+				() -> {
+					FileAccess.readFile(Paths.get(FILENAME));
+				});
+
+		assertEquals(String.format("%s: Is a directory", IOException.class.getCanonicalName()), exception.getMessage());
 
 	}
 
 	/**
 	 * Tests write file exists but is dir.
+	 * @throws IOException 
 	 */
 	@Test
-	public void testErrorWriteFileIsDir() throws Exception {
+	@EnabledOnOs(OS.WINDOWS)
+	public void testErrorWriteFileIsDirWin() throws IOException {
 
 		Files.createDirectory(Paths.get(FILENAME));
 
-		exception.expect(FileSystemException.class);
+		Throwable exception = assertThrows(FileSystemException.class, 
+				() -> {
+					FileAccess.writeFile(Paths.get(FILENAME), "");
+				});
 
-		// windows and linux create different exceptions :(
-		if (System.getProperty("os.name").toLowerCase().startsWith("windows")) {
-			exception.expectMessage(FILENAME);
-		} else {
-			exception.expectMessage(String.format("%s: Is a directory", FILENAME));
-		}
+		assertEquals(FILENAME, exception.getMessage());
 
-		FileAccess.writeFile(Paths.get(FILENAME), "");
+	}
+
+	/**
+	 * Tests write file exists but is dir.
+	 * @throws IOException 
+	 */
+	@Test
+	@DisabledOnOs(OS.WINDOWS)
+	public void testErrorWriteFileIsDirNotWin() throws IOException {
+
+		Files.createDirectory(Paths.get(FILENAME));
+
+		Throwable exception = assertThrows(FileSystemException.class, 
+				() -> {
+					FileAccess.writeFile(Paths.get(FILENAME), "");
+				});
+
+		assertEquals(String.format("%s: Is a directory", FILENAME), exception.getMessage());
 
 	}
 
 	/**
 	 * Tests write file exists but is write protected.
+	 * 
+	 * Windows does not support posix file permissions.
+	 * @throws IOException 
 	 */
 	@Test
-	public void testErrorWriteFileIsProtected() throws Exception {
+	@DisabledOnOs(OS.WINDOWS)
+	public void testErrorWriteFileIsProtectedNotWin() throws IOException {
 
-		// windows does not support posix file permissions
-		if (!System.getProperty("os.name").toLowerCase().startsWith("windows")) {
-			Files.createFile(Paths.get(FILENAME), PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("r--r--r--")));
+		Files.createFile(Paths.get(FILENAME), PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("r--r--r--")));
 
-			exception.expect(AccessDeniedException.class);
-			exception.expectMessage(FILENAME);
-			FileAccess.writeFile(Paths.get(FILENAME), "");
-		}
+		Throwable exception = assertThrows(AccessDeniedException.class, 
+				() -> {
+					FileAccess.writeFile(Paths.get(FILENAME), "");
+				});
+
+		assertEquals(FILENAME, exception.getMessage());
 
 	}
 
@@ -146,11 +188,14 @@ public class FileAccessTest {
 	 * Tests write params null, null.
 	 */
 	@Test
-	public void testErrorWriteParamsNullNull() throws Exception {
+	public void testErrorWriteParamsNullNull() {
 
-		exception.expect(NullPointerException.class);
-		exception.expectMessage("filename must not be null");
-		FileAccess.writeFile(null, (String) null);
+		Throwable exception = assertThrows(NullPointerException.class, 
+				() -> {
+					FileAccess.writeFile(null, (String) null);
+				});
+
+		assertEquals("filename must not be null", exception.getMessage());
 
 	}
 
@@ -158,11 +203,14 @@ public class FileAccessTest {
 	 * Tests write params null, empty.
 	 */
 	@Test
-	public void testErrorWriteParamsNullEmpty() throws Exception {
+	public void testErrorWriteParamsNullEmpty() {
 
-		exception.expect(NullPointerException.class);
-		exception.expectMessage("filename must not be null");
-		FileAccess.writeFile(null, "");
+		Throwable exception = assertThrows(NullPointerException.class, 
+				() -> {
+					FileAccess.writeFile(null, "");
+				});
+
+		assertEquals("filename must not be null", exception.getMessage());
 
 	}
 
@@ -170,11 +218,14 @@ public class FileAccessTest {
 	 * Tests write params empty, null.
 	 */
 	@Test
-	public void testErrorWriteParamsEmptyNull() throws Exception {
+	public void testErrorWriteParamsEmptyNull() {
 
-		exception.expect(NullPointerException.class);
-		exception.expectMessage("content must not be null");
-		FileAccess.writeFile(Paths.get(""), (String) null);
+		Throwable exception = assertThrows(NullPointerException.class, 
+				() -> {
+					FileAccess.writeFile(Paths.get(""), (String) null);
+				});
+
+		assertEquals("content must not be null", exception.getMessage());
 
 	}
 
@@ -182,18 +233,31 @@ public class FileAccessTest {
 	 * Tests write params empty, empty.
 	 */
 	@Test
-	public void testErrorWriteParamsEmptyEmpty() throws Exception {
+	@EnabledOnOs(OS.WINDOWS)
+	public void testErrorWriteParamsEmptyEmptyWin() {
 
-		exception.expect(FileSystemException.class);
+		Throwable exception = assertThrows(FileSystemException.class, 
+				() -> {
+					FileAccess.writeFile(Paths.get(""), "");
+				});
 
-		// windows and linux create different exceptions :(
-		if (System.getProperty("os.name").toLowerCase().startsWith("windows")) {
-			exception.expectMessage("");
-		} else {
-			exception.expectMessage(": Is a directory");
-		}
+		assertEquals("", exception.getMessage());
 
-		FileAccess.writeFile(Paths.get(""), "");
+	}
+
+	/**
+	 * Tests write params empty, empty.
+	 */
+	@Test
+	@DisabledOnOs(OS.WINDOWS)
+	public void testErrorWriteParamsEmptyEmptyNotWin() {
+
+		Throwable exception = assertThrows(FileSystemException.class, 
+				() -> {
+					FileAccess.writeFile(Paths.get(""), "");
+				});
+
+		assertEquals(": Is a directory", exception.getMessage());
 
 	}
 
@@ -201,11 +265,14 @@ public class FileAccessTest {
 	 * Tests encoding params null.
 	 */
 	@Test
-	public void testErrorEncodingParamsNull() throws Exception {
+	public void testErrorEncodingParamsNull() {
 
-		exception.expect(NullPointerException.class);
-		exception.expectMessage("encoding must not be null");
-		FileAccess.setEncoding(null);
+		Throwable exception = assertThrows(NullPointerException.class, 
+				() -> {
+					FileAccess.setEncoding(null);
+				});
+
+		assertEquals("encoding must not be null", exception.getMessage());
 
 	}
 
@@ -213,11 +280,14 @@ public class FileAccessTest {
 	 * Tests read params null.
 	 */
 	@Test
-	public void testErrorReadParamsNull() throws Exception {
+	public void testErrorReadParamsNull() {
 
-		exception.expect(NullPointerException.class);
-		exception.expectMessage("filename must not be null");
-		FileAccess.readFile(null);
+		Throwable exception = assertThrows(NullPointerException.class, 
+				() -> {
+					FileAccess.readFile(null);
+				});
+
+		assertEquals("filename must not be null", exception.getMessage());
 
 	}
 
@@ -225,18 +295,20 @@ public class FileAccessTest {
 	 * Tests read list params null.
 	 */
 	@Test
-	public void testErrorReadListParamsNull() throws Exception {
+	public void testErrorReadListParamsNull() {
 
-		exception.expect(NullPointerException.class);
-		exception.expectMessage("filename must not be null");
-		FileAccess.readFileInList(null);
+		Throwable exception = assertThrows(NullPointerException.class, 
+				() -> {
+					FileAccess.readFileInList(null);
+				});
+
+		assertEquals("filename must not be null", exception.getMessage());
 
 	}
 
 	/**
 	 * Tests write - read cycle.
 	 */
-	@SuppressWarnings("static-method")
 	@Test
 	public void testWriteRead() {
 
@@ -244,25 +316,25 @@ public class FileAccessTest {
 
 			FileAccess.writeFile(Paths.get(FILENAME), TESTTEXT);
 
-			Assert.assertTrue(String.format("File '%s' does not exist.", Paths.get(FILENAME)), Files.exists(Paths.get(FILENAME)));
-			Assert.assertTrue(String.format("File '%s' is no regular file.", Paths.get(FILENAME)), Files.isRegularFile(Paths.get(FILENAME)));
-			Assert.assertFalse(String.format("File '%s' is a directory.", Paths.get(FILENAME)), Files.isDirectory(Paths.get(FILENAME)));
-			Assert.assertTrue(String.format("File '%s' is not readable.", Paths.get(FILENAME)), Files.isReadable(Paths.get(FILENAME)));
-			Assert.assertTrue(String.format("File '%s' is not writeable.", Paths.get(FILENAME)), Files.isWritable(Paths.get(FILENAME)));
-
-			Assert.assertEquals(4, Files.readAllLines(Paths.get(FILENAME)).size());
+			assertTrue(Files.exists(Paths.get(FILENAME)), String.format("File '%s' does not exist.", Paths.get(FILENAME)));
+			assertTrue(Files.isRegularFile(Paths.get(FILENAME)), String.format("File '%s' is no regular file.", Paths.get(FILENAME)));
+			assertFalse(Files.isDirectory(Paths.get(FILENAME)), String.format("File '%s' is a directory.", Paths.get(FILENAME)));
+			assertTrue(Files.isReadable(Paths.get(FILENAME)), String.format("File '%s' is not readable.", Paths.get(FILENAME)));
+			assertTrue(Files.isWritable(Paths.get(FILENAME)), String.format("File '%s' is not writeable.", Paths.get(FILENAME)));
+			
+			assertEquals(4, Files.readAllLines(Paths.get(FILENAME), FileAccess.getEncoding()).size());
 
 			StringBuilder sbTest = FileAccess.readFile(Paths.get(FILENAME));
 
-			Assert.assertNotNull(sbTest);
+			assertNotNull(sbTest);
 
 			StringBuilder sbExpected = new StringBuilder(TESTTEXT);
 			sbExpected.append(System.lineSeparator());
-			Assert.assertEquals(sbExpected.toString(), sbTest.toString());
+			assertEquals(sbExpected.toString(), sbTest.toString());
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 
 	}

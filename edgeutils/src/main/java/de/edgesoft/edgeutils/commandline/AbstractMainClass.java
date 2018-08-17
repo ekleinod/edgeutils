@@ -9,14 +9,12 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
-import de.edgesoft.edgeutils.Messages;
-
 
 
 /**
  * Basic abstract class for classes with command line interface and a `main` method.
  * 
- * For a sample implementation see {@link TestClass}.
+ * For a sample implementation see {@link TestMainClass}.
  * 
  * ## Legal stuff
  * 
@@ -83,7 +81,7 @@ public abstract class AbstractMainClass {
 			// parse options
 			cliCommandLine = new DefaultParser().parse(getOptions(), args);
 		} catch (Exception e) {
-			Messages.printError(getUsage(e));
+			System.err.println(getUsage(e));
 			System.exit(1);
 		}
 	}

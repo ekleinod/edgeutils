@@ -54,13 +54,21 @@ public class FileAccess {
 	 *   FileAccess.setEncoding(StandardCharsets.UTF_8);
 	 * 
 	 * @param newEncoding the file encoding
-	 * 
-	 * @version 0.10.1
-	 * @since 0.1
 	 */
 	public static void setEncoding(final Charset newEncoding) {
 		Objects.requireNonNull(newEncoding, "encoding must not be null");
 		theEncoding = newEncoding;
+	}
+	
+	/**
+	 * Returns the current file encoding.
+	 * 
+	 * @return the file encoding
+	 * 
+	 * @since 0.11.0
+	 */
+	public static Charset getEncoding() {
+		return theEncoding;
 	}
 	
 	/**
@@ -70,9 +78,6 @@ public class FileAccess {
 	 * @return file content
 	 * 
 	 * @throws Exception if one occurs
-	 *  
-	 * @version 0.10.1
-	 * @since 0.1
 	 */
 	public static StringBuilder readFile(final Path theFileName) throws Exception {
 		
@@ -98,7 +103,6 @@ public class FileAccess {
 	 * 
 	 * @throws Exception if one occurs
 	 *  
-	 * @version 0.10.1
 	 * @since 0.5.0
 	 */
 	public static List<String> readFileInList(final Path theFileName) throws Exception {
@@ -123,9 +127,6 @@ public class FileAccess {
 	 * @param theContent file content
 	 *  
 	 * @throws Exception if one occurs
-	 *  
-	 * @version 0.10.1
-	 * @since 0.1
 	 */
 	public static void writeFile(final Path theFileName, final String theContent) throws IOException {
 		
@@ -145,7 +146,6 @@ public class FileAccess {
 	 *  
 	 * @throws Exception if one occurs
 	 *  
-	 * @version 0.10.1
 	 * @since 0.5.0
 	 */
 	public static void writeFile(final Path theFileName, final List<String> theContent) throws IOException {
