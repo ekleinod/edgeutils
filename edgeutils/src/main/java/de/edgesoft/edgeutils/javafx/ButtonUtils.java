@@ -1,6 +1,7 @@
 package de.edgesoft.edgeutils.javafx;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBase;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.ListView;
@@ -59,7 +60,7 @@ public class ButtonUtils {
 	 * @param theMenuItem menu item to adapt from
 	 */
 	public static void adaptButton(
-			Button theButton,
+			ButtonBase theButton,
 			final MenuItem theMenuItem
 			) {
 
